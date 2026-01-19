@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@source "../../../**/*.{html,py,js}";
+
+@theme {
+  --color-pfm-primary: #0D9488;
+  --color-pfm-primary-hover: #0F766E;
+  --color-pfm-bg: #F8FAFC;
+  --color-pfm-surface: #FFFFFF;
+  --color-pfm-text-dark: #0F172A;
+  --color-pfm-text-light: #64748B;
+  --color-pfm-danger: #EF4444;
+  --color-pfm-success: #10B981;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+}

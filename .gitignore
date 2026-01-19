@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Tailwind
+theme/static/css/dist/
