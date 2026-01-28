@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="space-y-8 animate-fade-in-up">
     <!-- Header -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-            <h1 class="text-3xl font-bold text-pfm-text-dark">Hi Emely</h1>
-            <p class="text-pfm-text-light mt-1">Here's your financial health overview.</p>
+            <h1 class="text-3xl font-bold text-pfm-text-dark">{% trans "hi" %} Emely</h1>
+            <p class="text-pfm-text-light mt-1">{% trans "financial_health_overview" %}</p>
         </div>
         <div class="flex gap-3">
             <button
                 class="add-expense-modal-open-btn flex items-center gap-2 px-4 py-2.5 bg-pfm-card border border-pfm-border rounded-xl text-sm font-medium text-pfm-text-light hover:bg-pfm-bg transition-colors shadow-sm">
                 <i data-lucide="plus" class="w-5 h-5 text-pfm-text-light"></i>
-                Add Expense
+                {% trans "add_expense" %}
             </button>
             <button
                 class="flex items-center gap-2 px-4 py-2.5 bg-pfm-primary text-white rounded-xl text-sm font-medium hover:bg-pfm-primary-hover shadow-lg shadow-pfm-primary/30 transition-all transform hover:-translate-y-0.5">
@@ -21,7 +22,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Full Report
+                {% trans "full_report" %}
             </button>
         </div>
     </div>
@@ -32,12 +33,13 @@
         <div
             class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow relative overflow-hidden group">
             <div class="relative z-10">
-                <h3 class="text-sm font-medium text-pfm-text-light">Net Worth</h3>
+                <h3 class="text-sm font-medium text-pfm-text-light">{% trans "net_worth" %}</h3>
                 <div class="mt-4 flex items-baseline gap-2">
                     <span class="text-4xl font-bold text-pfm-text-dark">$142,593</span>
                     <span class="text-sm font-bold text-white bg-green-500 px-2 py-0.5 rounded-full">+2.4%</span>
                 </div>
-                <p class="mt-2 text-xs text-pfm-text-light opacity-80">Total Assets - Total Liabilities</p>
+                <p class="mt-2 text-xs text-pfm-text-light opacity-80">{% trans "total_assets_liabilities" %}
+                </p>
             </div>
             <div class="absolute right-4 top-8 opacity-10 text-pfm-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" fill="none" viewBox="0 0 24 24"
@@ -52,8 +54,8 @@
         <div
             class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-sm font-medium text-pfm-text-light">Monthly Budget</h3>
-                <span class="text-xs font-bold text-pfm-text-light opacity-80">18 Days left</span>
+                <h3 class="text-sm font-medium text-pfm-text-light">{% trans "monthly_budget" %}</h3>
+                <span class="text-xs font-bold text-pfm-text-light opacity-80">18 {% trans "days_left" %}</span>
             </div>
             <div class="flex items-end gap-1 mb-2">
                 <span class="text-3xl font-bold text-pfm-text-dark">$1,240</span>
@@ -62,13 +64,13 @@
             <div class="w-full bg-pfm-bg rounded-full h-2.5 overflow-hidden">
                 <div class="bg-pfm-primary h-2.5 rounded-full" style="width: 49%"></div>
             </div>
-            <p class="mt-3 text-xs text-pfm-text-light opacity-80">You have spent 49% of your budget</p>
+            <p class="mt-3 text-xs text-pfm-text-light opacity-80">{% trans "budget_spent_percentage" %}</p>
         </div>
 
         <!-- Card 3: Top Spend -->
         <div
             class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow">
-            <h3 class="text-sm font-medium text-pfm-text-light">Spending Breakdown</h3>
+            <h3 class="text-sm font-medium text-pfm-text-light">{% trans "spending_breakdown" %}</h3>
             <div class="mt-4 space-y-4">
                 <!-- Item -->
                 <div class="flex items-center justify-between text-sm">
@@ -101,9 +103,9 @@
     <!-- Recent Activity Section -->
     <div class="bg-pfm-card rounded-3xl shadow-sm border border-pfm-border overflow-hidden">
         <div class="p-6 border-b border-pfm-border flex flex-col md:flex-row justify-between items-center gap-4">
-            <h2 class="text-lg font-bold text-pfm-text-dark">Recent Activity</h2>
+            <h2 class="text-lg font-bold text-pfm-text-dark">{% trans "recent_activity" %}</h2>
             <div class="flex items-center gap-4">
-                <button class="text-sm font-medium text-pfm-text-light hover:text-pfm-primary">View All</button>
+                <button class="text-sm font-medium text-pfm-text-light hover:text-pfm-primary">{% trans "view_all" %}</button>
             </div>
         </div>
 
@@ -111,10 +113,10 @@
             <table class="w-full text-left">
                 <thead class="bg-pfm-bg/50 text-xs uppercase text-pfm-text-light font-medium">
                     <tr>
-                        <th class="px-6 py-4 font-semibold tracking-wider">Date</th>
-                        <th class="px-6 py-4 font-semibold tracking-wider">Description</th>
-                        <th class="px-6 py-4 font-semibold tracking-wider">Category</th>
-                        <th class="px-6 py-4 text-right font-semibold tracking-wider">Amount</th>
+                        <th class="px-6 py-4 font-semibold tracking-wider">{% trans "date" %}</th>
+                        <th class="px-6 py-4 font-semibold tracking-wider">{% trans "description" %}</th>
+                        <th class="px-6 py-4 font-semibold tracking-wider">{% trans "category" %}</th>
+                        <th class="px-6 py-4 text-right font-semibold tracking-wider">{% trans "amount" %}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-pfm-border">
@@ -175,7 +177,7 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-pfm-border">
                 <h3 class="text-xl font-semibold text-pfm-text-dark">
-                    Add New Expense
+                    {% trans "add_new_expense" %}
                 </h3>
                 <button type="button"
                     class="add-expense-modal-close-btn end-2.5 text-pfm-text-light bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -184,28 +186,27 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span class="sr-only">{% trans "close_modal" %}</span>
                 </button>
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5">
                 <form class="space-y-4" action="#">
                     <div>
-                        <label for="expense-name"
-                            class="block mb-2 text-sm font-medium text-pfm-text-dark">Description</label>
+                        <label for="expense-name" class="block mb-2 text-sm font-medium text-pfm-text-dark">{% trans "description" %}</label>
                         <input type="text" name="expense-name" id="expense-name"
                             class="bg-pfm-bg border border-pfm-border text-pfm-text-dark text-sm rounded-lg focus:ring-pfm-primary focus:border-pfm-primary block w-full p-2.5"
-                            placeholder="e.g. Grocery Shopping" required />
+                            placeholder="{% trans 'eg_grocery_shopping' %}" required />
                     </div>
                     <div>
-                        <label for="amount" class="block mb-2 text-sm font-medium text-pfm-text-dark">Amount</label>
+                        <label for="amount" class="block mb-2 text-sm font-medium text-pfm-text-dark">{% trans "amount" %}</label>
                         <input type="number" name="amount" id="amount"
                             class="bg-pfm-bg border border-pfm-border text-pfm-text-dark text-sm rounded-lg focus:ring-pfm-primary focus:border-pfm-primary block w-full p-2.5"
                             placeholder="0.00" required />
                     </div>
                     <button type="submit"
-                        class="w-full text-white bg-pfm-primary hover:bg-pfm-primary-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add
-                        Expense</button>
+                        class="w-full text-white bg-pfm-primary hover:bg-pfm-primary-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        {% trans "add_expense" %}</button>
                 </form>
             </div>
         </div>

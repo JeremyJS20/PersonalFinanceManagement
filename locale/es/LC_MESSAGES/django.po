@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-27 22:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "dashboard"
+msgstr "Panel"
+
+msgid "transactions"
+msgstr "Transacciones"
+
+msgid "budget"
+msgstr "Presupuesto"
+
+msgid "goals"
+msgstr "Metas"
+
+msgid "investments"
+msgstr "Inversiones"
+
+msgid "reports"
+msgstr "Reportes"
+
+msgid "settings"
+msgstr "Configuración"
+
+msgid "hi"
+msgstr "Hola"
+
+msgid "financial_health_overview"
+msgstr "Aquí está el resumen de tu salud financiera."
+
+msgid "add_expense"
+msgstr "Agregar Gasto"
+
+msgid "full_report"
+msgstr "Reporte Completo"
+
+msgid "net_worth"
+msgstr "Patrimonio Neto"
+
+msgid "total_assets_liabilities"
+msgstr "Activos Totales - Pasivos Totales"
+
+msgid "monthly_budget"
+msgstr "Presupuesto Mensual"
+
+msgid "days_left"
+msgstr "Días restantes"
+
+msgid "budget_spent_percentage"
+msgstr "Has gastado el 49% de tu presupuesto"
+
+msgid "spending_breakdown"
+msgstr "Desglose de Gastos"
+
+msgid "recent_activity"
+msgstr "Actividad Reciente"
+
+msgid "view_all"
+msgstr "Ver Todo"
+
+msgid "date"
+msgstr "Fecha"
+
+msgid "description"
+msgstr "Descripción"
+
+msgid "category"
+msgstr "Categoría"
+
+msgid "amount"
+msgstr "Monto"
+
+msgid "add_new_expense"
+msgstr "Agregar Nuevo Gasto"
+
+msgid "close_modal"
+msgstr "Cerrar modal"
+
+msgid "eg_grocery_shopping"
+msgstr "ej. Compras de Supermercado"
+
+msgid "welcome_back"
+msgstr "Bienvenido de nuevo"
+
+msgid "sign_in_subheader"
+msgstr "Inicia sesión para administrar tu presupuesto"
+
+msgid "correct_errors"
+msgstr "Por favor corrige los errores abajo."
+
+msgid "username"
+msgstr "Nombre de usuario"
+
+msgid "enter_username"
+msgstr "Ingresa tu usuario"
+
+msgid "password"
+msgstr "Contraseña"
+
+msgid "forgot_password"
+msgstr "¿Olvidaste?"
+
+msgid "sign_in"
+msgstr "Iniciar Sesión"
+
+msgid "no_account"
+msgstr "¿No tienes una cuenta?"
+
+msgid "sign_up"
+msgstr "Regístrate"

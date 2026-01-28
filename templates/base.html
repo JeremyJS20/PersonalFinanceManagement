@@ -1,4 +1,4 @@
-{% load static tailwind_tags %}
+{% load static tailwind_tags i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,13 +42,13 @@
 
             <!-- Nav Links (Desktop) -->
             <div class="hidden md:flex items-center gap-6 text-sm font-medium text-pfm-text-light">
-                <a href="#" class="text-pfm-text-dark hover:text-pfm-primary transition-colors">Dashboard</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">Transactions</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">Budget</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">Goals</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">Investments</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">Reports</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">Settings</a>
+                <a href="#" class="text-pfm-text-dark hover:text-pfm-primary transition-colors">{% trans "dashboard" %}</a>
+                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "transactions" %}</a>
+                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "budget" %}</a>
+                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "goals" %}</a>
+                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "investments" %}</a>
+                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "reports" %}</a>
+                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "settings" %}</a>
             </div>
         </div>
 
@@ -61,6 +61,39 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
+
+            <!-- Language Switcher -->
+            <button id="language-dropdown-btn" data-dropdown-toggle="language-dropdown"
+                class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                <i data-lucide="globe" class="w-5 h-5"></i>
+            </button>
+            <div id="language-dropdown"
+                class="z-50 hidden bg-pfm-card divide-y divide-pfm-border rounded-xl shadow-xl w-44 border border-pfm-border overflow-hidden">
+                <ul class="py-1 text-sm text-pfm-text-dark" aria-labelledby="language-dropdown-btn">
+                    <li>
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input name="language" type="hidden" value="en">
+                            <button type="submit"
+                                class="inline-flex w-full px-4 py-2.5 hover:bg-pfm-bg hover:text-pfm-primary transition-colors text-left">
+                                English
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input name="language" type="hidden" value="es">
+                            <button type="submit"
+                                class="inline-flex w-full px-4 py-2.5 hover:bg-pfm-bg hover:text-pfm-primary transition-colors text-left">
+                                Spanish
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
 
             <!-- Theme Toggle -->
             <button id="theme-toggle" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
@@ -97,13 +130,13 @@
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu"
         class="hidden md:hidden bg-pfm-surface border-b border-pfm-border px-6 py-4 space-y-3 shadow-md absolute w-full z-40">
-        <a href="#" class="block text-pfm-text-dark font-medium">Dashboard</a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">Transactions</a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">Budget</a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">Goals</a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">Investments</a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">Reports</a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">Settings</a>
+        <a href="#" class="block text-pfm-text-dark font-medium">{% trans "dashboard" %}</a>
+        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "transactions" %}</a>
+        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "budget" %}</a>
+        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "goals" %}</a>
+        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "investments" %}</a>
+        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "reports" %}</a>
+        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "settings" %}</a>
     </div>
 
     {% endblock %}

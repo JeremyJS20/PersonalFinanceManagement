@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-27 22:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "dashboard"
+msgstr "Dashboard"
+
+msgid "transactions"
+msgstr "Transactions"
+
+msgid "budget"
+msgstr "Budget"
+
+msgid "goals"
+msgstr "Goals"
+
+msgid "investments"
+msgstr "Investments"
+
+msgid "reports"
+msgstr "Reports"
+
+msgid "settings"
+msgstr "Settings"
+
+msgid "hi"
+msgstr "Hi"
+
+msgid "financial_health_overview"
+msgstr "Here's your financial health overview."
+
+msgid "add_expense"
+msgstr "Add Expense"
+
+msgid "full_report"
+msgstr "Full Report"
+
+msgid "net_worth"
+msgstr "Net Worth"
+
+msgid "total_assets_liabilities"
+msgstr "Total Assets - Total Liabilities"
+
+msgid "monthly_budget"
+msgstr "Monthly Budget"
+
+msgid "days_left"
+msgstr "Days left"
+
+msgid "budget_spent_percentage"
+msgstr "You have spent 49% of your budget"
+
+msgid "spending_breakdown"
+msgstr "Spending Breakdown"
+
+msgid "recent_activity"
+msgstr "Recent Activity"
+
+msgid "view_all"
+msgstr "View All"
+
+msgid "date"
+msgstr "Date"
+
+msgid "description"
+msgstr "Description"
+
+msgid "category"
+msgstr "Category"
+
+msgid "amount"
+msgstr "Amount"
+
+msgid "add_new_expense"
+msgstr "Add New Expense"
+
+msgid "close_modal"
+msgstr "Close modal"
+
+msgid "eg_grocery_shopping"
+msgstr "e.g. Grocery Shopping"
+
+msgid "welcome_back"
+msgstr "Welcome Back"
+
+msgid "sign_in_subheader"
+msgstr "Sign in to manage your budget"
+
+msgid "correct_errors"
+msgstr "Please correct the errors below."
+
+msgid "username"
+msgstr "Username"
+
+msgid "enter_username"
+msgstr "Enter your username"
+
+msgid "password"
+msgstr "Password"
+
+msgid "forgot_password"
+msgstr "Forgot?"
+
+msgid "sign_in"
+msgstr "Sign In"
+
+msgid "no_account"
+msgstr "Don't have an account?"
+
+msgid "sign_up"
+msgstr "Sign up"
