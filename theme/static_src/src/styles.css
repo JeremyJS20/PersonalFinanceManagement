@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 @source "../../../**/*.{html,py,js}";
+@source "../node_modules/flowbite";
+@plugin "flowbite/plugin";
 
-@theme {
+:root {
   --color-pfm-primary: #0D9488;
   --color-pfm-primary-hover: #0F766E;
   --color-pfm-bg: #F8FAFC;
@@ -11,6 +13,30 @@
   --color-pfm-text-light: #64748B;
   --color-pfm-danger: #EF4444;
   --color-pfm-success: #10B981;
+  --color-pfm-border: #E2E8F0;
+  --color-pfm-card: #FFFFFF;
+}
+
+.dark {
+  --color-pfm-bg: #111827;
+  --color-pfm-surface: #1F2937;
+  --color-pfm-text-dark: #F3F4F6;
+  --color-pfm-text-light: #9CA3AF;
+  --color-pfm-border: #374151;
+  --color-pfm-card: #1F2937;
+}
+
+@theme {
+  --color-pfm-primary: var(--color-pfm-primary);
+  --color-pfm-primary-hover: var(--color-pfm-primary-hover);
+  --color-pfm-bg: var(--color-pfm-bg);
+  --color-pfm-surface: var(--color-pfm-surface);
+  --color-pfm-text-dark: var(--color-pfm-text-dark);
+  --color-pfm-text-light: var(--color-pfm-text-light);
+  --color-pfm-danger: var(--color-pfm-danger);
+  --color-pfm-success: var(--color-pfm-success);
+  --color-pfm-border: var(--color-pfm-border);
+  --color-pfm-card: var(--color-pfm-card);
 
   --font-sans: "Inter", system-ui, sans-serif;
 }
