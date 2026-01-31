@@ -125,3 +125,42 @@ msgstr "Cerrar sesión"
 
 msgid "invalid_credentials"
 msgstr "Usuario o contraseña incorrectos."
+
+msgid "create_account"
+msgstr "Crear Cuenta"
+
+msgid "join_finorbit"
+msgstr "Únete a FinOrbit hoy"
+
+msgid "already_have_account"
+msgstr "¿Ya tienes cuenta?"
+
+msgid "First name"
+msgstr "Nombre"
+
+msgid "Last name"
+msgstr "Apellido"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Required."
+msgstr "Requerido."
+
+msgid "Required. Inform a valid email address."
+msgstr "Requerido. Informe una dirección de correo válida."
+
+msgid "password_hints_label"
+msgstr "Considera estos consejos para tu contraseña:"
+
+msgid "hint_8_chars"
+msgstr "Al menos 8 caracteres"
+
+msgid "hint_number"
+msgstr "Incluye al menos 1 número"
+
+msgid "hint_special"
+msgstr "Incluye al menos 1 carácter especial"
+
+msgid "hint_upper"
+msgstr "Incluye al menos 1 mayúscula"

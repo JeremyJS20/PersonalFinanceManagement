@@ -12,8 +12,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "dashboard"
-msgstr "Dashboard"
+msgid "create_account"
+msgstr "Create Account"
+
+msgid "join_finorbit"
+msgstr "Join FinOrbit today"
+
+msgid "already_have_account"
+msgstr "Already have an account?"
+
+msgid "First name"
+msgstr "First name"
+
+msgid "Last name"
+msgstr "Last name"
+
+msgid "Email"
+msgstr "Email address"
+
+msgid "Required."
+msgstr "Required."
+
+msgid "Required. Inform a valid email address."
+msgstr "Required. Please enter a valid email address."
+
+msgid "password_hints_label"
+msgstr "Consider this hint for your password:"
+
+msgid "hint_8_chars"
+msgstr "At least 8 characters"
+
+msgid "hint_number"
+msgstr "Include at least 1 number"
+
+msgid "hint_special"
+msgstr "Include at least 1 special character"
+
+msgid "hint_upper"
+msgstr "Include at least 1 uppercase"
 
 msgid "transactions"
 msgstr "Transactions"

@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block navbar %}
+<nav class="bg-transparent absolute top-0 w-full p-6 z-50">
+    <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-pfm-primary rounded-xl flex items-center justify-center shadow-lg shadow-pfm-primary/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+        <span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">FinOrbit</span>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-pfm-bg relative overflow-hidden">
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-pfm-primary/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+    <div class="w-full max-w-md bg-pfm-card rounded-2xl shadow-xl p-6 md:p-10 relative z-10 border border-pfm-border">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-pfm-text-dark mb-2">{% trans "create_account" %}</h1>
+            <p class="text-pfm-text-light">{% trans "join_finorbit" %}</p>
+        </div>
+
+        <form method="post" action="" class="space-y-6">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="bg-red-50 dark:bg-red-900/20 text-red-500 dark:text-red-400 p-3 rounded-lg text-sm mb-4">
+                {% for field in form %}
+                {% for error in field.errors %}
+                <p class="mb-1">{{ error }}</p>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-pfm-text-dark mb-1">
+                    {{ field.label }}
+                    {% if field.field.required %}<span class="text-red-500">*</span>{% endif %}
+                </label>
+                <input type="{{ field.field.widget.input_type|default:'text' }}" name="{{ field.name }}"
+                    id="{{ field.id_for_label }}" {% if field.field.required %}required{% endif %} {% if field.name
+                    !='password1' and field.name !='password_confirm' %}value="{{ field.value|default:'' }}" {% endif %}
+                    class="w-full px-4 py-3 rounded-lg border border-pfm-border focus:ring-2 focus:ring-pfm-primary focus:border-pfm-primary transition-colors outline-none bg-pfm-bg text-pfm-text-dark placeholder-gray-400 dark:placeholder-gray-600"
+                    placeholder="{{ field.label }}">
+                {% if field.help_text and field.name != 'password1' %}
+                <div class="mt-1 text-xs text-pfm-text-light pl-1">{{ field.help_text|safe }}</div>
+                {% endif %}
+
+                {% if field.name == 'password1' %}
+                <div class="mt-3 bg-pfm-bg/50 p-3 rounded-lg border border-pfm-border">
+                    <p class="text-xs text-pfm-text-dark font-medium mb-2">{% trans "password_hints_label" %}</p>
+                    <ul class="text-xs space-y-1 pl-1">
+                        <li id="rule-length"
+                            class="text-pfm-text-light transition-colors duration-200 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></span>
+                            {% trans "hint_8_chars" %}
+                        </li>
+                        <li id="rule-number"
+                            class="text-pfm-text-light transition-colors duration-200 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></span>
+                            {% trans "hint_number" %}
+                        </li>
+                        <li id="rule-special"
+                            class="text-pfm-text-light transition-colors duration-200 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></span>
+                            {% trans "hint_special" %}
+                        </li>
+                        <li id="rule-upper"
+                            class="text-pfm-text-light transition-colors duration-200 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></span>
+                            {% trans "hint_upper" %}
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.querySelector('form');
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const inputs = form.querySelectorAll('input');
+
+                    // Specific validators
+                    const validators = {
+                        username: v => v.length > 0,
+                        first_name: v => v.trim().length > 0,
+                        last_name: v => v.trim().length > 0,
+                        email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+                        password1: v => v.length >= 8 && /\d/.test(v) && /[!@#$%^&*(),.?":{}|<>]/.test(v) && /[A-Z]/.test(v),
+                        password_confirmation: v => true // Handled by django, or could match password1
+                    };
+
+                    const passwordRules = {
+                        length: { el: document.getElementById('rule-length'), check: v => v.length >= 8 },
+                        number: { el: document.getElementById('rule-number'), check: v => /\d/.test(v) },
+                        special: { el: document.getElementById('rule-special'), check: v => /[!@#$%^&*(),.?":{}|<>]/.test(v) },
+                        upper: { el: document.getElementById('rule-upper'), check: v => /[A-Z]/.test(v) }
+                    };
+
+                    function validateInput(input) {
+                        const name = input.name;
+                        const val = input.value;
+                        const hasInput = val.length > 0;
+                        let isValid = true;
+
+                        // Password specific visual feedback (rules list)
+                        if (name === 'password1') {
+                            Object.values(passwordRules).forEach(rule => {
+                                const ruleValid = rule.check(val);
+                                if (ruleValid) {
+                                    rule.el.classList.remove('text-pfm-text-light', 'text-red-500');
+                                    rule.el.classList.add('text-green-500');
+                                } else if (hasInput) {
+                                    rule.el.classList.remove('text-pfm-text-light', 'text-green-500');
+                                    rule.el.classList.add('text-red-500');
+                                } else {
+                                    rule.el.classList.remove('text-green-500', 'text-red-500');
+                                    rule.el.classList.add('text-pfm-text-light');
+                                }
+                            });
+                        }
+
+                        // General Border Feedback
+                        if (validators[name]) {
+                            isValid = validators[name](val);
+                            if (hasInput) {
+                                if (isValid) {
+                                    input.classList.remove('border-pfm-border', 'border-red-500');
+                                    input.classList.add('border-green-500');
+                                } else {
+                                    input.classList.remove('border-pfm-border', 'border-green-500');
+                                    input.classList.add('border-red-500');
+                                }
+                            } else {
+                                input.classList.remove('border-green-500', 'border-red-500');
+                                input.classList.add('border-pfm-border');
+                            }
+                        }
+
+                        return isValid;
+                    }
+
+                    function validateForm() {
+                        let allValid = true;
+                        inputs.forEach(input => {
+                            if (validators[input.name]) {
+                                if (!validators[input.name](input.value)) {
+                                    allValid = false;
+                                }
+                            }
+                        });
+
+                        if (allValid) {
+                            submitBtn.removeAttribute('disabled');
+                            submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                            submitBtn.classList.add('hover:bg-pfm-primary-hover', 'shadow-pfm-primary/30', 'hover:-translate-y-0.5'); // Restore hover effects
+                        } else {
+                            submitBtn.setAttribute('disabled', 'true');
+                            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                            submitBtn.classList.remove('hover:bg-pfm-primary-hover', 'shadow-pfm-primary/30', 'hover:-translate-y-0.5'); // Remove hover effects
+                        }
+                    }
+
+                    // Attach listeners
+                    inputs.forEach(input => {
+                        input.addEventListener('input', () => {
+                            validateInput(input);
+                            validateForm();
+                        });
+                        // Initial check for persisted data
+                        if (input.value.length > 0) validateInput(input);
+                    });
+
+                    // Initial form check
+                    validateForm();
+                });
+            </script>
+
+            <button type="submit" disabled
+                class="w-full bg-pfm-primary text-white font-semibold py-3.5 rounded-xl transition-all shadow-lg transform opacity-50 cursor-not-allowed">
+                {% trans "sign_up" %}
+            </button>
+
+            <div class="text-center mt-6 text-sm text-pfm-text-light">
+                {% trans "already_have_account" %}
+                <a href="{% url 'login' %}" class="text-pfm-primary font-semibold hover:underline">
+                    {% trans "sign_in" %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
