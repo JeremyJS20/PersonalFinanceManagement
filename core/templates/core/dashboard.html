@@ -6,7 +6,7 @@
     <!-- Header -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-            <h1 class="text-3xl font-bold text-pfm-text-dark">{% trans "hi" %} Emely</h1>
+            <h1 class="text-3xl font-bold text-pfm-text-dark">{% trans "hi" %} {{ user.username|title }}</h1>
             <p class="text-pfm-text-light mt-1">{% trans "financial_health_overview" %}</p>
         </div>
         <div class="flex gap-3">
@@ -105,7 +105,8 @@
         <div class="p-6 border-b border-pfm-border flex flex-col md:flex-row justify-between items-center gap-4">
             <h2 class="text-lg font-bold text-pfm-text-dark">{% trans "recent_activity" %}</h2>
             <div class="flex items-center gap-4">
-                <button class="text-sm font-medium text-pfm-text-light hover:text-pfm-primary">{% trans "view_all" %}</button>
+                <button class="text-sm font-medium text-pfm-text-light hover:text-pfm-primary">{% trans "view_all"
+                    %}</button>
             </div>
         </div>
 
@@ -193,13 +194,15 @@
             <div class="p-4 md:p-5">
                 <form class="space-y-4" action="#">
                     <div>
-                        <label for="expense-name" class="block mb-2 text-sm font-medium text-pfm-text-dark">{% trans "description" %}</label>
+                        <label for="expense-name" class="block mb-2 text-sm font-medium text-pfm-text-dark">{% trans
+                            "description" %}</label>
                         <input type="text" name="expense-name" id="expense-name"
                             class="bg-pfm-bg border border-pfm-border text-pfm-text-dark text-sm rounded-lg focus:ring-pfm-primary focus:border-pfm-primary block w-full p-2.5"
                             placeholder="{% trans 'eg_grocery_shopping' %}" required />
                     </div>
                     <div>
-                        <label for="amount" class="block mb-2 text-sm font-medium text-pfm-text-dark">{% trans "amount" %}</label>
+                        <label for="amount" class="block mb-2 text-sm font-medium text-pfm-text-dark">{% trans "amount"
+                            %}</label>
                         <input type="number" name="amount" id="amount"
                             class="bg-pfm-bg border border-pfm-border text-pfm-text-dark text-sm rounded-lg focus:ring-pfm-primary focus:border-pfm-primary block w-full p-2.5"
                             placeholder="0.00" required />

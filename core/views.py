@@ -6,7 +6,6 @@ class CustomLoginView(LoginView):
     template_name = 'core/login.html'
     redirect_authenticated_user = True
 
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'core/dashboard.html'
-    # login_url = '/login/'
-    # mixin LoginRequiredMixin later when auth is fully working
+    login_url = '/login/'

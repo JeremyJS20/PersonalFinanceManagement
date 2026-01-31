@@ -119,10 +119,35 @@
                 </div>
             </button>
 
-            <!-- Profile -->
-            <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden border border-gray-200">
-                <img src="https://ui-avatars.com/api/?name=Emely+B&background=random" alt="Profile"
-                    class="w-full h-full object-cover">
+            <!-- Profile Dropdown -->
+            <div class="relative ml-3">
+                <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <span class="sr-only">Open user menu</span>
+                    <div class="w-8 h-8 rounded-full bg-pfm-primary text-white flex items-center justify-center font-bold border border-pfm-border">
+                        {{ user.username|slice:":2"|upper }}
+                    </div>
+                </button>
+                <!-- Dropdown menu -->
+                <div class="z-50 hidden my-4 text-base list-none bg-pfm-card divide-y divide-pfm-border rounded-lg shadow w-44 border border-pfm-border" id="user-dropdown">
+                    <div class="px-4 py-3">
+                        <span class="block text-sm text-pfm-text-dark dark:text-white">
+                            {{ user.username }}
+                        </span>
+                        <span class="block text-sm text-gray-500 truncate dark:text-gray-400">
+                             {{ user.email|default:"" }}
+                        </span>
+                    </div>
+                    <ul class="py-2" aria-labelledby="user-menu-button">
+                        <li>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-pfm-text-dark hover:bg-pfm-bg hover:text-pfm-primary transition-colors">
+                                    {% trans "sign_out" %}
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>

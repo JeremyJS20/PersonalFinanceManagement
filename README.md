@@ -12,8 +12,9 @@ FinOrbit is a premium, modern Personal Finance Management (PFM) application buil
 
 ## Prerequisites
 
--   **Python 3.10+**
--   **Node.js & npm** (Required for Tailwind CSS)
+-   **Python**: 3.14.2
+-   **Node.js**: v25.2.1
+-   **npm**: 11.6.4
 
 ## Installation
 
@@ -71,3 +72,28 @@ FinOrbit uses a smart configuration in `settings.py`:
     ```bash
     python manage.py tailwind start
     ```
+
+## Development with PyCharm
+
+1.  **Open Project**:
+    -   Open PyCharm and select **Open**.
+    -   Navigate to the `financial_app` folder (where `manage.py` is located) and click **OK**.
+
+2.  **Configure Interpreter**:
+    -   Go to **File > Settings > Project: financial_app > Python Interpreter**.
+    -   Click the **Gear Icon** > **Add**.
+    -   Select **Existing Environment**.
+    -   Browse to your `venv\Scripts\python.exe` file and click **OK**.
+
+3.  **Run Configuration (Robust Method)**:
+    -   Go to **Run > Edit Configurations**.
+    -   Click the **+** button (top left) and select **Python**.
+    -   **Name**: `Django Runserver`
+    -   **Script path**: `manage.py` (Browse to the file in your project).
+    -   **Parameters**: `runserver`
+    -   **Working directory**: `C:\Users\jsjer\OneDrive\Bureaublad\New folder\financial_app` (or your project root).
+    -   **Environment variables**: `DJANGO_SETTINGS_MODULE=finance_project.settings`
+    -   **Python interpreter**: Select your configured venv.
+    -   Click **OK**.
+
+4.  **Run**: Click the green **Play** button to start the server.

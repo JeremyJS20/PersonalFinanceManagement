@@ -119,3 +119,9 @@ msgstr "¿No tienes una cuenta?"
 
 msgid "sign_up"
 msgstr "Regístrate"
+
+msgid "sign_out"
+msgstr "Cerrar sesión"
+
+msgid "invalid_credentials"
+msgstr "Usuario o contraseña incorrectos."

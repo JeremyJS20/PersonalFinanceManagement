@@ -119,3 +119,9 @@ msgstr "Don't have an account?"
 
 msgid "sign_up"
 msgstr "Sign up"
+
+msgid "sign_out"
+msgstr "Sign Out"
+
+msgid "invalid_credentials"
+msgstr "Invalid username or password."
