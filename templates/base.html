@@ -41,14 +41,30 @@
             </a>
 
             <!-- Nav Links (Desktop) -->
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-pfm-text-light">
-                <a href="{% url 'dashboard' %}" class="text-pfm-text-dark hover:text-pfm-primary transition-colors">{% trans "dashboard" %}</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "transactions" %}</a>
-                <a href="{% url 'categories' %}" class="hover:text-pfm-text-dark transition-colors">{% trans "categories" %}</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "goals" %}</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "investments" %}</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "reports" %}</a>
-                <a href="#" class="hover:text-pfm-text-dark transition-colors">{% trans "settings" %}</a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="{% url 'dashboard' %}"
+                    class="{% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'home' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
+                    {% trans "dashboard" %}
+                </a>
+                <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                    {% trans "transactions" %}
+                </a>
+                <a href="{% url 'categories' %}"
+                    class="{% if request.resolver_match.url_name == 'categories' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
+                    {% trans "categories" %}
+                </a>
+                <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                    {% trans "goals" %}
+                </a>
+                <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                    {% trans "investments" %}
+                </a>
+                <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                    {% trans "reports" %}
+                </a>
+                <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                    {% trans "settings" %}
+                </a>
             </div>
         </div>
 
@@ -97,8 +113,8 @@
 
             <!-- Theme Toggle -->
             <button id="theme-toggle" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
-                <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
-                <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                <i data-lucide="moon" class="w-5 h-5 theme-icon-moon"></i>
+                <i data-lucide="sun" class="w-5 h-5 theme-icon-sun"></i>
             </button>
 
             <!-- Icons (Hidden on very small screens if needed, but keeping for now) -->
@@ -161,8 +177,12 @@
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu"
         class="hidden md:hidden bg-pfm-surface border-b border-pfm-border px-6 py-4 space-y-3 shadow-md absolute w-full z-40">
-        <a href="{% url 'dashboard' %}" class="block text-pfm-text-dark font-medium">{% trans "dashboard" %}</a>
-        <a href="{% url 'categories' %}" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "categories" %}</a>
+        <a href="{% url 'dashboard' %}"
+            class="block font-medium {% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'home' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">{%
+            trans "dashboard" %}</a>
+        <a href="{% url 'categories' %}"
+            class="block {% if request.resolver_match.url_name == 'categories' %}text-pfm-text-dark font-medium{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">{%
+            trans "categories" %}</a>
         <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "transactions" %}</a>
         <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "budget" %}</a>
         <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "goals" %}</a>

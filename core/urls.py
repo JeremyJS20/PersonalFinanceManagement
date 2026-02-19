@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth.views import LogoutView
 from .views import (
     CustomLoginView, DashboardView, SignUpView, CategoriesView,
-    CategoryGroupCreateView, CategoryCreateView
+    CategoryGroupCreateView, CategoryGroupUpdateView, CategoryCreateView
 )
 
 urlpatterns = [
@@ -12,6 +12,7 @@ urlpatterns = [
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('categories/', CategoriesView.as_view(), name='categories'),
     path('categories/group/create/', CategoryGroupCreateView.as_view(), name='category_group_create'),
+    path('categories/group/<int:pk>/update/', CategoryGroupUpdateView.as_view(), name='category_group_update'),
     path('categories/create/', CategoryCreateView.as_view(), name='category_create'),
     path('', DashboardView.as_view(), name='home'),
 ]

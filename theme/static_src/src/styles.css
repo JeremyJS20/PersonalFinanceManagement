@@ -27,6 +27,7 @@
 }
 
 @theme {
+  --variant-dark: .dark &;
   --color-pfm-primary: var(--color-pfm-primary);
   --color-pfm-primary-hover: var(--color-pfm-primary-hover);
   --color-pfm-bg: var(--color-pfm-bg);
@@ -39,4 +40,21 @@
   --color-pfm-card: var(--color-pfm-card);
 
   --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* Theme Toggle Icons */
+.theme-icon-sun {
+  display: block !important;
+}
+
+.theme-icon-moon {
+  display: none !important;
+}
+
+.dark .theme-icon-sun {
+  display: none !important;
+}
+
+.dark .theme-icon-moon {
+  display: block !important;
 }

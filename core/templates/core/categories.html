@@ -73,8 +73,14 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <button
-                            class="flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-text-dark transition-colors"
-                            aria-label="{% trans 'categories_edit_group' %}">
+                            class="modal-open-btn flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-text-dark transition-colors"
+                            aria-label="{% trans 'categories_edit_group' %}" data-pfm-modal-target="create-group-modal"
+                            data-pfm-bind-mode="edit" data-pfm-bind-groupid="{{ group.id }}"
+                            data-pfm-bind-groupname="{{ group.name }}"
+                            data-pfm-bind-groupdescription="{{ group.description|default:'' }}"
+                            data-pfm-bind-groupicon="{{ group.icon|default:'folder' }}"
+                            data-pfm-bind-type="{{ group.transaction_type }}"
+                            data-pfm-bind-updateurl="{% url 'category_group_update' group.id %}">
                             <i data-lucide="edit-2" class="w-4 h-4"></i>
                         </button>
                         <button
@@ -180,8 +186,14 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <button
-                            class="flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-green-600 transition-colors"
-                            aria-label="{% trans 'categories_edit_group' %}">
+                            class="modal-open-btn flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-green-600 transition-colors"
+                            aria-label="{% trans 'categories_edit_group' %}" data-pfm-modal-target="create-group-modal"
+                            data-pfm-bind-mode="edit" data-pfm-bind-groupid="{{ group.id }}"
+                            data-pfm-bind-groupname="{{ group.name }}"
+                            data-pfm-bind-groupdescription="{{ group.description|default:'' }}"
+                            data-pfm-bind-groupicon="{{ group.icon|default:'folder' }}"
+                            data-pfm-bind-type="{{ group.transaction_type }}"
+                            data-pfm-bind-updateurl="{% url 'category_group_update' group.id %}">
                             <i data-lucide="edit-2" class="w-4 h-4"></i>
                         </button>
                         <button
@@ -285,7 +297,7 @@
                         class="hidden px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider w-fit mb-1">
                         {% trans "categories_expenses" %}
                     </span>
-                    <h2 id="modal-title-group" class="text-xl font-bold text-pfm-text-dark">
+                    <h2 id="modal-title-group" class="text-xl font-bold text-pfm-text-dark" data-pfm-modal-bind="title">
                         {% trans "categories_add_group" %}
                     </h2>
                 </div>
@@ -307,7 +319,7 @@
                         <input
                             class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary focus:ring-2 focus:ring-pfm-primary/20 outline-none transition-all placeholder:text-pfm-text-light/50 font-medium"
                             id="group-name" name="name" placeholder="{% trans 'categories_group_name_placeholder' %}"
-                            type="text" required autocomplete="off">
+                            data-pfm-modal-bind="groupname" type="text" required autocomplete="off">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-pfm-text-dark mb-2" for="group-description">
@@ -315,14 +327,15 @@
                         </label>
                         <textarea
                             class="pfm-input w-full px-4 py-3 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary focus:ring-2 focus:ring-pfm-primary/20 outline-none transition-all placeholder:text-pfm-text-light/50 font-medium"
-                            id="group-description" name="description"
+                            id="group-description" name="description" data-pfm-modal-bind="groupdescription"
                             placeholder="{% trans 'categories_group_description_placeholder' %}" rows="2"></textarea>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-pfm-text-dark mb-3">
                             {% trans "categories_select_icon" %}
                         </label>
-                        <input type="hidden" name="icon" id="group-icon-input" value="folder">
+                        <input type="hidden" name="icon" id="group-icon-input" value="folder"
+                            data-pfm-modal-bind="groupicon">
                         <div id="group-icon-grid"
                             class="grid grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1 custom-scrollbar">
                             <!-- Dynamically populated -->
@@ -335,7 +348,7 @@
                     class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
                     {% trans "categories_cancel_btn" %}
                 </button>
-                <button type="submit" form="create-group-form"
+                <button type="submit" form="create-group-form" id="modal-submit-group"
                     class="px-5 py-2.5 rounded-lg bg-pfm-primary text-white font-semibold hover:bg-pfm-primary/90 shadow-md shadow-pfm-primary/20 transition-all">
                     {% trans "categories_create_group_btn" %}
                 </button>
@@ -576,19 +589,37 @@
             // Handle Create Group Modal
             if (modalId === 'create-group-modal') {
                 const form = document.getElementById('create-group-form');
-                if (form) {
-                    form.reset();
-                    // Reset icon highlights
-                    const options = document.querySelectorAll('#group-icon-grid .icon-option');
-                    options.forEach(opt => {
-                        if (opt.getAttribute('data-icon') === 'folder') {
-                            opt.classList.add('border-2', 'border-pfm-primary', 'bg-pfm-primary/5', 'text-pfm-primary');
-                            opt.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
-                        } else {
-                            opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
-                            opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
-                        }
-                    });
+                const titleEl = document.getElementById('modal-title-group');
+                const submitBtn = document.getElementById('modal-submit-group');
+                const isEdit = btn.getAttribute('data-pfm-bind-mode') === 'edit';
+
+                if (isEdit) {
+                    const groupId = btn.getAttribute('data-pfm-bind-groupid');
+                    const groupIcon = btn.getAttribute('data-pfm-bind-groupicon') || 'folder';
+                    const updateUrl = btn.getAttribute('data-pfm-bind-updateurl');
+
+                    if (titleEl) titleEl.textContent = "{% trans 'categories_edit_group_title' %}";
+                    if (submitBtn) submitBtn.textContent = "{% trans 'categories_save_changes_btn' %}";
+
+                    if (form) {
+                        form.action = updateUrl || `/categories/group/${groupId}/update/`;
+                    }
+
+                    setTimeout(() => {
+                        const iconOpt = document.querySelector(`#group-icon-grid [data-icon="${groupIcon}"]`);
+                        if (iconOpt) iconOpt.click();
+                    }, 50);
+                } else {
+                    if (titleEl) titleEl.textContent = "{% trans 'categories_add_group' %}";
+                    if (submitBtn) submitBtn.textContent = "{% trans 'categories_create_group_btn' %}";
+
+                    if (form) {
+                        form.action = "{% url 'category_group_create' %}";
+                        form.reset();
+                    }
+
+                    const folderOpt = document.querySelector('#group-icon-grid [data-icon="folder"]');
+                    if (folderOpt) folderOpt.click();
                 }
 
                 const target = btn.getAttribute('data-pfm-tab-target') || btn.getAttribute('data-pfm-bind-type');

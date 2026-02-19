@@ -185,5 +185,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('color-theme', 'dark');
             }
         });
+
     }
 });

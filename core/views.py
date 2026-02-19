@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LoginView
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
@@ -19,37 +19,49 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'core/signup.html'
 
-class CategoriesView(LoginRequiredMixin, TemplateView):
+class CategoriesContextMixin:
+    """Mixin to provide shared context for categories-related views."""
+    def get_categories_context(self, user, active_tab=None):
+        groups = CategoryGroup.objects.filter(user=user).prefetch_related('categories')
+        
+        # Determine active tab if not provided: Query Param > Cookie > Default
+        if not active_tab:
+            active_tab = self.request.GET.get('tab')
+            if not active_tab:
+                active_tab = self.request.COOKIES.get('pfm_last_category_tab', 'expenses')
+
+        # Calculate statistics
+        total_categories = Category.objects.filter(group__user=user).count()
+        limit = 50
+        categories_progress = min((total_categories / limit) * 100, 100) if limit > 0 else 0
+
+        return {
+            'expenses_groups': groups.filter(transaction_type='expenses'),
+            'income_groups': groups.filter(transaction_type='income'),
+            'active_tab': active_tab,
+            'total_categories': total_categories,
+            'categories_progress': categories_progress,
+        }
+
+class CategoriesView(LoginRequiredMixin, CategoriesContextMixin, TemplateView):
     template_name = 'core/categories.html'
     login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        groups = CategoryGroup.objects.filter(user=self.request.user).prefetch_related('categories')
-        context['expenses_groups'] = groups.filter(transaction_type='expenses')
-        context['income_groups'] = groups.filter(transaction_type='income')
-        
-        # Determine active tab: Query Param > Cookie > Default (expenses)
-        active_tab = self.request.GET.get('tab')
-        if not active_tab:
-            active_tab = self.request.COOKIES.get('pfm_last_category_tab', 'expenses')
-            
-        context['active_tab'] = active_tab
-
-        # Calculate statistics
-        total_categories = Category.objects.filter(group__user=self.request.user).count()
-        context['total_categories'] = total_categories
-        
-        # Calculate progress percentage (arbitrary limit of 50 for visual representation)
-        limit = 50
-        context['categories_progress'] = min((total_categories / limit) * 100, 100) if limit > 0 else 0
-        
+        context.update(self.get_categories_context(self.request.user))
         return context
 
-class CategoryGroupCreateView(LoginRequiredMixin, CreateView):
+class CategoryGroupCreateView(LoginRequiredMixin, CategoriesContextMixin, CreateView):
     model = CategoryGroup
     fields = ['name', 'icon', 'transaction_type', 'description']
+    template_name = 'core/categories.html'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_categories_context(self.request.user))
+        return context
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         self.object = form.save()
@@ -65,12 +77,58 @@ class CategoryGroupCreateView(LoginRequiredMixin, CreateView):
             })
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+        return super().form_invalid(form)
+
     def get_success_url(self):
         return reverse_lazy('categories')
 
-class CategoryCreateView(LoginRequiredMixin, CreateView):
+class CategoryGroupUpdateView(LoginRequiredMixin, CategoriesContextMixin, UpdateView):
+    model = CategoryGroup
+    fields = ['name', 'icon', 'transaction_type', 'description']
+    template_name = 'core/categories.html'
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_categories_context(self.request.user))
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'status': 'success',
+                'group': {
+                    'id': self.object.id,
+                    'name': self.object.name,
+                    'icon': self.object.icon,
+                    'transaction_type': self.object.transaction_type,
+                }
+            })
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('categories')
+
+class CategoryCreateView(LoginRequiredMixin, CategoriesContextMixin, CreateView):
     model = Category
     fields = ['group', 'name', 'icon', 'description']
+    template_name = 'core/categories.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_categories_context(self.request.user))
+        return context
 
     def form_valid(self, form):
         # Ensure the group belongs to the user
@@ -89,6 +147,11 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
                 }
             })
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+        return super().form_invalid(form)
 
     def get_success_url(self):
         return reverse_lazy('categories')

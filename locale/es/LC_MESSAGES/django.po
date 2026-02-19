@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 11:04-0400\n"
+"POT-Creation-Date: 2026-02-19 13:36-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,13 +69,14 @@ msgstr ""
 #: .\core\templates\core\categories.html:13
 #: .\core\templates\core\categories.html:31
 #: .\core\templates\core\categories.html:33
-#: .\core\templates\core\categories.html:153
-#: .\core\templates\core\categories.html:264
+#: .\core\templates\core\categories.html:161
+#: .\core\templates\core\categories.html:296
 msgid "categories_expenses"
 msgstr "Gastos"
 
 #: .\core\templates\core\categories.html:15
-#: .\core\templates\core\categories.html:267
+#: .\core\templates\core\categories.html:299
+#: .\core\templates\core\categories.html:610
 msgid "categories_add_group"
 msgstr "Crear Grupo de Categorías"
 
@@ -85,7 +86,7 @@ msgstr "Tipo de Transacción"
 
 #: .\core\templates\core\categories.html:37
 #: .\core\templates\core\categories.html:39
-#: .\core\templates\core\categories.html:242
+#: .\core\templates\core\categories.html:274
 msgid "categories_income"
 msgstr "Ingresos"
 
@@ -93,271 +94,283 @@ msgstr "Ingresos"
 msgid "categories_total_categories"
 msgstr "Total de Categorías"
 
-#: .\core\templates\core\categories.html:76
+#: .\core\templates\core\categories.html:77
+#: .\core\templates\core\categories.html:189
 msgid "categories_edit_group"
 msgstr "Editar Grupo"
 
-#: .\core\templates\core\categories.html:83
-#: .\core\templates\core\categories.html:183
-#: .\core\templates\core\categories.html:387
+#: .\core\templates\core\categories.html:90
+#: .\core\templates\core\categories.html:202
+#: .\core\templates\core\categories.html:422
 msgid "categories_add_category"
 msgstr "Añadir Categoría"
 
-#: .\core\templates\core\categories.html:105
+#: .\core\templates\core\categories.html:112
+#: .\core\templates\core\categories.html:224
 msgid "categories_edit_category"
 msgstr "Editar Categoría"
 
-#: .\core\templates\core\categories.html:109
+#: .\core\templates\core\categories.html:116
+#: .\core\templates\core\categories.html:228
 msgid "categories_delete_category"
 msgstr "Eliminar Categoría"
 
-#: .\core\templates\core\categories.html:125
+#: .\core\templates\core\categories.html:132
 msgid "categories_no_categories_in_group"
 msgstr "Aún no hay categorías en este grupo"
 
-#: .\core\templates\core\categories.html:129
-#: .\core\templates\core\categories.html:218
+#: .\core\templates\core\categories.html:137
+#: .\core\templates\core\categories.html:250
 msgid "categories_add_first_category"
 msgstr "Añadir la primera categoría"
 
-#: .\core\templates\core\categories.html:145
+#: .\core\templates\core\categories.html:153
 msgid "categories_no_groups_title"
 msgstr "Aún no hay grupos de gastos"
 
-#: .\core\templates\core\categories.html:148
+#: .\core\templates\core\categories.html:156
 msgid "categories_no_groups_desc"
 msgstr ""
 "Comience creando grupos como 'Vivienda' o 'Comida' para organizar sus gastos."
 
-#: .\core\templates\core\categories.html:155
-#: .\core\templates\core\categories.html:244
+#: .\core\templates\core\categories.html:163
+#: .\core\templates\core\categories.html:276
 msgid "categories_create_first_group"
 msgstr "Crea tu primer grupo"
 
-#: .\core\templates\core\categories.html:213
+#: .\core\templates\core\categories.html:244
 msgid "categories_no_income_categories_in_group"
 msgstr "Aún no hay categorías de ingresos en este grupo"
 
-#: .\core\templates\core\categories.html:234
+#: .\core\templates\core\categories.html:266
 msgid "categories_no_income_groups_title"
 msgstr "Aún no hay grupos de ingresos"
 
-#: .\core\templates\core\categories.html:237
+#: .\core\templates\core\categories.html:269
 msgid "categories_no_income_groups_desc"
 msgstr ""
 "Comience creando grupos como 'Salario' o 'Proyectos' para organizar sus "
 "ganancias."
 
-#: .\core\templates\core\categories.html:272
+#: .\core\templates\core\categories.html:304
 msgid "categories_close_modal"
 msgstr "Cerrar Ventana"
 
-#: .\core\templates\core\categories.html:283
+#: .\core\templates\core\categories.html:315
 msgid "categories_group_name_label"
 msgstr "Nombre del Grupo"
 
-#: .\core\templates\core\categories.html:287
+#: .\core\templates\core\categories.html:319
 msgid "categories_group_name_placeholder"
 msgstr "ej. Vivienda, Entretenimiento, Fundamentales"
 
-#: .\core\templates\core\categories.html:292
+#: .\core\templates\core\categories.html:324
 msgid "categories_group_description_label"
 msgstr "Descripción del Grupo (Opcional)"
 
-#: .\core\templates\core\categories.html:297
+#: .\core\templates\core\categories.html:329
 msgid "categories_group_description_placeholder"
 msgstr "Describa brevemente lo que cubre este grupo..."
 
-#: .\core\templates\core\categories.html:301
-#: .\core\templates\core\categories.html:371
+#: .\core\templates\core\categories.html:333
+#: .\core\templates\core\categories.html:406
 msgid "categories_select_icon"
 msgstr "Seleccionar Icono"
 
-#: .\core\templates\core\categories.html:314
-#: .\core\templates\core\categories.html:383
+#: .\core\templates\core\categories.html:347
+#: .\core\templates\core\categories.html:418
 msgid "categories_cancel_btn"
 msgstr "Cancelar"
 
-#: .\core\templates\core\categories.html:318
+#: .\core\templates\core\categories.html:351
+#: .\core\templates\core\categories.html:611
 msgid "categories_create_group_btn"
 msgstr "Crear Grupo"
 
-#: .\core\templates\core\categories.html:336
+#: .\core\templates\core\categories.html:369
 msgid "categories_adding_to_label"
 msgstr "Añadiendo a:"
 
-#: .\core\templates\core\categories.html:340
+#: .\core\templates\core\categories.html:373
 msgid "categories_financial_expenses_group"
 msgstr "Gastos Financieros"
 
-#: .\core\templates\core\categories.html:344
+#: .\core\templates\core\categories.html:377
 msgid "categories_add_new_category_title"
 msgstr "Añadir Nueva Categoría"
 
-#: .\core\templates\core\categories.html:347
+#: .\core\templates\core\categories.html:380
 msgid "categories_add_category_desc"
 msgstr "Cree un nuevo cubo para rastrear sus gastos dentro de este grupo."
 
-#: .\core\templates\core\categories.html:353
+#: .\core\templates\core\categories.html:388
 msgid "categories_category_name_label"
 msgstr "Nombre de la Categoría"
 
-#: .\core\templates\core\categories.html:357
+#: .\core\templates\core\categories.html:392
 msgid "categories_category_name_placeholder"
 msgstr "ej. Suscripciones, Servicios, Cenas"
 
-#: .\core\templates\core\categories.html:362
+#: .\core\templates\core\categories.html:397
 msgid "categories_description_label"
 msgstr "Descripción (Opcional)"
 
-#: .\core\templates\core\categories.html:367
+#: .\core\templates\core\categories.html:402
 msgid "categories_description_placeholder"
 msgstr "Describa brevemente lo que cubre esta categoría..."
 
 # Etiquetas de Iconos
-#: .\core\templates\core\categories.html:398
+#: .\core\templates\core\categories.html:433
 msgid "icon_folder"
 msgstr "Carpeta (Predeterminado)"
 
-#: .\core\templates\core\categories.html:399
+#: .\core\templates\core\categories.html:434
 msgid "icon_banknote"
 msgstr "Dinero/Billete"
 
-#: .\core\templates\core\categories.html:400
+#: .\core\templates\core\categories.html:435
 msgid "icon_credit_card"
 msgstr "Tarjeta de Crédito"
 
-#: .\core\templates\core\categories.html:401
+#: .\core\templates\core\categories.html:436
 msgid "icon_wallet"
 msgstr "Billetera"
 
-#: .\core\templates\core\categories.html:402
+#: .\core\templates\core\categories.html:437
 msgid "icon_piggy_bank"
 msgstr "Ahorros/Hucha"
 
-#: .\core\templates\core\categories.html:403
+#: .\core\templates\core\categories.html:438
 msgid "icon_coins"
 msgstr "Monedas"
 
-#: .\core\templates\core\categories.html:404
+#: .\core\templates\core\categories.html:439
 msgid "icon_home"
 msgstr "Inicio/Vivienda"
 
-#: .\core\templates\core\categories.html:405
+#: .\core\templates\core\categories.html:440
 msgid "icon_shopping_cart"
 msgstr "Compras"
 
-#: .\core\templates\core\categories.html:406
+#: .\core\templates\core\categories.html:441
 msgid "icon_utensils"
 msgstr "Comida y Cena"
 
-#: .\core\templates\core\categories.html:407
+#: .\core\templates\core\categories.html:442
 msgid "icon_coffee"
 msgstr "Café y Bebidas"
 
-#: .\core\templates\core\categories.html:408
+#: .\core\templates\core\categories.html:443
 msgid "icon_car"
 msgstr "Transporte/Coche"
 
-#: .\core\templates\core\categories.html:409
+#: .\core\templates\core\categories.html:444
 msgid "icon_heart"
 msgstr "Salud/Personal"
 
-#: .\core\templates\core\categories.html:410
+#: .\core\templates\core\categories.html:445
 msgid "icon_tv"
 msgstr "Entretenimiento/TV"
 
-#: .\core\templates\core\categories.html:411
+#: .\core\templates\core\categories.html:446
 msgid "icon_book"
 msgstr "Educación/Libros"
 
-#: .\core\templates\core\categories.html:412
+#: .\core\templates\core\categories.html:447
 msgid "icon_gamepad"
 msgstr "Juegos"
 
-#: .\core\templates\core\categories.html:413
+#: .\core\templates\core\categories.html:448
 msgid "icon_music"
 msgstr "Música"
 
-#: .\core\templates\core\categories.html:414
+#: .\core\templates\core\categories.html:449
 msgid "icon_plane"
 msgstr "Viajes/Vuelos"
 
-#: .\core\templates\core\categories.html:415
+#: .\core\templates\core\categories.html:450
 msgid "icon_briefcase"
 msgstr "Trabajo/Negocios"
 
-#: .\core\templates\core\categories.html:418
+#: .\core\templates\core\categories.html:453
 msgid "icon_tag"
 msgstr "Etiqueta de Categoría"
 
-#: .\core\templates\core\categories.html:419
+#: .\core\templates\core\categories.html:454
 msgid "icon_gift"
 msgstr "Regalos y Donaciones"
 
-#: .\core\templates\core\categories.html:420
+#: .\core\templates\core\categories.html:455
 msgid "icon_dumbbell"
 msgstr "Fitness/Gimnasio"
 
-#: .\core\templates\core\categories.html:421
+#: .\core\templates\core\categories.html:456
 msgid "icon_pill"
 msgstr "Médico/Farmacia"
 
-#: .\core\templates\core\categories.html:422
+#: .\core\templates\core\categories.html:457
 msgid "icon_pizza"
 msgstr "Comida Rápida"
 
-#: .\core\templates\core\categories.html:423
+#: .\core\templates\core\categories.html:458
 msgid "icon_bus"
 msgstr "Transporte Público"
 
-#: .\core\templates\core\categories.html:424
+#: .\core\templates\core\categories.html:459
 msgid "icon_star"
 msgstr "Favorito/Destacado"
 
-#: .\core\templates\core\categories.html:425
+#: .\core\templates\core\categories.html:460
 msgid "icon_sparkles"
 msgstr "Especial/Bonus"
 
-#: .\core\templates\core\categories.html:426
+#: .\core\templates\core\categories.html:461
 msgid "icon_ticket"
 msgstr "Entradas/Eventos"
 
-#: .\core\templates\core\categories.html:427
+#: .\core\templates\core\categories.html:462
 msgid "icon_plug"
 msgstr "Servicios/Electricidad"
 
-#: .\core\templates\core\categories.html:428
+#: .\core\templates\core\categories.html:463
 msgid "icon_trash"
 msgstr "Residuos/Otros"
 
-#: .\core\templates\core\categories.html:429
+#: .\core\templates\core\categories.html:464
 msgid "icon_hammer"
 msgstr "Reparaciones/Mantenimiento"
 
-#: .\core\templates\core\categories.html:430
+#: .\core\templates\core\categories.html:465
 msgid "icon_apple"
 msgstr "Comestibles/Fruta"
 
-#: .\core\templates\core\categories.html:431
+#: .\core\templates\core\categories.html:466
 msgid "icon_beer"
 msgstr "Bares/Vida Nocturna"
 
-#: .\core\templates\core\categories.html:432
+#: .\core\templates\core\categories.html:467
 msgid "icon_film"
 msgstr "Películas/Cine"
 
-#: .\core\templates\core\categories.html:433
+#: .\core\templates\core\categories.html:468
 msgid "icon_train"
 msgstr "Trenes"
 
-#: .\core\templates\core\categories.html:434
+#: .\core\templates\core\categories.html:469
 msgid "icon_bike"
 msgstr "Ciclismo"
 
-#: .\core\templates\core\categories.html:435
+#: .\core\templates\core\categories.html:470
 msgid "icon_zap"
 msgstr "Energía/Facturas"
+
+#: .\core\templates\core\categories.html:598
+msgid "categories_edit_group_title"
+msgstr "Editar Grupo"
+
+#: .\core\templates\core\categories.html:599
+msgid "categories_save_changes_btn"
+msgstr "Guardar Cambios"
 
 #: .\core\templates\core\dashboard.html:9
 msgid "hi"
@@ -526,38 +539,38 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: .\templates\base.html:45 .\templates\base.html:164
+#: .\templates\base.html:47
 msgid "dashboard"
 msgstr "Panel"
 
-#: .\templates\base.html:46 .\templates\base.html:166
+#: .\templates\base.html:50 .\templates\base.html:186
 msgid "transactions"
 msgstr "Transacciones"
 
-#: .\templates\base.html:47 .\templates\base.html:165
+#: .\templates\base.html:54
 msgid "categories"
-msgstr "Categorias"
+msgstr "Categorías"
 
-#: .\templates\base.html:48 .\templates\base.html:168
+#: .\templates\base.html:57 .\templates\base.html:188
 msgid "goals"
 msgstr "Metas"
 
-#: .\templates\base.html:49 .\templates\base.html:169
+#: .\templates\base.html:60 .\templates\base.html:189
 msgid "investments"
 msgstr "Inversiones"
 
-#: .\templates\base.html:50 .\templates\base.html:170
+#: .\templates\base.html:63 .\templates\base.html:190
 msgid "reports"
 msgstr "Reportes"
 
-#: .\templates\base.html:51 .\templates\base.html:171
+#: .\templates\base.html:66 .\templates\base.html:191
 msgid "settings"
 msgstr "Configuración"
 
-#: .\templates\base.html:151
+#: .\templates\base.html:167
 msgid "sign_out"
 msgstr "Cerrar sesión"
 
-#: .\templates\base.html:167
+#: .\templates\base.html:187
 msgid "budget"
 msgstr "Presupuesto"
