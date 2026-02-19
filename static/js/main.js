@@ -99,40 +99,76 @@ document.addEventListener('DOMContentLoaded', function () {
         const tabBtns = group.querySelectorAll('[data-pfm-tab-target]');
         const tabContents = document.querySelectorAll(`[data-pfm-tab-content]`);
 
+        const setActiveTab = (target) => {
+            // Update Buttons
+            tabBtns.forEach(b => {
+                const isActive = b.getAttribute('data-pfm-tab-target') === target;
+                if (isActive) {
+                    b.classList.add('bg-pfm-primary/10', 'text-pfm-primary', 'border-l-4', 'border-pfm-primary', 'font-semibold');
+                    b.classList.remove('text-pfm-text-light', 'font-medium');
+                } else {
+                    b.classList.remove('bg-pfm-primary/10', 'text-pfm-primary', 'border-l-4', 'border-pfm-primary', 'font-semibold');
+                    b.classList.add('text-pfm-text-light', 'font-medium');
+                }
+            });
+
+            // Update Content
+            tabContents.forEach(content => {
+                if (content.getAttribute('data-pfm-tab-content') === target) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+
+            // Store State (Session)
+            sessionStorage.setItem('activeTab-' + groupName, target);
+
+            // Update URL and Cookie if this is the category-type tab group (to support server-side persistence)
+            if (groupName === 'category-type') {
+                // Update URL Parameter
+                const url = new URL(window.location);
+                url.searchParams.set('tab', target);
+                window.history.replaceState({}, '', url);
+
+                // Set Cookie (Expires in 30 days)
+                const d = new Date();
+                d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
+                document.cookie = `pfm_last_category_tab=${target};expires=${d.toUTCString()};path=/`;
+            }
+
+            // Re-initialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        };
+
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const target = btn.getAttribute('data-pfm-tab-target');
-
-                // Update Buttons
-                tabBtns.forEach(b => {
-                    b.classList.remove('bg-pfm-primary/10', 'text-pfm-primary', 'border-l-4', 'border-pfm-primary', 'font-semibold');
-                    b.classList.add('text-pfm-text-light', 'font-medium');
-                });
-                btn.classList.add('bg-pfm-primary/10', 'text-pfm-primary', 'border-l-4', 'border-pfm-primary', 'font-semibold');
-                btn.classList.remove('text-pfm-text-light', 'font-medium');
-
-                // Update Content
-                tabContents.forEach(content => {
-                    if (content.getAttribute('data-pfm-tab-content') === target) {
-                        content.classList.remove('hidden');
-                    } else {
-                        // Only hide if it's part of the same conceptual group (we can refine this if needed)
-                        // For now, assume all data-pfm-tab-content on the page are related to this specific dashboard view
-                        content.classList.add('hidden');
-                    }
-                });
-
-                // Re-initialize icons if new content is shown
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
+                setActiveTab(target);
             });
         });
+
     });
 
     // Initialize Lucide Icons
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
+    }
+
+    // On-load URL sync for categories page (if server provided a tab but URL is missing it)
+    if (window.location.pathname.includes('/categories/')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('tab')) {
+            const activeTabBtn = document.querySelector('[data-pfm-tab-group="category-type"] .bg-pfm-primary\\/10');
+            if (activeTabBtn) {
+                const target = activeTabBtn.getAttribute('data-pfm-tab-target');
+                const url = new URL(window.location);
+                url.searchParams.set('tab', target);
+                window.history.replaceState({}, '', url);
+            }
+        }
     }
 
     // Theme Toggle Logic

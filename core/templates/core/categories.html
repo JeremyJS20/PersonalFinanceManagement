@@ -10,7 +10,7 @@
     <button id="create-group-btn"
         class="modal-open-btn flex items-center justify-center gap-2 bg-pfm-primary text-white font-bold rounded-lg px-5 py-2.5 shadow-lg shadow-pfm-primary/20 transition-all hover:bg-pfm-primary-hover hover:shadow-xl active:scale-95"
         data-pfm-modal-target="create-group-modal" data-pfm-bind-type="expenses"
-        data-pfm-bind-type-label="{% trans 'categories_expenses' %}">
+        data-pfm-bind-typelabel="{% trans 'categories_expenses' %}">
         <i data-lucide="folder-plus" class="w-5 h-5"></i>
         {% trans "categories_add_group" %}
     </button>
@@ -27,13 +27,13 @@
             </div>
             <nav class="flex flex-col gap-1" data-pfm-tab-group="category-type">
                 <button
-                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold transition-all bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary"
+                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all {% if active_tab == 'expenses' %}bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary font-semibold{% else %}text-pfm-text-light font-medium hover:bg-pfm-bg hover:text-pfm-text-dark{% endif %}"
                     data-pfm-tab-target="expenses" data-pfm-label="{% trans 'categories_expenses' %}">
                     <i data-lucide="trending-down" class="w-5 h-5"></i>
                     {% trans "categories_expenses" %}
                 </button>
                 <button
-                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-pfm-text-light transition-colors hover:bg-pfm-bg hover:text-pfm-text-dark"
+                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all {% if active_tab == 'income' %}bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary font-semibold{% else %}text-pfm-text-light font-medium hover:bg-pfm-bg hover:text-pfm-text-dark{% endif %}"
                     data-pfm-tab-target="income" data-pfm-label="{% trans 'categories_income' %}">
                     <i data-lucide="trending-up" class="w-5 h-5"></i>
                     {% trans "categories_income" %}
@@ -42,9 +42,10 @@
             <div class="mt-4 border-t border-pfm-border p-3">
                 <div class="rounded-lg bg-pfm-bg p-3">
                     <p class="text-xs font-medium text-pfm-text-light">{% trans "categories_total_categories" %}</p>
-                    <p class="text-xl font-bold text-pfm-text-dark">24</p>
+                    <p class="text-xl font-bold text-pfm-text-dark">{{ total_categories }}</p>
                     <div class="mt-2 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                        <div class="h-1.5 w-3/4 rounded-full bg-pfm-primary"></div>
+                        <div class="h-1.5 rounded-full bg-pfm-primary transition-all duration-500"
+                            style="width: {{ categories_progress }}%"></div>
                     </div>
                 </div>
             </div>
@@ -54,7 +55,7 @@
     <!-- Main Content: Category Groups -->
     <div class="flex-1 space-y-6">
         <!-- Expenses Content -->
-        <div data-pfm-tab-content="expenses" class="space-y-6">
+        <div data-pfm-tab-content="expenses" class="{% if active_tab != 'expenses' %}hidden {% endif %}space-y-6">
             {% if expenses_groups %}
             {% for group in expenses_groups %}
             <!-- Group Card -->
@@ -78,15 +79,16 @@
                         </button>
                         <button
                             class="modal-open-btn flex items-center gap-1 rounded-md bg-pfm-card border border-pfm-border px-3 py-1.5 text-xs font-bold text-pfm-text-dark hover:bg-pfm-bg shadow-sm transition-colors"
-                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}"
+                            data-pfm-bind-groupid="{{ group.id }}">
                             <i data-lucide="plus" class="w-4 h-4"></i>
                             {% trans "categories_add_category" %}
                         </button>
                     </div>
                 </div>
                 <div class="divide-y divide-pfm-border">
-                    {% if group.categories %}
-                    {% for category in group.categories %}
+                    {% if group.categories.all %}
+                    {% for category in group.categories.all %}
                     <!-- Category Item -->
                     <div
                         class="group flex items-center justify-between px-6 py-4 transition-colors hover:bg-pfm-primary/5">
@@ -121,11 +123,12 @@
                             class="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-pfm-bg text-pfm-text-light/30 shadow-inner">
                             <i data-lucide="inbox" class="w-8 h-8"></i>
                         </div>
-                        <p class="text-sm font-semibold text-pfm-text-light/70 uppercase tracking-wide">{% trans
-                            "categories_no_categories_in_group" %}</p>
+                        <p class="text-sm font-semibold text-pfm-text-light/70 uppercase tracking-wide">
+                            {% trans "categories_no_categories_in_group" %}</p>
                         <button
                             class="modal-open-btn mt-3 text-xs font-bold text-pfm-primary hover:text-pfm-primary-hover hover:underline transition-all"
-                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}"
+                            data-pfm-bind-groupid="{{ group.id }}">
                             + {% trans "categories_add_first_category" %}
                         </button>
                     </div>
@@ -158,8 +161,8 @@
             {% endif %}
         </div>
 
-        <!-- Income Content (Hidden by default) -->
-        <div data-pfm-tab-content="income" class="hidden space-y-6">
+        <!-- Income Content -->
+        <div data-pfm-tab-content="income" class="{% if active_tab != 'income' %}hidden {% endif %}space-y-6">
             {% if income_groups %}
             {% for group in income_groups %}
             <!-- Group Card -->
@@ -177,16 +180,22 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <button
+                            class="flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-green-600 transition-colors"
+                            aria-label="{% trans 'categories_edit_group' %}">
+                            <i data-lucide="edit-2" class="w-4 h-4"></i>
+                        </button>
+                        <button
                             class="modal-open-btn flex items-center gap-1 rounded-md bg-pfm-card border border-pfm-border px-3 py-1.5 text-xs font-bold text-pfm-text-dark hover:bg-pfm-bg shadow-sm transition-colors"
-                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}"
+                            data-pfm-bind-groupid="{{ group.id }}">
                             <i data-lucide="plus" class="w-4 h-4"></i>
                             {% trans "categories_add_category" %}
                         </button>
                     </div>
                 </div>
                 <div class="divide-y divide-pfm-border">
-                    {% if group.categories %}
-                    {% for category in group.categories %}
+                    {% if group.categories.all %}
+                    {% for category in group.categories.all %}
                     <div
                         class="group flex items-center justify-between px-6 py-4 transition-colors hover:bg-green-500/5">
                         <div class="flex items-center gap-4">
@@ -199,6 +208,18 @@
                                 <p class="text-sm font-semibold text-pfm-text-dark">{{ category.name }}</p>
                                 <p class="text-xs text-pfm-text-light">{{ category.description }}</p>
                             </div>
+                        </div>
+                        <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="text-pfm-text-light hover:text-green-600"
+                                aria-label="{% trans 'categories_edit_category' %}">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="text-pfm-text-light hover:text-pfm-danger"
+                                aria-label="{% trans 'categories_delete_category' %}">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <i data-lucide="grip-vertical" class="w-5 h-5 cursor-grab text-gray-300"
+                                aria-hidden="true"></i>
                         </div>
                     </div>
                     {% endfor %}
@@ -214,7 +235,8 @@
                         </p>
                         <button
                             class="modal-open-btn mt-3 text-xs font-bold text-green-600 hover:text-green-700 hover:underline transition-all"
-                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}"
+                            data-pfm-bind-groupid="{{ group.id }}">
                             + {% trans "categories_add_first_category" %}
                         </button>
                     </div>
@@ -274,16 +296,27 @@
                 </button>
             </div>
             <div class="p-6 overflow-y-auto max-h-[70vh]">
-                <form id="create-group-form" class="space-y-6">
-                    <input type="hidden" name="type" id="group-type-input" data-pfm-modal-bind="type" value="expenses">
+                <form id="create-group-form" method="POST" action="{% url 'category_group_create' %}" class="space-y-6">
+                    {% csrf_token %}
+                    <input type="hidden" name="transaction_type" id="group-type-input" data-pfm-modal-bind="type"
+                        value="expenses">
                     <div>
                         <label class="block text-sm font-semibold text-pfm-text-dark mb-2" for="group-name">
                             {% trans "categories_group_name_label" %}
                         </label>
                         <input
                             class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary focus:ring-2 focus:ring-pfm-primary/20 outline-none transition-all placeholder:text-pfm-text-light/50 font-medium"
-                            id="group-name" placeholder="{% trans 'categories_group_name_placeholder' %}" type="text"
-                            required>
+                            id="group-name" name="name" placeholder="{% trans 'categories_group_name_placeholder' %}"
+                            type="text" required autocomplete="off">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-pfm-text-dark mb-2" for="group-description">
+                            {% trans "categories_group_description_label" %}
+                        </label>
+                        <textarea
+                            class="pfm-input w-full px-4 py-3 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary focus:ring-2 focus:ring-pfm-primary/20 outline-none transition-all placeholder:text-pfm-text-light/50 font-medium"
+                            id="group-description" name="description"
+                            placeholder="{% trans 'categories_group_description_placeholder' %}" rows="2"></textarea>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-pfm-text-dark mb-3">
@@ -336,15 +369,17 @@
                     {% trans "categories_add_category_desc" %}
                 </p>
             </div>
-            <form id="add-category-form" class="px-8 py-4 space-y-6">
+            <form id="add-category-form" method="POST" action="{% url 'category_create' %}" class="px-8 py-4 space-y-6">
+                {% csrf_token %}
+                <input type="hidden" name="group" data-pfm-modal-bind="groupid">
                 <div class="flex flex-col gap-2">
                     <label class="text-sm font-bold text-pfm-text-dark" for="category-name">
                         {% trans "categories_category_name_label" %}
                     </label>
                     <input
                         class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 font-medium"
-                        id="category-name" placeholder="{% trans 'categories_category_name_placeholder' %}" type="text"
-                        required>
+                        id="category-name" name="name" placeholder="{% trans 'categories_category_name_placeholder' %}"
+                        type="text" required autocomplete="off">
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="text-sm font-bold text-pfm-text-dark" for="category-description">
@@ -352,8 +387,8 @@
                     </label>
                     <textarea
                         class="pfm-input w-full px-4 py-3 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 resize-none font-medium"
-                        id="category-description" placeholder="{% trans 'categories_description_placeholder' %}"
-                        rows="3"></textarea>
+                        id="category-description" name="description"
+                        placeholder="{% trans 'categories_description_placeholder' %}" rows="3"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="text-sm font-bold text-pfm-text-dark">
@@ -520,19 +555,42 @@
             });
         });
 
-        // Initialize with default tab
-        const initialTab = document.querySelector('.tab-btn.bg-pfm-primary\\/10');
+        // Initialize with server-provided tab
+        const currentTab = "{{ active_tab }}";
+        const initialTab = document.querySelector(`[data-pfm-tab-target="${currentTab}"]`);
+
         if (initialTab) {
             updateCreateButton(
                 initialTab.getAttribute('data-pfm-tab-target'),
-                initialTab.getAttribute('data-pfm-label')
+                initialTab.getAttribute('data-pfm-label') || initialTab.innerText.trim()
             );
         }
 
-        // Global Modal Opening Sync for Colors
+        // Global Modal Opening Sync for Colors and Form Reset
         document.addEventListener('click', (e) => {
             const btn = e.target.closest('.modal-open-btn');
-            if (btn && btn.getAttribute('data-pfm-modal-target') === 'create-group-modal') {
+            if (!btn) return;
+
+            const modalId = btn.getAttribute('data-pfm-modal-target');
+
+            // Handle Create Group Modal
+            if (modalId === 'create-group-modal') {
+                const form = document.getElementById('create-group-form');
+                if (form) {
+                    form.reset();
+                    // Reset icon highlights
+                    const options = document.querySelectorAll('#group-icon-grid .icon-option');
+                    options.forEach(opt => {
+                        if (opt.getAttribute('data-icon') === 'folder') {
+                            opt.classList.add('border-2', 'border-pfm-primary', 'bg-pfm-primary/5', 'text-pfm-primary');
+                            opt.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
+                        } else {
+                            opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                            opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
+                        }
+                    });
+                }
+
                 const target = btn.getAttribute('data-pfm-tab-target') || btn.getAttribute('data-pfm-bind-type');
                 if (typeBadge && target) {
                     typeBadge.classList.remove('hidden');
@@ -544,6 +602,60 @@
                         typeBadge.classList.remove('bg-green-500/10', 'text-green-600');
                     }
                 }
+            }
+
+            // Handle Add Category Modal
+            if (modalId === 'add-category-modal') {
+                const form = document.getElementById('add-category-form');
+                if (form) {
+                    form.reset();
+                    // Reset icon highlights
+                    const options = document.querySelectorAll('#category-icon-grid .icon-option');
+                    options.forEach(opt => {
+                        if (opt.getAttribute('data-icon') === 'tag') {
+                            opt.classList.add('border-2', 'border-pfm-primary', 'bg-pfm-primary/5', 'text-pfm-primary');
+                            opt.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
+                        } else {
+                            opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                            opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
+                        }
+                    });
+                }
+            }
+        });
+
+        // Form AJAX submission
+        const forms = ['create-group-form', 'add-category-form'];
+        forms.forEach(formId => {
+            const form = document.getElementById(formId);
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    const url = form.getAttribute('action');
+
+                    fetch(url, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                // Smoothly reload the page with current tab persisted
+                                const currentActiveTab = sessionStorage.getItem('activeTab-category-type') || 'expenses';
+                                window.location.href = window.location.pathname + '?tab=' + currentActiveTab;
+                            } else {
+                                alert(data.message || 'An error occurred');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An unexpected error occurred');
+                        });
+                });
             }
         });
     });

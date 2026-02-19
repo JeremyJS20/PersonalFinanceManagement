@@ -39,17 +39,12 @@ FinOrbit is a premium, modern Personal Finance Management (PFM) application buil
     python manage.py tailwind install
     ```
 
-## Database Configuration
-
-FinOrbit uses a smart configuration in `settings.py`:
-
--   **Local Mode (Default)**: If no database environment variables are set, it defaults to **SQLite**. No extra setup required.
--   **PostgreSQL Mode**: To use Postgres, create a `.env` file in the `financial_app` directory with:
+- **PostgreSQL Mode**: FinOrbit now uses PostgreSQL exclusively. To connect, create a `.env` file in the `financial_app` directory with:
     ```env
-    DB_NAME=financial_db
+    DB_NAME=postgres
     DB_USER=postgres
     DB_PASSWORD=your_password
-    DB_HOST=localhost
+    DB_HOST=db.hcvrphsngzewcjjqretl.supabase.co
     DB_PORT=5432
     ```
 
