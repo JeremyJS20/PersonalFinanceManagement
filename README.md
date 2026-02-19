@@ -44,7 +44,7 @@ FinOrbit is a premium, modern Personal Finance Management (PFM) application buil
     DB_NAME=postgres
     DB_USER=postgres
     DB_PASSWORD=your_password
-    DB_HOST=db.hcvrphsngzewcjjqretl.supabase.co
+    DB_HOST=your-project.supabase.co
     DB_PORT=5432
     ```
 
