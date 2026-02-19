@@ -17,3 +17,7 @@ yarn-error.log
 
 # Tailwind
 theme/static/css/dist/
+
+# Documentation
+project_context.md
+.cursorrules

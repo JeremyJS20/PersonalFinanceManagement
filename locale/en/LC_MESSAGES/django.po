@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 22:30+0000\n"
+"POT-Creation-Date: 2026-02-18 19:54-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,152 +12,475 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "create_account"
-msgstr "Create Account"
-
-msgid "join_finorbit"
-msgstr "Join FinOrbit today"
-
-msgid "already_have_account"
-msgstr "Already have an account?"
-
+#: .\core\forms.py:7
 msgid "First name"
 msgstr "First name"
 
-msgid "Last name"
-msgstr "Last name"
-
-msgid "Email"
-msgstr "Email address"
-
+#: .\core\forms.py:7 .\core\forms.py:8
 msgid "Required."
 msgstr "Required."
 
+#: .\core\forms.py:8
+msgid "Last name"
+msgstr "Last name"
+
+#: .\core\forms.py:9
+msgid "Email"
+msgstr "Email address"
+
+#: .\core\forms.py:9
 msgid "Required. Inform a valid email address."
 msgstr "Required. Please enter a valid email address."
 
-msgid "password_hints_label"
-msgstr "Consider this hint for your password:"
+# Categories Page Standardized Keys
+msgid "categories_title"
+msgstr "Categories Management"
 
-msgid "hint_8_chars"
-msgstr "At least 8 characters"
+msgid "categories_subtitle"
+msgstr "Organize your financial tracking with custom groups and categories."
 
-msgid "hint_number"
-msgstr "Include at least 1 number"
+msgid "categories_add_group"
+msgstr "Create Category Group"
 
-msgid "hint_special"
-msgstr "Include at least 1 special character"
+msgid "categories_transaction_type"
+msgstr "Transaction Type"
 
-msgid "hint_upper"
-msgstr "Include at least 1 uppercase"
+msgid "categories_expenses"
+msgstr "Expenses"
 
-msgid "transactions"
-msgstr "Transactions"
+msgid "categories_income"
+msgstr "Income"
 
-msgid "budget"
-msgstr "Budget"
+msgid "categories_total_categories"
+msgstr "Total Categories"
 
-msgid "goals"
-msgstr "Goals"
+msgid "categories_financial_expenses_group"
+msgstr "Financial Expenses"
 
-msgid "investments"
-msgstr "Investments"
+msgid "categories_essential_overhead_desc"
+msgstr "Essential fixed and variable overheads"
 
-msgid "reports"
-msgstr "Reports"
+msgid "categories_edit_group"
+msgstr "Edit Group"
 
-msgid "settings"
-msgstr "Settings"
+msgid "categories_add_category"
+msgstr "Add Category"
 
+msgid "categories_rent"
+msgstr "Rent"
+
+msgid "categories_rent_desc"
+msgstr "Fixed monthly housing cost"
+
+msgid "categories_edit_category"
+msgstr "Edit Category"
+
+msgid "categories_delete_category"
+msgstr "Delete Category"
+
+msgid "categories_close_modal"
+msgstr "Close Modal"
+
+msgid "categories_group_name_label"
+msgstr "Group Name"
+
+msgid "categories_group_name_placeholder"
+msgstr "e.g. Housing, Entertainment, Essentials"
+
+msgid "categories_select_icon"
+msgstr "Select Icon"
+
+# Icon Labels
+msgid "icon_folder"
+msgstr "Folder (Default)"
+
+msgid "icon_banknote"
+msgstr "Money/Banknote"
+
+msgid "icon_credit_card"
+msgstr "Credit Card"
+
+msgid "icon_wallet"
+msgstr "Wallet"
+
+msgid "icon_piggy_bank"
+msgstr "Savings/Piggy Bank"
+
+msgid "icon_coins"
+msgstr "Coins"
+
+msgid "icon_home"
+msgstr "Home/Housing"
+
+msgid "icon_shopping_cart"
+msgstr "Shopping"
+
+msgid "icon_utensils"
+msgstr "Food & Dining"
+
+msgid "icon_coffee"
+msgstr "Coffee & Drinks"
+
+msgid "icon_car"
+msgstr "Transport/Car"
+
+msgid "icon_heart"
+msgstr "Health/Personal"
+
+msgid "icon_tv"
+msgstr "Entertainment/TV"
+
+msgid "icon_book"
+msgstr "Education/Books"
+
+msgid "icon_gamepad"
+msgstr "Gaming"
+
+msgid "icon_music"
+msgstr "Music"
+
+msgid "icon_plane"
+msgstr "Travel/Flights"
+
+msgid "icon_briefcase"
+msgstr "Work/Business"
+
+msgid "icon_tag"
+msgstr "Category Tag"
+
+msgid "icon_gift"
+msgstr "Gifts & Donations"
+
+msgid "icon_dumbbell"
+msgstr "Fitness/Gym"
+
+msgid "icon_pill"
+msgstr "Medical/Pharmacy"
+
+msgid "icon_pizza"
+msgstr "Fast Food"
+
+msgid "icon_bus"
+msgstr "Public Transport"
+
+msgid "icon_star"
+msgstr "Favorite/Starred"
+
+msgid "icon_sparkles"
+msgstr "Special/Bonus"
+
+msgid "icon_ticket"
+msgstr "Tickets/Events"
+
+msgid "icon_plug"
+msgstr "Utilities/Electricity"
+
+msgid "icon_trash"
+msgstr "Waste/Other"
+
+msgid "icon_hammer"
+msgstr "Repairs/Maintenance"
+
+msgid "icon_apple"
+msgstr "Groceries/Fruit"
+
+msgid "icon_beer"
+msgstr "Bars/Nightlife"
+
+msgid "icon_film"
+msgstr "Movies/Cinema"
+
+msgid "icon_train"
+msgstr "Trains"
+
+msgid "icon_bike"
+msgstr "Cycling"
+
+msgid "icon_zap"
+msgstr "Energy/Bills"
+
+msgid "categories_cancel_btn"
+msgstr "Cancel"
+
+msgid "categories_create_group_btn"
+msgstr "Create Group"
+
+msgid "categories_adding_to_label"
+msgstr "Adding to:"
+
+msgid "categories_add_new_category_title"
+msgstr "Add New Category"
+
+msgid "categories_add_category_desc"
+msgstr "Create a new bucket to track your spending within this group."
+
+msgid "categories_category_name_label"
+msgstr "Category Name"
+
+msgid "categories_category_name_placeholder"
+msgstr "e.g., Subscriptions, Utilities, Dining Out"
+
+msgid "categories_description_label"
+msgstr "Description (Optional)"
+
+msgid "categories_description_placeholder"
+msgstr "Briefly describe what this category covers..."
+
+msgid "categories_active_income_group"
+msgstr "Active Income"
+
+msgid "categories_active_income_desc"
+msgstr "Primary earnings from work"
+
+msgid "categories_salary"
+msgstr "Salary"
+
+msgid "categories_salary_desc"
+msgstr "Monthly paychecks"
+
+msgid "categories_no_groups_title"
+msgstr "No Expense Groups Yet"
+
+msgid "categories_no_groups_desc"
+msgstr "Start by creating groups like 'Housing' or 'Food' to organize your spending."
+
+msgid "categories_no_income_groups_title"
+msgstr "No Income Groups Yet"
+
+msgid "categories_no_income_groups_desc"
+msgstr "Start by creating groups like 'Salary' or 'Side Hustle' to organize your earnings."
+
+msgid "categories_create_first_group"
+msgstr "Create your first group"
+
+msgid "categories_no_categories_in_group"
+msgstr "No categories in this group yet"
+
+msgid "categories_no_income_categories_in_group"
+msgstr "No income categories in this group yet"
+
+msgid "categories_add_first_category"
+msgstr "Add the first category"
+
+#: .\core\templates\core\dashboard.html:9
 msgid "hi"
 msgstr "Hi"
 
+#: .\core\templates\core\dashboard.html:10
 msgid "financial_health_overview"
 msgstr "Here's your financial health overview."
 
+#: .\core\templates\core\dashboard.html:16
+#: .\core\templates\core\dashboard.html:212
 msgid "add_expense"
 msgstr "Add Expense"
 
+#: .\core\templates\core\dashboard.html:25
 msgid "full_report"
 msgstr "Full Report"
 
+#: .\core\templates\core\dashboard.html:36
 msgid "net_worth"
 msgstr "Net Worth"
 
+#: .\core\templates\core\dashboard.html:41
 msgid "total_assets_liabilities"
 msgstr "Total Assets - Total Liabilities"
 
+#: .\core\templates\core\dashboard.html:57
 msgid "monthly_budget"
 msgstr "Monthly Budget"
 
+#: .\core\templates\core\dashboard.html:58
 msgid "days_left"
 msgstr "Days left"
 
+#: .\core\templates\core\dashboard.html:67
 msgid "budget_spent_percentage"
 msgstr "You have spent 49% of your budget"
 
+#: .\core\templates\core\dashboard.html:73
 msgid "spending_breakdown"
 msgstr "Spending Breakdown"
 
+#: .\core\templates\core\dashboard.html:106
 msgid "recent_activity"
 msgstr "Recent Activity"
 
-msgid "view_all"
-msgstr "View All"
-
+#: .\core\templates\core\dashboard.html:117
 msgid "date"
 msgstr "Date"
 
+#: .\core\templates\core\dashboard.html:118
 msgid "description"
 msgstr "Description"
 
+#: .\core\templates\core\dashboard.html:119
 msgid "category"
 msgstr "Category"
 
+#: .\core\templates\core\dashboard.html:120
 msgid "amount"
 msgstr "Amount"
 
+#: .\core\templates\core\dashboard.html:181
 msgid "add_new_expense"
 msgstr "Add New Expense"
 
+#: .\core\templates\core\dashboard.html:190
 msgid "close_modal"
 msgstr "Close modal"
 
+#: .\core\templates\core\dashboard.html:201
 msgid "eg_grocery_shopping"
 msgstr "e.g. Grocery Shopping"
 
+#: .\core\templates\core\login.html:27
 msgid "welcome_back"
 msgstr "Welcome Back"
 
+#: .\core\templates\core\login.html:28
 msgid "sign_in_subheader"
 msgstr "Sign in to manage your budget"
 
+#: .\core\templates\core\login.html:38
+msgid "invalid_credentials"
+msgstr "Invalid username or password."
+
+#: .\core\templates\core\login.html:40
 msgid "correct_errors"
 msgstr "Please correct the errors below."
 
+#: .\core\templates\core\login.html:47
 msgid "username"
 msgstr "Username"
 
+#: .\core\templates\core\login.html:51
 msgid "enter_username"
 msgstr "Enter your username"
 
+#: .\core\templates\core\login.html:56
 msgid "password"
 msgstr "Password"
 
+#: .\core\templates\core\login.html:63
 msgid "forgot_password"
 msgstr "Forgot?"
 
+#: .\core\templates\core\login.html:70 .\core\templates\core\signup.html:197
+#: .\core\templates\core\signup_backup.html:201
 msgid "sign_in"
 msgstr "Sign In"
 
+#: .\core\templates\core\login.html:74
 msgid "no_account"
 msgstr "Don't have an account?"
 
+#: .\core\templates\core\login.html:76 .\core\templates\core\signup.html:191
+#: .\core\templates\core\signup_backup.html:195
 msgid "sign_up"
 msgstr "Sign up"
 
+#: .\core\templates\core\signup.html:26
+#: .\core\templates\core\signup_backup.html:26
+msgid "create_account"
+msgstr "Create Account"
+
+#: .\core\templates\core\signup.html:27
+#: .\core\templates\core\signup_backup.html:27
+msgid "join_finorbit"
+msgstr "Join FinOrbit today"
+
+#: .\core\templates\core\signup.html:65
+#: .\core\templates\core\signup_backup.html:63
+msgid "password_hints_label"
+msgstr "Consider this hint for your password:"
+
+#: .\core\templates\core\signup.html:70
+#: .\core\templates\core\signup_backup.html:68
+msgid "hint_8_chars"
+msgstr "At least 8 characters"
+
+#: .\core\templates\core\signup.html:75
+#: .\core\templates\core\signup_backup.html:73
+msgid "hint_number"
+msgstr "Include at least 1 number"
+
+#: .\core\templates\core\signup.html:80
+#: .\core\templates\core\signup_backup.html:78
+msgid "hint_special"
+msgstr "Include at least 1 special character"
+
+#: .\core\templates\core\signup.html:85
+#: .\core\templates\core\signup_backup.html:83
+msgid "hint_upper"
+msgstr "Include at least 1 uppercase"
+
+#: .\core\templates\core\signup.html:195
+#: .\core\templates\core\signup_backup.html:199
+msgid "already_have_account"
+msgstr "Already have an account?"
+
+#: .\finance_project\settings.py:153
+msgid "English"
+msgstr ""
+
+#: .\finance_project\settings.py:154
+msgid "Spanish"
+msgstr ""
+
+#: .\templates\base.html:51
+msgid "nav_transactions"
+msgstr "Transactions"
+
+#: .\templates\base.html:52
+msgid "nav_budget"
+msgstr "Budget"
+
+#: .\templates\base.html:53
+msgid "nav_goals"
+msgstr "Goals"
+
+#: .\templates\base.html:54
+msgid "nav_investments"
+msgstr "Investments"
+
+#: .\templates\base.html:55
+msgid "nav_reports"
+msgstr "Reports"
+
+#: .\templates\base.html:56
+msgid "nav_settings"
+msgstr "Settings"
+
+#: .\templates\base.html:156
 msgid "sign_out"
 msgstr "Sign Out"
 
-msgid "invalid_credentials"
-msgstr "Invalid username or password."
+#: .\templates\base.html:169
+msgid "dashboard"
+msgstr ""
+
+#: .\templates\base.html:172
+msgid "transactions"
+msgstr "Transactions"
+
+#: .\templates\base.html:173
+msgid "budget"
+msgstr "Budget"
+
+#: .\templates\base.html:174
+msgid "goals"
+msgstr "Goals"
+
+#: .\templates\base.html:175
+msgid "investments"
+msgstr "Investments"
+
+#: .\templates\base.html:176
+msgid "reports"
+msgstr "Reports"
+
+#: .\templates\base.html:177
+msgid "settings"
+msgstr "Settings"

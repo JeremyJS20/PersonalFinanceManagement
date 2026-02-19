@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 22:30+0000\n"
+"POT-Creation-Date: 2026-02-18 19:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,155 +12,485 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "dashboard"
-msgstr "Panel"
-
-msgid "transactions"
-msgstr "Transacciones"
-
-msgid "budget"
-msgstr "Presupuesto"
-
-msgid "goals"
-msgstr "Metas"
-
-msgid "investments"
-msgstr "Inversiones"
-
-msgid "reports"
-msgstr "Reportes"
-
-msgid "settings"
-msgstr "Configuración"
-
-msgid "hi"
-msgstr "Hola"
-
-msgid "financial_health_overview"
-msgstr "Aquí está el resumen de tu salud financiera."
-
-msgid "add_expense"
-msgstr "Agregar Gasto"
-
-msgid "full_report"
-msgstr "Reporte Completo"
-
-msgid "net_worth"
-msgstr "Patrimonio Neto"
-
-msgid "total_assets_liabilities"
-msgstr "Activos Totales - Pasivos Totales"
-
-msgid "monthly_budget"
-msgstr "Presupuesto Mensual"
-
-msgid "days_left"
-msgstr "Días restantes"
-
-msgid "budget_spent_percentage"
-msgstr "Has gastado el 49% de tu presupuesto"
-
-msgid "spending_breakdown"
-msgstr "Desglose de Gastos"
-
-msgid "recent_activity"
-msgstr "Actividad Reciente"
-
-msgid "view_all"
-msgstr "Ver Todo"
-
-msgid "date"
-msgstr "Fecha"
-
-msgid "description"
-msgstr "Descripción"
-
-msgid "category"
-msgstr "Categoría"
-
-msgid "amount"
-msgstr "Monto"
-
-msgid "add_new_expense"
-msgstr "Agregar Nuevo Gasto"
-
-msgid "close_modal"
-msgstr "Cerrar modal"
-
-msgid "eg_grocery_shopping"
-msgstr "ej. Compras de Supermercado"
-
-msgid "welcome_back"
-msgstr "Bienvenido de nuevo"
-
-msgid "sign_in_subheader"
-msgstr "Inicia sesión para administrar tu presupuesto"
-
-msgid "correct_errors"
-msgstr "Por favor corrige los errores abajo."
-
-msgid "username"
-msgstr "Nombre de usuario"
-
-msgid "enter_username"
-msgstr "Ingresa tu usuario"
-
-msgid "password"
-msgstr "Contraseña"
-
-msgid "forgot_password"
-msgstr "¿Olvidaste?"
-
-msgid "sign_in"
-msgstr "Iniciar Sesión"
-
-msgid "no_account"
-msgstr "¿No tienes una cuenta?"
-
-msgid "sign_up"
-msgstr "Regístrate"
-
-msgid "sign_out"
-msgstr "Cerrar sesión"
-
-msgid "invalid_credentials"
-msgstr "Usuario o contraseña incorrectos."
-
-msgid "create_account"
-msgstr "Crear Cuenta"
-
-msgid "join_finorbit"
-msgstr "Únete a FinOrbit hoy"
-
-msgid "already_have_account"
-msgstr "¿Ya tienes cuenta?"
-
+#: .\core\forms.py:7
 msgid "First name"
 msgstr "Nombre"
 
-msgid "Last name"
-msgstr "Apellido"
-
-msgid "Email"
-msgstr "Correo electrónico"
-
+#: .\core\forms.py:7 .\core\forms.py:8
 msgid "Required."
 msgstr "Requerido."
 
+#: .\core\forms.py:8
+msgid "Last name"
+msgstr "Apellido"
+
+#: .\core\forms.py:9
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: .\core\forms.py:9
 msgid "Required. Inform a valid email address."
 msgstr "Requerido. Informe una dirección de correo válida."
 
+# Categories Page Standardized Keys
+msgid "categories_title"
+msgstr "Gestión de Categorías"
+
+msgid "categories_subtitle"
+msgstr "Organice su seguimiento financiero con grupos y categorías personalizados."
+
+msgid "categories_add_group"
+msgstr "Crear Grupo de Categorías"
+
+msgid "categories_transaction_type"
+msgstr "Tipo de Transacción"
+
+msgid "categories_expenses"
+msgstr "Gastos"
+
+msgid "categories_income"
+msgstr "Ingresos"
+
+msgid "categories_total_categories"
+msgstr "Total de Categorías"
+
+msgid "categories_financial_expenses_group"
+msgstr "Gastos Financieros"
+
+msgid "categories_essential_overhead_desc"
+msgstr "Gastos fijos y variables esenciales"
+
+msgid "categories_edit_group"
+msgstr "Editar Grupo"
+
+msgid "categories_add_category"
+msgstr "Añadir Categoría"
+
+msgid "categories_rent"
+msgstr "Alquiler"
+
+msgid "categories_rent_desc"
+msgstr "Costo fixo mensual de vivienda"
+
+msgid "categories_edit_category"
+msgstr "Editar Categoría"
+
+msgid "categories_delete_category"
+msgstr "Eliminar Categoría"
+
+msgid "categories_close_modal"
+msgstr "Cerrar Ventana"
+
+msgid "categories_group_name_label"
+msgstr "Nombre del Grupo"
+
+msgid "categories_group_name_placeholder"
+msgstr "ej. Vivienda, Entretenimiento, Fundamentales"
+
+msgid "categories_select_icon"
+msgstr "Seleccionar Icono"
+
+# Etiquetas de Iconos
+msgid "icon_folder"
+msgstr "Carpeta (Predeterminado)"
+
+msgid "icon_banknote"
+msgstr "Dinero/Billete"
+
+msgid "icon_credit_card"
+msgstr "Tarjeta de Crédito"
+
+msgid "icon_wallet"
+msgstr "Billetera"
+
+msgid "icon_piggy_bank"
+msgstr "Ahorros/Hucha"
+
+msgid "icon_coins"
+msgstr "Monedas"
+
+msgid "icon_home"
+msgstr "Inicio/Vivienda"
+
+msgid "icon_shopping_cart"
+msgstr "Compras"
+
+msgid "icon_utensils"
+msgstr "Comida y Cena"
+
+msgid "icon_coffee"
+msgstr "Café y Bebidas"
+
+msgid "icon_car"
+msgstr "Transporte/Coche"
+
+msgid "icon_heart"
+msgstr "Salud/Personal"
+
+msgid "icon_tv"
+msgstr "Entretenimiento/TV"
+
+msgid "icon_book"
+msgstr "Educación/Libros"
+
+msgid "icon_gamepad"
+msgstr "Juegos"
+
+msgid "icon_music"
+msgstr "Música"
+
+msgid "icon_plane"
+msgstr "Viajes/Vuelos"
+
+msgid "icon_briefcase"
+msgstr "Trabajo/Negocios"
+
+msgid "icon_tag"
+msgstr "Etiqueta de Categoría"
+
+msgid "icon_gift"
+msgstr "Regalos y Donaciones"
+
+msgid "icon_dumbbell"
+msgstr "Fitness/Gimnasio"
+
+msgid "icon_pill"
+msgstr "Médico/Farmacia"
+
+msgid "icon_pizza"
+msgstr "Comida Rápida"
+
+msgid "icon_bus"
+msgstr "Transporte Público"
+
+msgid "icon_star"
+msgstr "Favorito/Destacado"
+
+msgid "icon_sparkles"
+msgstr "Especial/Bonus"
+
+msgid "icon_ticket"
+msgstr "Entradas/Eventos"
+
+msgid "icon_plug"
+msgstr "Servicios/Electricidad"
+
+msgid "icon_trash"
+msgstr "Residuos/Otros"
+
+msgid "icon_hammer"
+msgstr "Reparaciones/Mantenimiento"
+
+msgid "icon_apple"
+msgstr "Comestibles/Fruta"
+
+msgid "icon_beer"
+msgstr "Bares/Vida Nocturna"
+
+msgid "icon_film"
+msgstr "Películas/Cine"
+
+msgid "icon_train"
+msgstr "Trenes"
+
+msgid "icon_bike"
+msgstr "Ciclismo"
+
+msgid "icon_zap"
+msgstr "Energía/Facturas"
+
+msgid "categories_cancel_btn"
+msgstr "Cancelar"
+
+msgid "categories_create_group_btn"
+msgstr "Crear Grupo"
+
+msgid "categories_adding_to_label"
+msgstr "Añadiendo a:"
+
+msgid "categories_add_new_category_title"
+msgstr "Añadir Nueva Categoría"
+
+msgid "categories_add_category_desc"
+msgstr "Cree un nuevo cubo para rastrear sus gastos dentro de este grupo."
+
+msgid "categories_category_name_label"
+msgstr "Nombre de la Categoría"
+
+msgid "categories_category_name_placeholder"
+msgstr "ej. Suscripciones, Servicios, Cenas"
+
+msgid "categories_description_label"
+msgstr "Descripción (Opcional)"
+
+msgid "categories_description_placeholder"
+msgstr "Describa brevemente lo que cubre esta categoría..."
+
+msgid "categories_active_income_group"
+msgstr "Ingresos Activos"
+
+msgid "categories_active_income_desc"
+msgstr "Ingresos principales del trabajo"
+
+msgid "categories_salary"
+msgstr "Salario"
+
+msgid "categories_salary_desc"
+msgstr "Sueldos mensuales"
+
+msgid "categories_no_groups_title"
+msgstr "Aún no hay grupos de gastos"
+
+msgid "categories_no_groups_desc"
+msgstr "Comience creando grupos como 'Vivienda' o 'Comida' para organizar sus gastos."
+
+msgid "categories_no_income_groups_title"
+msgstr "Aún no hay grupos de ingresos"
+
+msgid "categories_no_income_groups_desc"
+msgstr "Comience creando grupos como 'Salario' o 'Proyectos' para organizar sus ganancias."
+
+msgid "categories_create_first_group"
+msgstr "Crea tu primer grupo"
+
+msgid "categories_no_categories_in_group"
+msgstr "Aún no hay categorías en este grupo"
+
+msgid "categories_no_income_categories_in_group"
+msgstr "Aún no hay categorías de ingresos en este grupo"
+
+msgid "categories_add_first_category"
+msgstr "Añadir la primera categoría"
+
+msgid "categories_no_categories_title"
+msgstr "Este grupo está vacío"
+
+msgid "categories_no_categories_desc"
+msgstr "Añada su primera categoría para empezar el seguimiento."
+
+#: .\core\templates\core\dashboard.html:9
+msgid "hi"
+msgstr "Hola"
+
+#: .\core\templates\core\dashboard.html:10
+msgid "financial_health_overview"
+msgstr "Aquí está el resumen de tu salud financiera."
+
+#: .\core\templates\core\dashboard.html:16
+#: .\core\templates\core\dashboard.html:212
+msgid "add_expense"
+msgstr "Agregar Gasto"
+
+#: .\core\templates\core\dashboard.html:25
+msgid "full_report"
+msgstr "Reporte Completo"
+
+#: .\core\templates\core\dashboard.html:36
+msgid "net_worth"
+msgstr "Patrimonio Neto"
+
+#: .\core\templates\core\dashboard.html:41
+msgid "total_assets_liabilities"
+msgstr "Activos Totales - Pasivos Totales"
+
+#: .\core\templates\core\dashboard.html:57
+msgid "monthly_budget"
+msgstr "Presupuesto Mensual"
+
+#: .\core\templates\core\dashboard.html:58
+msgid "days_left"
+msgstr "Días restantes"
+
+#: .\core\templates\core\dashboard.html:67
+msgid "budget_spent_percentage"
+msgstr "Has gastado el 49% de tu presupuesto"
+
+#: .\core\templates\core\dashboard.html:73
+msgid "spending_breakdown"
+msgstr "Desglose de Gastos"
+
+#: .\core\templates\core\dashboard.html:106
+msgid "recent_activity"
+msgstr "Actividad Reciente"
+
+#: .\core\templates\core\dashboard.html:117
+msgid "date"
+msgstr "Fecha"
+
+#: .\core\templates\core\dashboard.html:118
+msgid "description"
+msgstr "Descripción"
+
+#: .\core\templates\core\dashboard.html:119
+msgid "category"
+msgstr "Categoría"
+
+#: .\core\templates\core\dashboard.html:120
+msgid "amount"
+msgstr "Monto"
+
+#: .\core\templates\core\dashboard.html:181
+msgid "add_new_expense"
+msgstr "Agregar Nuevo Gasto"
+
+#: .\core\templates\core\dashboard.html:190
+msgid "close_modal"
+msgstr "Cerrar modal"
+
+#: .\core\templates\core\dashboard.html:201
+msgid "eg_grocery_shopping"
+msgstr "ej. Compras de Supermercado"
+
+#: .\core\templates\core\login.html:27
+msgid "welcome_back"
+msgstr "Bienvenido de nuevo"
+
+#: .\core\templates\core\login.html:28
+msgid "sign_in_subheader"
+msgstr "Inicia sesión para administrar tu presupuesto"
+
+#: .\core\templates\core\login.html:38
+msgid "invalid_credentials"
+msgstr "Usuario o contraseña incorrectos."
+
+#: .\core\templates\core\login.html:40
+msgid "correct_errors"
+msgstr "Por favor corrige los errores abajo."
+
+#: .\core\templates\core\login.html:47
+msgid "username"
+msgstr "Nombre de usuario"
+
+#: .\core\templates\core\login.html:51
+msgid "enter_username"
+msgstr "Ingresa tu usuario"
+
+#: .\core\templates\core\login.html:56
+msgid "password"
+msgstr "Contraseña"
+
+#: .\core\templates\core\login.html:63
+msgid "forgot_password"
+msgstr "¿Olvidaste?"
+
+#: .\core\templates\core\login.html:70 .\core\templates\core\signup.html:197
+#: .\core\templates\core\signup_backup.html:201
+msgid "sign_in"
+msgstr "Iniciar Sesión"
+
+#: .\core\templates\core\login.html:74
+msgid "no_account"
+msgstr "¿No tienes una cuenta?"
+
+#: .\core\templates\core\login.html:76 .\core\templates\core\signup.html:191
+#: .\core\templates\core\signup_backup.html:195
+msgid "sign_up"
+msgstr "Regístrate"
+
+#: .\core\templates\core\signup.html:26
+#: .\core\templates\core\signup_backup.html:26
+msgid "create_account"
+msgstr "Crear Cuenta"
+
+#: .\core\templates\core\signup.html:27
+#: .\core\templates\core\signup_backup.html:27
+msgid "join_finorbit"
+msgstr "Únete a FinOrbit hoy"
+
+#: .\core\templates\core\signup.html:65
+#: .\core\templates\core\signup_backup.html:63
 msgid "password_hints_label"
 msgstr "Considera estos consejos para tu contraseña:"
 
+#: .\core\templates\core\signup.html:70
+#: .\core\templates\core\signup_backup.html:68
 msgid "hint_8_chars"
 msgstr "Al menos 8 caracteres"
 
+#: .\core\templates\core\signup.html:75
+#: .\core\templates\core\signup_backup.html:73
 msgid "hint_number"
 msgstr "Incluye al menos 1 número"
 
+#: .\core\templates\core\signup.html:80
+#: .\core\templates\core\signup_backup.html:78
 msgid "hint_special"
 msgstr "Incluye al menos 1 carácter especial"
 
+#: .\core\templates\core\signup.html:85
+#: .\core\templates\core\signup_backup.html:83
 msgid "hint_upper"
 msgstr "Incluye al menos 1 mayúscula"
+
+#: .\core\templates\core\signup.html:195
+#: .\core\templates\core\signup_backup.html:199
+msgid "already_have_account"
+msgstr "¿Ya tienes cuenta?"
+
+#: .\finance_project\settings.py:153
+msgid "English"
+msgstr "Inglés"
+
+#: .\finance_project\settings.py:154
+msgid "Spanish"
+msgstr "Español"
+
+#: .\templates\base.html:51
+msgid "nav_transactions"
+msgstr "Transacciones"
+
+#: .\templates\base.html:52
+msgid "nav_budget"
+msgstr "Presupuesto"
+
+#: .\templates\base.html:53
+msgid "nav_goals"
+msgstr "Metas"
+
+#: .\templates\base.html:54
+msgid "nav_investments"
+msgstr "Inversiones"
+
+#: .\templates\base.html:55
+msgid "nav_reports"
+msgstr "Reportes"
+
+#: .\templates\base.html:56
+msgid "nav_settings"
+msgstr "Configuración"
+
+#: .\templates\base.html:156
+msgid "sign_out"
+msgstr "Cerrar sesión"
+
+#: .\templates\base.html:169
+msgid "dashboard"
+msgstr "Panel"
+
+#: .\templates\base.html:172
+msgid "transactions"
+msgstr "Transacciones"
+
+#: .\templates\base.html:169
+msgid "categories"
+msgstr "Categorias"
+
+#: .\templates\base.html:173
+msgid "budget"
+msgstr "Presupuesto"
+
+#: .\templates\base.html:174
+msgid "goals"
+msgstr "Metas"
+
+#: .\templates\base.html:175
+msgid "investments"
+msgstr "Inversiones"
+
+#: .\templates\base.html:176
+msgid "reports"
+msgstr "Reportes"
+
+#: .\templates\base.html:177
+msgid "settings"
+msgstr "Configuración"

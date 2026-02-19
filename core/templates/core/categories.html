@@ -1,0 +1,551 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+        <h1 class="text-3xl font-black text-pfm-text-dark tracking-tight">{% trans "categories_title" %}</h1>
+        <p class="mt-1 text-pfm-text-light">{% trans "categories_subtitle" %}</p>
+    </div>
+    <button id="create-group-btn"
+        class="modal-open-btn flex items-center justify-center gap-2 bg-pfm-primary text-white font-bold rounded-lg px-5 py-2.5 shadow-lg shadow-pfm-primary/20 transition-all hover:bg-pfm-primary-hover hover:shadow-xl active:scale-95"
+        data-pfm-modal-target="create-group-modal" data-pfm-bind-type="expenses"
+        data-pfm-bind-type-label="{% trans 'categories_expenses' %}">
+        <i data-lucide="folder-plus" class="w-5 h-5"></i>
+        {% trans "categories_add_group" %}
+    </button>
+</div>
+
+<div class="flex flex-col gap-8 lg:flex-row">
+    <!-- Sidebar Navigation -->
+    <aside class="w-full lg:w-64 shrink-0">
+        <div class="rounded-xl border border-pfm-border bg-pfm-card p-2 shadow-sm">
+            <div class="mb-2 px-3 pt-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-pfm-text-light">
+                    {% trans "categories_transaction_type" %}
+                </span>
+            </div>
+            <nav class="flex flex-col gap-1" data-pfm-tab-group="category-type">
+                <button
+                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold transition-all bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary"
+                    data-pfm-tab-target="expenses" data-pfm-label="{% trans 'categories_expenses' %}">
+                    <i data-lucide="trending-down" class="w-5 h-5"></i>
+                    {% trans "categories_expenses" %}
+                </button>
+                <button
+                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-pfm-text-light transition-colors hover:bg-pfm-bg hover:text-pfm-text-dark"
+                    data-pfm-tab-target="income" data-pfm-label="{% trans 'categories_income' %}">
+                    <i data-lucide="trending-up" class="w-5 h-5"></i>
+                    {% trans "categories_income" %}
+                </button>
+            </nav>
+            <div class="mt-4 border-t border-pfm-border p-3">
+                <div class="rounded-lg bg-pfm-bg p-3">
+                    <p class="text-xs font-medium text-pfm-text-light">{% trans "categories_total_categories" %}</p>
+                    <p class="text-xl font-bold text-pfm-text-dark">24</p>
+                    <div class="mt-2 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                        <div class="h-1.5 w-3/4 rounded-full bg-pfm-primary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content: Category Groups -->
+    <div class="flex-1 space-y-6">
+        <!-- Expenses Content -->
+        <div data-pfm-tab-content="expenses" class="space-y-6">
+            {% if expenses_groups %}
+            {% for group in expenses_groups %}
+            <!-- Group Card -->
+            <section class="rounded-xl border border-pfm-border bg-pfm-card shadow-sm overflow-hidden">
+                <div class="flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50 px-6 py-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-pfm-primary/10 text-pfm-primary">
+                            <i data-lucide="{{ group.icon|default:'folder' }}" class="w-5 h-5 font-bold"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-pfm-text-dark">{{ group.name }}</h3>
+                            <p class="text-xs text-pfm-text-light">{{ group.description|default:'' }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-text-dark transition-colors"
+                            aria-label="{% trans 'categories_edit_group' %}">
+                            <i data-lucide="edit-2" class="w-4 h-4"></i>
+                        </button>
+                        <button
+                            class="modal-open-btn flex items-center gap-1 rounded-md bg-pfm-card border border-pfm-border px-3 py-1.5 text-xs font-bold text-pfm-text-dark hover:bg-pfm-bg shadow-sm transition-colors"
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            {% trans "categories_add_category" %}
+                        </button>
+                    </div>
+                </div>
+                <div class="divide-y divide-pfm-border">
+                    {% if group.categories %}
+                    {% for category in group.categories %}
+                    <!-- Category Item -->
+                    <div
+                        class="group flex items-center justify-between px-6 py-4 transition-colors hover:bg-pfm-primary/5">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-pfm-bg text-pfm-text-light transition-colors group-hover:bg-pfm-card group-hover:shadow-sm">
+                                <i data-lucide="{{ category.icon|default:'tag' }}" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-pfm-text-dark">{{ category.name }}</p>
+                                <p class="text-xs text-pfm-text-light">{{ category.description }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="text-pfm-text-light hover:text-pfm-primary"
+                                aria-label="{% trans 'categories_edit_category' %}">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="text-pfm-text-light hover:text-pfm-danger"
+                                aria-label="{% trans 'categories_delete_category' %}">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <i data-lucide="grip-vertical" class="w-5 h-5 cursor-grab text-gray-300"
+                                aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <!-- Empty State for Category Group -->
+                    <div class="flex flex-col items-center justify-center py-12 text-center bg-pfm-bg/20">
+                        <div
+                            class="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-pfm-bg text-pfm-text-light/30 shadow-inner">
+                            <i data-lucide="inbox" class="w-8 h-8"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-pfm-text-light/70 uppercase tracking-wide">{% trans
+                            "categories_no_categories_in_group" %}</p>
+                        <button
+                            class="modal-open-btn mt-3 text-xs font-bold text-pfm-primary hover:text-pfm-primary-hover hover:underline transition-all"
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            + {% trans "categories_add_first_category" %}
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+            {% endfor %}
+            {% else %}
+            <!-- Empty State for Categories Page (No Groups) -->
+            <div
+                class="flex flex-col items-center justify-center py-20 px-6 text-center rounded-2xl border-2 border-dashed border-pfm-border bg-pfm-card/50 backdrop-blur-sm shadow-sm group hover:border-pfm-primary/30 transition-all duration-300">
+                <div
+                    class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-pfm-primary/5 text-pfm-primary shadow-lg shadow-pfm-primary/10 group-hover:scale-110 transition-transform duration-300">
+                    <i data-lucide="layers" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-xl font-black text-pfm-text-dark mb-2">
+                    {% trans "categories_no_groups_title" %}
+                </h3>
+                <p class="text-pfm-text-light max-w-sm mb-8 leading-relaxed font-medium">
+                    {% trans "categories_no_groups_desc" %}
+                </p>
+                <button
+                    class="modal-open-btn flex items-center gap-2 rounded-xl bg-pfm-primary px-8 py-3 text-sm font-bold text-white shadow-xl shadow-pfm-primary/20 hover:bg-pfm-primary-hover hover:shadow-2xl active:scale-95 transition-all"
+                    data-pfm-modal-target="create-group-modal" data-pfm-bind-type="expenses"
+                    data-pfm-bind-typelabel="{% trans 'categories_expenses' %}">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                    {% trans "categories_create_first_group" %}
+                </button>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Income Content (Hidden by default) -->
+        <div data-pfm-tab-content="income" class="hidden space-y-6">
+            {% if income_groups %}
+            {% for group in income_groups %}
+            <!-- Group Card -->
+            <section class="rounded-xl border border-pfm-border bg-pfm-card shadow-sm overflow-hidden">
+                <div class="flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50 px-6 py-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10 text-green-600">
+                            <i data-lucide="{{ group.icon|default:'folder' }}" class="w-5 h-5 font-bold"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-pfm-text-dark">{{ group.name }}</h3>
+                            <p class="text-xs text-pfm-text-light">{{ group.description|default:'' }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="modal-open-btn flex items-center gap-1 rounded-md bg-pfm-card border border-pfm-border px-3 py-1.5 text-xs font-bold text-pfm-text-dark hover:bg-pfm-bg shadow-sm transition-colors"
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            {% trans "categories_add_category" %}
+                        </button>
+                    </div>
+                </div>
+                <div class="divide-y divide-pfm-border">
+                    {% if group.categories %}
+                    {% for category in group.categories %}
+                    <div
+                        class="group flex items-center justify-between px-6 py-4 transition-colors hover:bg-green-500/5">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-pfm-bg text-pfm-text-light">
+                                <i data-lucide="{{ category.icon|default:'banknote' }}"
+                                    class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-pfm-text-dark">{{ category.name }}</p>
+                                <p class="text-xs text-pfm-text-light">{{ category.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <!-- Empty State for Category Group -->
+                    <div class="flex flex-col items-center justify-center py-12 text-center bg-green-500/5">
+                        <div
+                            class="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-pfm-bg text-green-600/30 shadow-inner">
+                            <i data-lucide="inbox" class="w-8 h-8"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-pfm-text-light/70 uppercase tracking-wide">
+                            {% trans "categories_no_income_categories_in_group" %}
+                        </p>
+                        <button
+                            class="modal-open-btn mt-3 text-xs font-bold text-green-600 hover:text-green-700 hover:underline transition-all"
+                            data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}">
+                            + {% trans "categories_add_first_category" %}
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+            {% endfor %}
+            {% else %}
+            <!-- Empty State for Categories Page (No Groups) -->
+            <div
+                class="flex flex-col items-center justify-center py-20 px-6 text-center rounded-2xl border-2 border-dashed border-pfm-border bg-pfm-card/50 backdrop-blur-sm shadow-sm group hover:border-green-500/30 transition-all duration-300">
+                <div
+                    class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-green-500/5 text-green-600 shadow-lg shadow-green-500/10 group-hover:scale-110 transition-transform duration-300">
+                    <i data-lucide="layers" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-xl font-black text-pfm-text-dark mb-2">
+                    {% trans "categories_no_income_groups_title" %}
+                </h3>
+                <p class="text-pfm-text-light max-w-sm mb-8 leading-relaxed font-medium">
+                    {% trans "categories_no_income_groups_desc" %}
+                </p>
+                <button
+                    class="modal-open-btn flex items-center gap-2 rounded-xl bg-green-600 px-8 py-3 text-sm font-bold text-white shadow-xl shadow-green-500/20 hover:bg-green-700 hover:shadow-2xl active:scale-95 transition-all"
+                    data-pfm-modal-target="create-group-modal" data-pfm-bind-type="income"
+                    data-pfm-bind-typelabel="{% trans 'categories_income' %}">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                    {% trans "categories_create_first_group" %}
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Create Category Group -->
+<div id="create-group-modal" tabindex="-1" aria-hidden="true"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm"
+    role="dialog" aria-modal="true" aria-labelledby="modal-title-group">
+    <div class="relative p-4 w-full max-w-[560px] max-h-full">
+        <!-- Modal content -->
+        <div
+            class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden flex flex-col transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
+            <div class="flex items-center justify-between border-b border-pfm-border px-6 py-4">
+                <div class="flex flex-col">
+                    <span id="group-type-badge" data-pfm-modal-bind="typelabel"
+                        class="hidden px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider w-fit mb-1">
+                        {% trans "categories_expenses" %}
+                    </span>
+                    <h2 id="modal-title-group" class="text-xl font-bold text-pfm-text-dark">
+                        {% trans "categories_add_group" %}
+                    </h2>
+                </div>
+                <button type="button"
+                    class="modal-close-btn text-pfm-text-light hover:text-pfm-text-dark transition-colors"
+                    aria-label="{% trans 'categories_close_modal' %}">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[70vh]">
+                <form id="create-group-form" class="space-y-6">
+                    <input type="hidden" name="type" id="group-type-input" data-pfm-modal-bind="type" value="expenses">
+                    <div>
+                        <label class="block text-sm font-semibold text-pfm-text-dark mb-2" for="group-name">
+                            {% trans "categories_group_name_label" %}
+                        </label>
+                        <input
+                            class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary focus:ring-2 focus:ring-pfm-primary/20 outline-none transition-all placeholder:text-pfm-text-light/50 font-medium"
+                            id="group-name" placeholder="{% trans 'categories_group_name_placeholder' %}" type="text"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-pfm-text-dark mb-3">
+                            {% trans "categories_select_icon" %}
+                        </label>
+                        <input type="hidden" name="icon" id="group-icon-input" value="folder">
+                        <div id="group-icon-grid"
+                            class="grid grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1 custom-scrollbar">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flex items-center justify-end gap-3 p-6 bg-pfm-bg/50 border-t border-pfm-border">
+                <button type="button"
+                    class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                    {% trans "categories_cancel_btn" %}
+                </button>
+                <button type="submit" form="create-group-form"
+                    class="px-5 py-2.5 rounded-lg bg-pfm-primary text-white font-semibold hover:bg-pfm-primary/90 shadow-md shadow-pfm-primary/20 transition-all">
+                    {% trans "categories_create_group_btn" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Add Category -->
+<div id="add-category-modal" tabindex="-1" aria-hidden="true"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm"
+    role="dialog" aria-modal="true" aria-labelledby="modal-title-category">
+    <div class="relative p-4 w-full max-w-[480px] max-h-full">
+        <!-- Modal content -->
+        <div
+            class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
+            <div class="px-8 pt-8 pb-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-pfm-primary/80 text-xs font-bold uppercase tracking-wider">
+                        {% trans "categories_adding_to_label" %}
+                    </span>
+                    <span id="target-group-name" data-pfm-modal-bind="group"
+                        class="bg-pfm-primary/10 text-pfm-primary px-2 py-0.5 rounded text-xs font-bold">
+                        {% trans "categories_financial_expenses_group" %}
+                    </span>
+                </div>
+                <h2 id="modal-title-category" class="text-pfm-text-dark text-2xl font-black tracking-tight">
+                    {% trans "categories_add_new_category_title" %}
+                </h2>
+                <p class="text-pfm-text-light text-sm mt-1">
+                    {% trans "categories_add_category_desc" %}
+                </p>
+            </div>
+            <form id="add-category-form" class="px-8 py-4 space-y-6">
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-bold text-pfm-text-dark" for="category-name">
+                        {% trans "categories_category_name_label" %}
+                    </label>
+                    <input
+                        class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 font-medium"
+                        id="category-name" placeholder="{% trans 'categories_category_name_placeholder' %}" type="text"
+                        required>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-bold text-pfm-text-dark" for="category-description">
+                        {% trans "categories_description_label" %}
+                    </label>
+                    <textarea
+                        class="pfm-input w-full px-4 py-3 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 resize-none font-medium"
+                        id="category-description" placeholder="{% trans 'categories_description_placeholder' %}"
+                        rows="3"></textarea>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-bold text-pfm-text-dark">
+                        {% trans "categories_select_icon" %}
+                    </label>
+                    <input type="hidden" name="icon" id="category-icon-input" value="tag">
+                    <div id="category-icon-grid"
+                        class="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1 custom-scrollbar">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </form>
+            <div class="px-8 py-6 bg-pfm-bg/50 border-t border-pfm-border flex items-center justify-end gap-3">
+                <button type="button"
+                    class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                    {% trans "categories_cancel_btn" %}
+                </button>
+                <button type="submit" form="add-category-form"
+                    class="px-8 h-11 rounded-lg bg-pfm-primary text-white text-sm font-bold shadow-lg shadow-pfm-primary/20 hover:bg-pfm-primary/90 transition-all">
+                    {% trans "categories_add_category" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ICON_CONFIG = {
+            group: [
+                { name: 'folder', label: '{% trans "icon_folder" %}' },
+                { name: 'banknote', label: '{% trans "icon_banknote" %}' },
+                { name: 'credit-card', label: '{% trans "icon_credit_card" %}' },
+                { name: 'wallet', label: '{% trans "icon_wallet" %}' },
+                { name: 'piggy-bank', label: '{% trans "icon_piggy_bank" %}' },
+                { name: 'coins', label: '{% trans "icon_coins" %}' },
+                { name: 'home', label: '{% trans "icon_home" %}' },
+                { name: 'shopping-cart', label: '{% trans "icon_shopping_cart" %}' },
+                { name: 'utensils', label: '{% trans "icon_utensils" %}' },
+                { name: 'coffee', label: '{% trans "icon_coffee" %}' },
+                { name: 'car', label: '{% trans "icon_car" %}' },
+                { name: 'heart', label: '{% trans "icon_heart" %}' },
+                { name: 'tv', label: '{% trans "icon_tv" %}' },
+                { name: 'book', label: '{% trans "icon_book" %}' },
+                { name: 'gamepad', label: '{% trans "icon_gamepad" %}' },
+                { name: 'music', label: '{% trans "icon_music" %}' },
+                { name: 'plane', label: '{% trans "icon_plane" %}' },
+                { name: 'briefcase', label: '{% trans "icon_briefcase" %}' }
+            ],
+            category: [
+                { name: 'tag', label: '{% trans "icon_tag" %}' },
+                { name: 'gift', label: '{% trans "icon_gift" %}' },
+                { name: 'dumbbell', label: '{% trans "icon_dumbbell" %}' },
+                { name: 'pill', label: '{% trans "icon_pill" %}' },
+                { name: 'pizza', label: '{% trans "icon_pizza" %}' },
+                { name: 'bus', label: '{% trans "icon_bus" %}' },
+                { name: 'star', label: '{% trans "icon_star" %}' },
+                { name: 'sparkles', label: '{% trans "icon_sparkles" %}' },
+                { name: 'ticket', label: '{% trans "icon_ticket" %}' },
+                { name: 'plug', label: '{% trans "icon_plug" %}' },
+                { name: 'trash-2', label: '{% trans "icon_trash" %}' },
+                { name: 'hammer', label: '{% trans "icon_hammer" %}' },
+                { name: 'apple', label: '{% trans "icon_apple" %}' },
+                { name: 'beer', label: '{% trans "icon_beer" %}' },
+                { name: 'film', label: '{% trans "icon_film" %}' },
+                { name: 'train', label: '{% trans "icon_train" %}' },
+                { name: 'bike', label: '{% trans "icon_bike" %}' },
+                { name: 'zap', label: '{% trans "icon_zap" %}' }
+            ]
+        };
+
+        function renderIconGrid(containerId, icons, targetInputId, defaultIcon) {
+            const grid = document.getElementById(containerId);
+            if (!grid) return;
+
+            grid.innerHTML = icons.map(icon => {
+                const isActive = icon.name === defaultIcon;
+                const activeClasses = 'border-2 border-pfm-primary bg-pfm-primary/5 text-pfm-primary';
+                const inactiveClasses = 'border border-pfm-border hover:border-pfm-primary/50 hover:bg-pfm-bg text-pfm-text-light';
+
+                return `
+                    <button type="button" 
+                        class="icon-option flex items-center justify-center aspect-square rounded-lg transition-all ${isActive ? activeClasses : inactiveClasses}"
+                        data-icon="${icon.name}" 
+                        data-pfm-icon-target="${targetInputId}" 
+                        aria-label="${icon.label}">
+                        <i data-lucide="${icon.name}" class="w-5 h-5"></i>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Initialize grids
+        renderIconGrid('group-icon-grid', ICON_CONFIG.group, 'group-icon-input', 'folder');
+        renderIconGrid('category-icon-grid', ICON_CONFIG.category, 'category-icon-input', 'tag');
+
+        // Re-initialize Lucide icons
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+
+        // Event Delegation for Icon selection
+        document.addEventListener('click', (e) => {
+            const opt = e.target.closest('.icon-option');
+            if (!opt) return;
+
+            const targetInputId = opt.getAttribute('data-pfm-icon-target');
+            const targetInput = document.getElementById(targetInputId);
+            const iconName = opt.getAttribute('data-icon');
+
+            if (targetInput) {
+                targetInput.value = iconName;
+
+                // Update UI: sibling buttons in the same grid
+                const siblings = opt.parentElement.querySelectorAll('.icon-option');
+                siblings.forEach(s => {
+                    s.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                    s.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
+                });
+
+                opt.classList.add('border-2', 'border-pfm-primary', 'bg-pfm-primary/5', 'text-pfm-primary');
+                opt.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
+            }
+        });
+        // Tab switching augmentation for Create Group button
+        const createGroupBtn = document.getElementById('create-group-btn');
+        const tabBtns = document.querySelectorAll('[data-pfm-tab-target]');
+        const typeBadge = document.getElementById('group-type-badge');
+
+        function updateCreateButton(target, label) {
+            if (!createGroupBtn) return;
+
+            createGroupBtn.setAttribute('data-pfm-bind-type', target);
+            createGroupBtn.setAttribute('data-pfm-bind-typelabel', label);
+
+            // Sync button color with type for premium feel
+            if (target === 'income') {
+                createGroupBtn.classList.remove('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
+                createGroupBtn.classList.add('bg-green-600', 'shadow-green-500/20', 'hover:bg-green-700');
+            } else {
+                createGroupBtn.classList.add('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
+                createGroupBtn.classList.remove('bg-green-600', 'shadow-green-500/20', 'hover:bg-green-700');
+            }
+        }
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-pfm-tab-target');
+                const label = btn.getAttribute('data-pfm-label') || btn.innerText.trim();
+
+                updateCreateButton(target, label);
+
+                // Show type badge in modal and sync colors
+                if (typeBadge) {
+                    typeBadge.classList.remove('hidden');
+                    if (target === 'income') {
+                        typeBadge.classList.remove('bg-pfm-primary/10', 'text-pfm-primary');
+                        typeBadge.classList.add('bg-green-500/10', 'text-green-600');
+                    } else {
+                        typeBadge.classList.add('bg-pfm-primary/10', 'text-pfm-primary');
+                        typeBadge.classList.remove('bg-green-500/10', 'text-green-600');
+                    }
+                }
+            });
+        });
+
+        // Initialize with default tab
+        const initialTab = document.querySelector('.tab-btn.bg-pfm-primary\\/10');
+        if (initialTab) {
+            updateCreateButton(
+                initialTab.getAttribute('data-pfm-tab-target'),
+                initialTab.getAttribute('data-pfm-label')
+            );
+        }
+
+        // Global Modal Opening Sync for Colors
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.modal-open-btn');
+            if (btn && btn.getAttribute('data-pfm-modal-target') === 'create-group-modal') {
+                const target = btn.getAttribute('data-pfm-tab-target') || btn.getAttribute('data-pfm-bind-type');
+                if (typeBadge && target) {
+                    typeBadge.classList.remove('hidden');
+                    if (target === 'income') {
+                        typeBadge.classList.remove('bg-pfm-primary/10', 'text-pfm-primary');
+                        typeBadge.classList.add('bg-green-500/10', 'text-green-600');
+                    } else {
+                        typeBadge.classList.add('bg-pfm-primary/10', 'text-pfm-primary');
+                        typeBadge.classList.remove('bg-green-500/10', 'text-green-600');
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
