@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 venv/
 .env
+.idea
 
 # Django
 #db.sqlite3
@@ -21,3 +22,4 @@ theme/static/css/dist/
 # Documentation
 project_context.md
 .cursorrules
+stitch_assets

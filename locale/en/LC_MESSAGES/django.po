@@ -363,18 +363,6 @@ msgstr "Cycling"
 msgid "icon_zap"
 msgstr "Energy/Bills"
 
-#: .\core\templates\core\categories.html:598
-#, fuzzy
-#| msgid "categories_edit_group"
-msgid "categories_edit_group_title"
-msgstr "Edit Group"
-
-#: .\core\templates\core\categories.html:599
-#, fuzzy
-#| msgid "categories_cancel_btn"
-msgid "categories_save_changes_btn"
-msgstr "Cancel"
-
 #: .\core\templates\core\dashboard.html:9
 msgid "hi"
 msgstr "Hi"
@@ -577,3 +565,28 @@ msgstr "Sign Out"
 #: .\templates\base.html:187
 msgid "budget"
 msgstr "Budget"
+
+msgid "categories_delete_confirm_msg"
+msgstr "Are you sure you want to delete category"
+
+msgid "categories_edit_group_title"
+msgstr "Edit Group"
+
+msgid "categories_save_changes_btn"
+msgstr "Save Changes"
+
+msgid "categories_edit_category_desc"
+msgstr "Edit the details of this category."
+
+msgid "categories_delete_modal_title"
+msgstr "Delete Category"
+
+msgid "categories_delete_modal_msg"
+msgstr "Are you sure you want to delete category"
+
+msgid "categories_delete_modal_warning"
+msgstr "This action cannot be undone and all data related to this category might be permanently deleted."
+
+msgid "categories_delete_btn"
+msgstr "Delete"
+

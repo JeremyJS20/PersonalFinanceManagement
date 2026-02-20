@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LoginView
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
@@ -152,6 +152,71 @@ class CategoryCreateView(LoginRequiredMixin, CategoriesContextMixin, CreateView)
         if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
         return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('categories')
+
+class CategoryUpdateView(LoginRequiredMixin, CategoriesContextMixin, UpdateView):
+    model = Category
+    fields = ['group', 'name', 'icon', 'description']
+    template_name = 'core/categories.html'
+    
+    def get_queryset(self):
+        # Ensure user can only update their own categories
+        return super().get_queryset().filter(group__user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_categories_context(self.request.user))
+        return context
+
+    def form_valid(self, form):
+        # Ensure the group belongs to the user
+        if form.instance.group.user != self.request.user:
+            return JsonResponse({'status': 'error', 'message': 'Unauthorized'}, status=403)
+        
+        self.object = form.save()
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'status': 'success',
+                'category': {
+                    'id': self.object.id,
+                    'name': self.object.name,
+                    'icon': self.object.icon,
+                    'group_id': self.object.group.id,
+                }
+            })
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('categories')
+
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
+    model = Category
+    
+    def get_queryset(self):
+        # Ensure user can only delete their own categories
+        return super().get_queryset().filter(group__user=self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST request for deletion, often used by AJAX/fetch."""
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            self.object = self.get_object()
+            self.object.delete()
+            return JsonResponse({'status': 'success'})
+        return self.delete(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        """Standard DELETE method handling."""
+        response = super().delete(request, *args, **kwargs)
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'status': 'success'})
+        return response
 
     def get_success_url(self):
         return reverse_lazy('categories')

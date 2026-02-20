@@ -109,12 +109,23 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="text-pfm-text-light hover:text-pfm-primary"
-                                aria-label="{% trans 'categories_edit_category' %}">
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
+                                aria-label="{% trans 'categories_edit_category' %}"
+                                data-pfm-modal-target="add-category-modal" data-pfm-bind-mode="edit"
+                                data-pfm-bind-categoryid="{{ category.id }}"
+                                data-pfm-bind-categoryname="{{ category.name }}"
+                                data-pfm-bind-categorydescription="{{ category.description|default:'' }}"
+                                data-pfm-bind-categoryicon="{{ category.icon|default:'tag' }}"
+                                data-pfm-bind-categorygroupid="{{ group.id }}"
+                                data-pfm-bind-updateurl="{% url 'category_update' category.id %}">
                                 <i data-lucide="edit-2" class="w-4 h-4"></i>
                             </button>
-                            <button class="text-pfm-text-light hover:text-pfm-danger"
-                                aria-label="{% trans 'categories_delete_category' %}">
+                            <button class="modal-open-btn category-delete-btn text-pfm-text-light hover:text-pfm-danger"
+                                aria-label="{% trans 'categories_delete_category' %}"
+                                data-pfm-modal-target="delete-category-modal"
+                                data-pfm-bind-categoryid="{{ category.id }}"
+                                data-pfm-bind-categoryname="{{ category.name }}"
+                                data-pfm-bind-deleteurl="{% url 'category_delete' category.id %}">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                             <i data-lucide="grip-vertical" class="w-5 h-5 cursor-grab text-gray-300"
@@ -222,12 +233,23 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="text-pfm-text-light hover:text-green-600"
-                                aria-label="{% trans 'categories_edit_category' %}">
+                            <button class="modal-open-btn text-pfm-text-light hover:text-green-600"
+                                aria-label="{% trans 'categories_edit_category' %}"
+                                data-pfm-modal-target="add-category-modal" data-pfm-bind-mode="edit"
+                                data-pfm-bind-categoryid="{{ category.id }}"
+                                data-pfm-bind-categoryname="{{ category.name }}"
+                                data-pfm-bind-categorydescription="{{ category.description|default:'' }}"
+                                data-pfm-bind-categoryicon="{{ category.icon|default:'tag' }}"
+                                data-pfm-bind-categorygroupid="{{ group.id }}"
+                                data-pfm-bind-updateurl="{% url 'category_update' category.id %}">
                                 <i data-lucide="edit-2" class="w-4 h-4"></i>
                             </button>
-                            <button class="text-pfm-text-light hover:text-pfm-danger"
-                                aria-label="{% trans 'categories_delete_category' %}">
+                            <button class="modal-open-btn category-delete-btn text-pfm-text-light hover:text-pfm-danger"
+                                aria-label="{% trans 'categories_delete_category' %}"
+                                data-pfm-modal-target="delete-category-modal"
+                                data-pfm-bind-categoryid="{{ category.id }}"
+                                data-pfm-bind-categoryname="{{ category.name }}"
+                                data-pfm-bind-deleteurl="{% url 'category_delete' category.id %}">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                             <i data-lucide="grip-vertical" class="w-5 h-5 cursor-grab text-gray-300"
@@ -366,7 +388,7 @@
         <div
             class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
             <div class="px-8 pt-8 pb-4">
-                <div class="flex items-center gap-2 mb-2">
+                <div id="modal-category-badge-container" class="flex items-center gap-2 mb-2">
                     <span class="text-pfm-primary/80 text-xs font-bold uppercase tracking-wider">
                         {% trans "categories_adding_to_label" %}
                     </span>
@@ -378,7 +400,7 @@
                 <h2 id="modal-title-category" class="text-pfm-text-dark text-2xl font-black tracking-tight">
                     {% trans "categories_add_new_category_title" %}
                 </h2>
-                <p class="text-pfm-text-light text-sm mt-1">
+                <p id="modal-category-desc" class="text-pfm-text-light text-sm mt-1">
                     {% trans "categories_add_category_desc" %}
                 </p>
             </div>
@@ -392,7 +414,7 @@
                     <input
                         class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 font-medium"
                         id="category-name" name="name" placeholder="{% trans 'categories_category_name_placeholder' %}"
-                        type="text" required autocomplete="off">
+                        data-pfm-modal-bind="categoryname" type="text" required autocomplete="off">
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="text-sm font-bold text-pfm-text-dark" for="category-description">
@@ -400,14 +422,15 @@
                     </label>
                     <textarea
                         class="pfm-input w-full px-4 py-3 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 resize-none font-medium"
-                        id="category-description" name="description"
+                        id="category-description" name="description" data-pfm-modal-bind="categorydescription"
                         placeholder="{% trans 'categories_description_placeholder' %}" rows="3"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="text-sm font-bold text-pfm-text-dark">
                         {% trans "categories_select_icon" %}
                     </label>
-                    <input type="hidden" name="icon" id="category-icon-input" value="tag">
+                    <input type="hidden" name="icon" id="category-icon-input" value="tag"
+                        data-pfm-modal-bind="categoryicon">
                     <div id="category-icon-grid"
                         class="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1 custom-scrollbar">
                         <!-- Dynamically populated -->
@@ -419,10 +442,51 @@
                     class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
                     {% trans "categories_cancel_btn" %}
                 </button>
-                <button type="submit" form="add-category-form"
+                <button type="submit" form="add-category-form" id="modal-submit-category"
                     class="px-8 h-11 rounded-lg bg-pfm-primary text-white text-sm font-bold shadow-lg shadow-pfm-primary/20 hover:bg-pfm-primary/90 transition-all">
                     {% trans "categories_add_category" %}
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Delete Confirmation -->
+<div id="delete-category-modal" tabindex="-1" aria-hidden="true"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm"
+    role="dialog" aria-modal="true" aria-labelledby="modal-title-delete">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div
+            class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden transition-all duration-300 transform-gpu scale-95 opacity-0">
+            <div class="p-6 text-center">
+                <div
+                    class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/20 mb-4">
+                    <i data-lucide="alert-triangle" class="h-6 w-6 text-red-600"></i>
+                </div>
+                <h3 id="modal-title-delete" class="text-xl font-black text-pfm-text-dark mb-2">
+                    {% trans "categories_delete_modal_title" %}
+                </h3>
+                <div class="text-sm text-pfm-text-light mb-6 text-center">
+                    <p class="mb-2">
+                        {% trans "categories_delete_modal_msg" %}
+                        "<span id="delete-category-name-display" data-pfm-modal-bind="categoryname"
+                            class="font-bold text-pfm-text-dark"></span>"?
+                    </p>
+                    <p class="font-medium text-red-500">
+                        {% trans "categories_delete_modal_warning" %}
+                    </p>
+                </div>
+                <input type="hidden" id="delete-category-url-input" data-pfm-modal-bind="deleteurl">
+                <div class="flex items-center justify-center gap-3">
+                    <button type="button"
+                        class="modal-close-btn px-5 py-2.5 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                        {% trans "categories_cancel_btn" %}
+                    </button>
+                    <button id="confirm-delete-category-btn" type="button"
+                        class="px-5 py-2.5 rounded-lg bg-red-600 text-white text-sm font-bold shadow-lg shadow-red-500/20 hover:bg-red-700 transition-all active:scale-95">
+                        {% trans "categories_delete_btn" %}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -638,19 +702,65 @@
             // Handle Add Category Modal
             if (modalId === 'add-category-modal') {
                 const form = document.getElementById('add-category-form');
+                const titleEl = document.getElementById('modal-title-category');
+                const submitBtn = document.getElementById('modal-submit-category');
+                const badgeContainer = document.getElementById('modal-category-badge-container');
+                const descEl = document.getElementById('modal-category-desc');
+                const isEdit = btn.getAttribute('data-pfm-bind-mode') === 'edit';
+
                 if (form) {
                     form.reset();
                     // Reset icon highlights
                     const options = document.querySelectorAll('#category-icon-grid .icon-option');
                     options.forEach(opt => {
-                        if (opt.getAttribute('data-icon') === 'tag') {
-                            opt.classList.add('border-2', 'border-pfm-primary', 'bg-pfm-primary/5', 'text-pfm-primary');
-                            opt.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
-                        } else {
-                            opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
-                            opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
-                        }
+                        opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                        opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
                     });
+                }
+
+                if (isEdit) {
+                    const updateUrl = btn.getAttribute('data-pfm-bind-updateurl');
+                    const categoryIcon = btn.getAttribute('data-pfm-bind-categoryicon') || 'tag';
+                    const categoryDesc = btn.getAttribute('data-pfm-bind-categorydescription') || '';
+                    const categoryName = btn.getAttribute('data-pfm-bind-categoryname') || '';
+                    const categoryGroupId = btn.getAttribute('data-pfm-bind-categorygroupid');
+
+                    if (titleEl) titleEl.textContent = "{% trans 'categories_edit_category' %}";
+                    if (submitBtn) submitBtn.textContent = "{% trans 'categories_save_changes_btn' %}";
+                    if (descEl) descEl.textContent = "{% trans 'categories_edit_category_desc' %}";
+                    if (badgeContainer) badgeContainer.classList.add('hidden');
+
+                    if (form) {
+                        form.action = updateUrl;
+                        // Populate fields explicitly
+                        const nameInput = form.querySelector('[name="name"]');
+                        const descInput = form.querySelector('[name="description"]');
+                        const groupInput = form.querySelector('[name="group"]');
+
+                        if (nameInput) nameInput.value = categoryName;
+                        if (descInput) descInput.value = categoryDesc;
+                        if (groupInput) groupInput.value = categoryGroupId;
+                    }
+
+                    setTimeout(() => {
+                        const iconOpt = document.querySelector(`#category-icon-grid [data-icon="${categoryIcon}"]`);
+                        if (iconOpt) iconOpt.click();
+                    }, 50);
+
+                } else {
+                    if (titleEl) titleEl.textContent = "{% trans 'categories_add_category' %}";
+                    if (submitBtn) submitBtn.textContent = "{% trans 'categories_add_category' %}";
+                    if (descEl) descEl.textContent = "{% trans 'categories_add_category_desc' %}";
+                    if (badgeContainer) badgeContainer.classList.remove('hidden');
+
+                    if (form) {
+                        form.action = "{% url 'category_create' %}";
+                        // Pre-select tag icon for new categories
+                        setTimeout(() => {
+                            const tagOpt = document.querySelector(`#category-icon-grid [data-icon="tag"]`);
+                            if (tagOpt) tagOpt.click();
+                        }, 50);
+                    }
                 }
             }
         });
@@ -679,7 +789,11 @@
                                 const currentActiveTab = sessionStorage.getItem('activeTab-category-type') || 'expenses';
                                 window.location.href = window.location.pathname + '?tab=' + currentActiveTab;
                             } else {
-                                alert(data.message || 'An error occurred');
+                                let errorMsg = data.message || 'An error occurred';
+                                if (data.errors) {
+                                    errorMsg += '\n' + JSON.stringify(data.errors, null, 2);
+                                }
+                                alert(errorMsg);
                             }
                         })
                         .catch(error => {
@@ -689,6 +803,52 @@
                 });
             }
         });
+        // Handle Delete Category Confirmation
+        const confirmDeleteBtn = document.getElementById('confirm-delete-category-btn');
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener('click', () => {
+                const deleteUrlInput = document.getElementById('delete-category-url-input');
+                const deleteUrl = deleteUrlInput ? deleteUrlInput.value : null;
+
+                if (deleteUrl) {
+                    confirmDeleteBtn.disabled = true;
+                    confirmDeleteBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>';
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                    fetch(deleteUrl, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.text().then(text => {
+                                    throw new Error(`HTTP ${response.status}: ${text.substring(0, 100)}`);
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.status === 'success') {
+                                const currentActiveTab = sessionStorage.getItem('activeTab-category-type') || 'expenses';
+                                window.location.href = window.location.pathname + '?tab=' + currentActiveTab;
+                            } else {
+                                confirmDeleteBtn.disabled = false;
+                                confirmDeleteBtn.textContent = "{% trans 'categories_delete_btn' %}";
+                                alert(data.message || 'Error deleting category');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            confirmDeleteBtn.disabled = false;
+                            confirmDeleteBtn.textContent = "{% trans 'categories_delete_btn' %}";
+                            alert('An unexpected error occurred');
+                        });
+                }
+            });
+        }
     });
 </script>
 {% endblock %}

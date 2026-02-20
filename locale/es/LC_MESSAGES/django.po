@@ -203,6 +203,10 @@ msgstr "Añadir Nueva Categoría"
 msgid "categories_add_category_desc"
 msgstr "Cree un nuevo cubo para rastrear sus gastos dentro de este grupo."
 
+#: .\core\templates\core\categories.html:381
+msgid "categories_edit_category_desc"
+msgstr "Edite los detalles de esta categoría."
+
 #: .\core\templates\core\categories.html:388
 msgid "categories_category_name_label"
 msgstr "Nombre de la Categoría"
@@ -574,3 +578,20 @@ msgstr "Cerrar sesión"
 #: .\templates\base.html:187
 msgid "budget"
 msgstr "Presupuesto"
+
+#: .\core\templates\core\categories.html:650
+msgid "categories_delete_confirm_msg"
+msgstr "¿Estás seguro de que quieres eliminar la categoría"
+
+msgid "categories_delete_modal_title"
+msgstr "Eliminar Categoría"
+
+msgid "categories_delete_modal_msg"
+msgstr "¿Estás seguro de que quieres eliminar la categoría"
+
+msgid "categories_delete_modal_warning"
+msgstr "Esta acción no se puede deshacer y todos los datos relacionados con esta categoría podrían eliminarse de forma permanente."
+
+msgid "categories_delete_btn"
+msgstr "Eliminar"
+
