@@ -16,7 +16,7 @@
     </button>
 </div>
 
-<div class="flex flex-col gap-8 lg:flex-row">
+<div class="flex flex-col gap-8 lg:flex-row lg:h-[calc(100vh-14rem)]">
     <!-- Sidebar Navigation -->
     <aside class="w-full lg:w-64 shrink-0">
         <div class="rounded-xl border border-pfm-border bg-pfm-card p-2 shadow-sm">
@@ -53,7 +53,7 @@
     </aside>
 
     <!-- Main Content: Category Groups -->
-    <div class="flex-1 space-y-6">
+    <div class="flex-1 overflow-y-auto pr-4 custom-scrollbar scroll-smooth space-y-6">
         <!-- Expenses Content -->
         <div data-pfm-tab-content="expenses" class="{% if active_tab != 'expenses' %}hidden {% endif %}space-y-6">
             {% if expenses_groups %}
@@ -307,7 +307,7 @@
 
 <!-- Modal: Create Category Group -->
 <div id="create-group-modal" tabindex="-1" aria-hidden="true"
-    class="modal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full h-full max-h-full bg-black/50 backdrop-blur-sm"
     role="dialog" aria-modal="true" aria-labelledby="modal-title-group">
     <div class="relative p-4 w-full max-w-[560px] max-h-full">
         <!-- Modal content -->
@@ -381,7 +381,7 @@
 
 <!-- Modal: Add Category -->
 <div id="add-category-modal" tabindex="-1" aria-hidden="true"
-    class="modal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full h-full max-h-full bg-black/50 backdrop-blur-sm"
     role="dialog" aria-modal="true" aria-labelledby="modal-title-category">
     <div class="relative p-4 w-full max-w-[480px] max-h-full">
         <!-- Modal content -->
@@ -453,7 +453,7 @@
 
 <!-- Modal: Delete Confirmation -->
 <div id="delete-category-modal" tabindex="-1" aria-hidden="true"
-    class="modal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full h-full max-h-full bg-black/50 backdrop-blur-sm"
     role="dialog" aria-modal="true" aria-labelledby="modal-title-delete">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div

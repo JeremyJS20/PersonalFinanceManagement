@@ -46,6 +46,10 @@
                     class="{% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'home' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
                     {% trans "dashboard" %}
                 </a>
+                <a href="{% url 'accounts' %}"
+                    class="{% if request.resolver_match.url_name == 'accounts' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
+                    {% trans "accounts" %}
+                </a>
                 <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
                     {% trans "transactions" %}
                 </a>
@@ -180,6 +184,9 @@
         <a href="{% url 'dashboard' %}"
             class="block font-medium {% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'home' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">{%
             trans "dashboard" %}</a>
+        <a href="{% url 'accounts' %}"
+            class="block {% if request.resolver_match.url_name == 'accounts' %}text-pfm-text-dark font-medium{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">{%
+            trans "accounts" %}</a>
         <a href="{% url 'categories' %}"
             class="block {% if request.resolver_match.url_name == 'categories' %}text-pfm-text-dark font-medium{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">{%
             trans "categories" %}</a>

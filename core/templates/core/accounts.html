@@ -1,0 +1,550 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+        <h1 class="text-3xl font-black text-pfm-text-dark tracking-tight">{% trans "accounts_title" %}</h1>
+        <p class="mt-1 text-pfm-text-light">{% trans "accounts_subtitle" %}</p>
+    </div>
+    <button
+        class="modal-open-btn flex items-center justify-center gap-2 bg-pfm-primary text-white font-bold rounded-lg px-5 py-2.5 shadow-lg shadow-pfm-primary/20 transition-all hover:bg-pfm-primary-hover hover:shadow-xl active:scale-95"
+        data-pfm-modal-target="add-account-modal">
+        <i data-lucide="plus" class="w-5 h-5"></i>
+        {% trans "add_account" %}
+    </button>
+</div>
+
+<div class="flex flex-col gap-8 lg:flex-row lg:h-[calc(100vh-14rem)]">
+    <!-- Sidebar Navigation -->
+    <aside class="w-full lg:w-64 shrink-0 space-y-6">
+        <div class="rounded-xl border border-pfm-border bg-pfm-card p-6 shadow-sm">
+            <h4 class="text-[10px] font-bold text-pfm-text-light uppercase tracking-widest mb-4">
+                {% trans "account_type" %}
+            </h4>
+            <div class="space-y-4">
+                <button class="w-full flex items-center justify-between gap-3 text-pfm-primary font-bold">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="layers" class="w-5 h-5"></i>
+                        <span class="text-sm">{% trans "all_accounts" %}</span>
+                    </div>
+                </button>
+                <button
+                    class="w-full flex items-center justify-between gap-3 text-pfm-text-light hover:text-pfm-text-dark font-medium transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                        <span class="text-sm">{% trans "assets" %}</span>
+                    </div>
+                </button>
+                <button
+                    class="w-full flex items-center justify-between gap-3 text-pfm-text-light hover:text-pfm-text-dark font-medium transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="trending-down" class="w-5 h-5"></i>
+                        <span class="text-sm">{% trans "liabilities" %}</span>
+                    </div>
+                </button>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-pfm-border space-y-6">
+                <div>
+                    <h4 class="text-[10px] font-bold text-pfm-text-light uppercase tracking-widest mb-1">
+                        {% trans "total_assets" %}
+                    </h4>
+                    <p class="text-xl font-bold text-pfm-primary">$122,900</p>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-bold text-pfm-text-light uppercase tracking-widest mb-1">
+                        {% trans "total_liabilities" %}
+                    </h4>
+                    <p class="text-xl font-bold text-pfm-danger">$37,450</p>
+                </div>
+                <div class="pt-4 border-t border-pfm-border">
+                    <h4 class="text-[10px] font-bold text-pfm-text-light uppercase tracking-widest mb-1">
+                        {% trans "total_balance" %}
+                    </h4>
+                    <p class="text-3xl font-bold text-pfm-text-dark">$85,450</p>
+                    <div class="mt-4 w-full bg-pfm-bg h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-pfm-primary h-full w-2/3"></div>
+                    </div>
+                </div>
+            </div>
+    </aside>
+
+    <!-- Main Content Area: Scrollable -->
+    <div class="flex-1 overflow-y-auto pr-4 custom-scrollbar scroll-smooth space-y-6">
+        <!-- Banking Group -->
+        <div class="bg-pfm-card rounded-xl border border-pfm-border overflow-hidden shadow-sm">
+            <div class="px-6 py-4 flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-10 h-10 rounded-lg bg-pfm-primary/10 flex items-center justify-center text-pfm-primary">
+                        <i data-lucide="landmark" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-pfm-text-dark">{% trans "banking_liquid" %}</h4>
+                        <p class="text-[10px] font-bold text-pfm-text-light uppercase tracking-wider">
+                            {% trans "cash_and_savings" %}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="modal-open-btn flex items-center gap-1 rounded-md bg-pfm-card border border-pfm-border px-3 py-1.5 text-xs font-bold text-pfm-text-dark hover:bg-pfm-bg shadow-sm transition-colors"
+                        data-pfm-modal-target="add-account-modal">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        {% trans "add_account" %}
+                    </button>
+                </div>
+            </div>
+
+            <div class="divide-y divide-pfm-border">
+                <div
+                    class="px-6 py-5 flex items-center justify-between group hover:bg-pfm-primary/5 transition-colors cursor-pointer">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-pfm-bg shadow-sm flex items-center justify-center text-pfm-text-light">
+                            <i data-lucide="building-2" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-pfm-text-dark">Chase Bank Checking</p>
+                            <p class="text-xs text-pfm-text-light">•••• 4291</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <p class="font-bold text-pfm-text-dark">$5,240.00</p>
+                        <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
+                                data-pfm-modal-target="add-account-modal" data-pfm-bind-mode="edit"
+                                data-pfm-bind-accountname="Chase Bank Checking" data-pfm-bind-accounttype="checking"
+                                data-pfm-bind-accountbalance="5240.00" data-pfm-bind-accounticon="building-2"
+                                data-pfm-bind-includeintotal="true" data-pfm-bind-updateurl="#">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-danger"
+                                data-pfm-modal-target="delete-account-modal"
+                                data-pfm-bind-accountname="Chase Bank Checking" data-pfm-bind-deleteurl="#">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="px-6 py-5 flex items-center justify-between group hover:bg-pfm-primary/5 transition-colors cursor-pointer">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-pfm-bg shadow-sm flex items-center justify-center text-pfm-text-light">
+                            <i data-lucide="piggy-bank" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-pfm-text-dark">Marcus Savings</p>
+                            <p class="text-xs text-pfm-text-light">4.50% APY</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <p class="font-bold text-pfm-text-dark">$12,450.00</p>
+                        <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
+                                data-pfm-modal-target="add-account-modal" data-pfm-bind-mode="edit"
+                                data-pfm-bind-accountname="Marcus Savings" data-pfm-bind-accounttype="savings"
+                                data-pfm-bind-accountbalance="12450.00" data-pfm-bind-accounticon="piggy-bank"
+                                data-pfm-bind-includeintotal="true" data-pfm-bind-updateurl="#">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-danger"
+                                data-pfm-modal-target="delete-account-modal" data-pfm-bind-accountname="Marcus Savings"
+                                data-pfm-bind-deleteurl="#">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investments Group -->
+        <div class="bg-pfm-card rounded-xl border border-pfm-border overflow-hidden shadow-sm">
+            <div class="px-6 py-4 flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-10 h-10 rounded-lg bg-pfm-primary/10 flex items-center justify-center text-pfm-primary">
+                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-pfm-text-dark">{% trans "investments" %}</h4>
+                        <p class="text-[10px] font-bold text-pfm-text-light uppercase tracking-wider">
+                            {% trans "retirement_brokerage" %}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="modal-open-btn flex items-center gap-1 rounded-md bg-pfm-card border border-pfm-border px-3 py-1.5 text-xs font-bold text-pfm-text-dark hover:bg-pfm-bg shadow-sm transition-colors"
+                        data-pfm-modal-target="add-account-modal">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        {% trans "add_account" %}
+                    </button>
+                </div>
+            </div>
+
+            <div class="divide-y divide-pfm-border">
+                <div
+                    class="px-6 py-5 flex items-center justify-between group hover:bg-pfm-primary/5 transition-colors cursor-pointer">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-pfm-bg shadow-sm flex items-center justify-center text-pfm-text-light">
+                            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-pfm-text-dark">Vanguard Brokerage</p>
+                            <p class="text-xs text-pfm-text-light">Individual Account</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <p class="font-bold text-pfm-text-dark">$32,000.00</p>
+                        <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
+                                data-pfm-modal-target="add-account-modal" data-pfm-bind-mode="edit"
+                                data-pfm-bind-accountname="Vanguard Brokerage" data-pfm-bind-accounttype="brokerage"
+                                data-pfm-bind-accountbalance="32000.00" data-pfm-bind-accounticon="bar-chart-2"
+                                data-pfm-bind-includeintotal="true" data-pfm-bind-updateurl="#">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-danger"
+                                data-pfm-modal-target="delete-account-modal"
+                                data-pfm-bind-accountname="Vanguard Brokerage" data-pfm-bind-deleteurl="#">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State for Accounts Page -->
+        <div
+            class="flex flex-col items-center justify-center py-20 px-6 text-center rounded-2xl border-2 border-dashed border-pfm-border bg-pfm-card/50 backdrop-blur-sm shadow-sm group hover:border-pfm-primary/30 transition-all duration-300">
+            <div
+                class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-pfm-primary/5 text-pfm-primary shadow-lg shadow-pfm-primary/10 group-hover:scale-110 transition-transform duration-300">
+                <i data-lucide="wallet" class="w-10 h-10"></i>
+            </div>
+            <h3 class="text-xl font-black text-pfm-text-dark mb-2">
+                {% trans "no_accounts_title" %}
+            </h3>
+            <p class="text-pfm-text-light max-w-sm mb-8 leading-relaxed font-medium">
+                {% trans "no_accounts_desc" %}
+            </p>
+            <button
+                class="modal-open-btn flex items-center gap-2 rounded-xl bg-pfm-primary px-8 py-3 text-sm font-bold text-white shadow-xl shadow-pfm-primary/20 hover:bg-pfm-primary-hover hover:shadow-2xl active:scale-95 transition-all"
+                data-pfm-modal-target="add-account-modal">
+                <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                {% trans "add_new_account" %}
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Add Account -->
+<div id="add-account-modal" tabindex="-1" aria-hidden="true"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full h-full max-h-full bg-black/50 backdrop-blur-sm"
+    role="dialog" aria-modal="true" aria-labelledby="modal-title-account">
+    <div class="relative p-4 w-full max-w-[520px] max-h-full">
+        <!-- Modal content -->
+        <div
+            class="relative bg-pfm-card rounded-2xl shadow-2xl overflow-hidden transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
+            <div class="px-8 pt-8 pb-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 id="modal-title-account" class="text-pfm-text-dark text-2xl font-black tracking-tight">
+                        {% trans "add_new_account" %}
+                    </h2>
+                    <button type="button"
+                        class="modal-close-btn p-1.5 rounded-full hover:bg-pfm-bg text-pfm-text-light transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <p id="modal-account-desc" class="text-pfm-text-light text-sm">
+                    {% trans "add_account_description" %}
+                </p>
+            </div>
+
+            <form id="add-account-form" method="POST" action="#" class="px-8 py-4 space-y-6">
+                {% csrf_token %}
+
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest" for="account-name">
+                        {% trans "account_name" %}
+                    </label>
+                    <input
+                        class="pfm-input w-full h-12 px-4 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm placeholder:text-pfm-text-light/40 font-bold transition-all"
+                        id="account-name" name="name" placeholder="e.g. Primary Checking"
+                        data-pfm-modal-bind="accountname" type="text" required autocomplete="off">
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest"
+                            for="account-type">
+                            {% trans "account_type" %}
+                        </label>
+                        <div class="relative">
+                            <select id="account-type" name="type"
+                                class="pfm-input w-full h-12 pl-4 pr-10 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm font-bold appearance-none transition-all">
+                                <optgroup label="{% trans 'assets' %}">
+                                    <option value="checking">{% trans "checking" %}</option>
+                                    <option value="savings">{% trans "savings" %}</option>
+                                    <option value="brokerage">{% trans "brokerage" %}</option>
+                                    <option value="cash">{% trans "cash" %}</option>
+                                    <option value="real_estate">{% trans "real_estate" %}</option>
+                                    <option value="crypto">{% trans "crypto" %}</option>
+                                </optgroup>
+                                <optgroup label="{% trans 'liabilities' %}">
+                                    <option value="credit">{% trans "credit_card" %}</option>
+                                    <option value="loan">{% trans "loan" %}</option>
+                                    <option value="mortgage">{% trans "mortgage" %}</option>
+                                    <option value="line_of_credit">{% trans "line_of_credit" %}</option>
+                                </optgroup>
+                            </select>
+                            <i data-lucide="chevron-down"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-pfm-text-light pointer-events-none"></i>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest"
+                            for="account-balance">
+                            {% trans "initial_balance" %}
+                        </label>
+                        <div class="relative">
+                            <span
+                                class="absolute inset-y-0 left-4 flex items-center text-pfm-text-light/60 font-black">$</span>
+                            <input
+                                class="pfm-input w-full h-12 pl-8 pr-4 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm placeholder:text-pfm-text-light/40 font-bold transition-all"
+                                id="account-balance" name="balance" placeholder="0.00"
+                                data-pfm-modal-bind="accountbalance" type="number" step="0.01" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Include in Total Balance Toggle -->
+                <div
+                    class="flex items-center justify-between p-4 rounded-xl bg-pfm-bg/50 border border-pfm-border hover:border-pfm-primary/30 transition-colors group">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-pfm-primary/10 flex items-center justify-center text-pfm-primary">
+                            <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-pfm-text-dark">{% trans "include_total_balance" %}</p>
+                            <p class="text-[10px] font-medium text-pfm-text-light">
+                                {% trans "include_total_balance_desc" %}
+                            </p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" name="include_in_total" class="sr-only peer" checked>
+                        <div
+                            class="w-11 h-6 bg-pfm-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pfm-primary">
+                        </div>
+                    </label>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest">
+                        {% trans "select_icon" %}
+                    </label>
+                    <input type="hidden" name="icon" id="account-icon-input" value="landmark"
+                        data-pfm-modal-bind="accounticon">
+                    <div id="account-icon-grid" class="grid grid-cols-6 gap-3 p-1 custom-scrollbar">
+                        <button type="button"
+                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border-2 border-pfm-primary bg-pfm-primary/5 text-pfm-primary shadow-sm"
+                            data-icon="landmark" data-pfm-icon-target="account-icon-input"><i data-lucide="landmark"
+                                class="w-5 h-5"></i></button>
+                        <button type="button"
+                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
+                            data-icon="credit-card" data-pfm-icon-target="account-icon-input"><i
+                                data-lucide="credit-card" class="w-5 h-5"></i></button>
+                        <button type="button"
+                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
+                            data-icon="piggy-bank" data-pfm-icon-target="account-icon-input"><i data-lucide="piggy-bank"
+                                class="w-5 h-5"></i></button>
+                        <button type="button"
+                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
+                            data-icon="building-2" data-pfm-icon-target="account-icon-input"><i data-lucide="building-2"
+                                class="w-5 h-5"></i></button>
+                        <button type="button"
+                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
+                            data-icon="briefcase" data-pfm-icon-target="account-icon-input"><i data-lucide="briefcase"
+                                class="w-5 h-5"></i></button>
+                        <button type="button"
+                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
+                            data-icon="bar-chart-2" data-pfm-icon-target="account-icon-input"><i
+                                data-lucide="bar-chart-2" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="px-8 py-6 bg-pfm-bg/50 border-t border-pfm-border flex items-center justify-end gap-3">
+                <button type="button"
+                    class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                    {% trans "cancel" %}
+                </button>
+                <button type="submit" form="add-account-form" id="modal-submit-account"
+                    class="px-8 h-11 rounded-lg bg-pfm-primary text-white text-sm font-bold shadow-lg shadow-pfm-primary/20 hover:bg-pfm-primary/90 transition-all">
+                    {% trans "save_account" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal: Delete Confirmation -->
+<div id="delete-account-modal" tabindex="-1" aria-hidden="true"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full h-full max-h-full bg-black/50 backdrop-blur-sm"
+    role="dialog" aria-modal="true" aria-labelledby="modal-title-delete">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div
+            class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden transition-all duration-300 transform-gpu scale-95 opacity-0">
+            <div class="p-6 text-center">
+                <div
+                    class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/20 mb-4">
+                    <i data-lucide="alert-triangle" class="h-6 w-6 text-red-600"></i>
+                </div>
+                <h3 id="modal-title-delete" class="text-xl font-black text-pfm-text-dark mb-2">
+                    {% trans "delete_account_title" %}
+                </h3>
+                <div class="text-sm text-pfm-text-light mb-6 text-center">
+                    <p class="mb-2">
+                        {% trans "delete_account_confirm" %}
+                        "<span id="delete-account-name-display" data-pfm-modal-bind="accountname"
+                            class="font-bold text-pfm-text-dark"></span>"?
+                    </p>
+                    <p class="font-medium text-red-500">
+                        {% trans "delete_account_warning" %}
+                    </p>
+                </div>
+                <input type="hidden" id="delete-account-url-input" data-pfm-modal-bind="deleteurl">
+                <div class="flex items-center justify-center gap-3">
+                    <button type="button"
+                        class="modal-close-btn px-5 py-2.5 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                        {% trans "cancel" %}
+                    </button>
+                    <button id="confirm-delete-account-btn" type="button"
+                        class="px-5 py-2.5 rounded-lg bg-red-600 text-white text-sm font-bold shadow-lg shadow-red-500/20 hover:bg-red-700 transition-all active:scale-95">
+                        {% trans "delete_account_btn" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Handle Icon Selection in Add/Edit Modal
+        const iconGrid = document.getElementById('account-icon-grid');
+        const iconInput = document.getElementById('account-icon-input');
+
+        if (iconGrid && iconInput) {
+            iconGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.icon-option');
+                if (!btn) return;
+
+                const icon = btn.getAttribute('data-icon');
+                iconInput.value = icon;
+
+                // Update UI
+                iconGrid.querySelectorAll('.icon-option').forEach(opt => {
+                    opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                    opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
+                });
+
+                btn.classList.add('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                btn.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
+            });
+        }
+
+        // Global Modal Opening Sync for Mode (Add vs Edit)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.modal-open-btn');
+            if (!btn) return;
+
+            const modalId = btn.getAttribute('data-pfm-modal-target');
+
+            if (modalId === 'add-account-modal') {
+                const form = document.getElementById('add-account-form');
+                const titleEl = document.getElementById('modal-title-account');
+                const submitBtn = document.getElementById('modal-submit-account');
+                const descEl = document.getElementById('modal-account-desc');
+                const isEdit = btn.getAttribute('data-pfm-bind-mode') === 'edit';
+
+                if (isEdit) {
+                    if (titleEl) titleEl.textContent = "{% trans 'edit_account' %}";
+                    if (submitBtn) submitBtn.textContent = "{% trans 'save_account' %}";
+                    if (descEl) descEl.textContent = "{% trans 'edit_account_desc' %}";
+
+                    if (form) {
+                        form.action = btn.getAttribute('data-pfm-bind-updateurl') || '#';
+
+                        // Populate select specifically
+                        const typeSelect = form.querySelector('#account-type');
+                        const accountType = btn.getAttribute('data-pfm-bind-accounttype');
+                        if (typeSelect && accountType) {
+                            typeSelect.value = accountType;
+                        }
+
+                        // Populate toggle specifically
+                        const includeToggle = form.querySelector('[name="include_in_total"]');
+                        const includeVal = btn.getAttribute('data-pfm-bind-includeintotal') === 'true';
+                        if (includeToggle) {
+                            includeToggle.checked = includeVal;
+                        }
+                    }
+
+                    const accountIcon = btn.getAttribute('data-pfm-bind-accounticon') || 'landmark';
+                    setTimeout(() => {
+                        const iconOpt = document.querySelector(`#account-icon-grid [data-icon="${accountIcon}"]`);
+                        if (iconOpt) iconOpt.click();
+                    }, 50);
+
+                } else {
+                    if (titleEl) titleEl.textContent = "{% trans 'add_new_account' %}";
+                    if (submitBtn) submitBtn.textContent = "{% trans 'save_account' %}";
+                    if (descEl) descEl.textContent = "{% trans 'add_account_description' %}";
+
+                    if (form) {
+                        form.action = "#";
+                        form.reset();
+                    }
+
+                    setTimeout(() => {
+                        const defaultOpt = document.querySelector(`#account-icon-grid [data-icon="landmark"]`);
+                        if (defaultOpt) defaultOpt.click();
+                    }, 50);
+                }
+            }
+        });
+
+        // Handle Delete Account Confirmation
+        const confirmDeleteBtn = document.getElementById('confirm-delete-account-btn');
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener('click', () => {
+                const deleteUrlInput = document.getElementById('delete-account-url-input');
+                const deleteUrl = deleteUrlInput ? deleteUrlInput.value : null;
+
+                if (deleteUrl && deleteUrl !== '#') {
+                    // Actual delete logic would go here
+                    console.log('Deleting account at:', deleteUrl);
+                    window.location.reload();
+                } else {
+                    // For mock purposes
+                    console.log('Mock deletion success');
+                    document.querySelector('.modal-close-btn[data-pfm-modal-hide="delete-account-modal"]')?.click();
+                    // Or more simply if no specific hide button exists
+                    window.location.reload();
+                }
+            });
+        }
+    });
+</script>
+
+{% endblock %}

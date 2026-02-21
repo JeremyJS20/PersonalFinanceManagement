@@ -220,3 +220,7 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('categories')
+
+class AccountsView(LoginRequiredMixin, TemplateView):
+    template_name = 'core/accounts.html'
+    login_url = reverse_lazy('login')
