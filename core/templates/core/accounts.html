@@ -23,21 +23,22 @@
                 {% trans "account_type" %}
             </h4>
             <div class="space-y-4">
-                <button class="w-full flex items-center justify-between gap-3 text-pfm-primary font-bold">
+                <button data-account-filter="all"
+                    class="account-filter-btn w-full flex items-center justify-between gap-3 text-pfm-primary font-bold transition-colors">
                     <div class="flex items-center gap-3">
                         <i data-lucide="layers" class="w-5 h-5"></i>
                         <span class="text-sm">{% trans "all_accounts" %}</span>
                     </div>
                 </button>
-                <button
-                    class="w-full flex items-center justify-between gap-3 text-pfm-text-light hover:text-pfm-text-dark font-medium transition-colors">
+                <button data-account-filter="assets"
+                    class="account-filter-btn w-full flex items-center justify-between gap-3 text-pfm-text-light hover:text-pfm-text-dark font-medium transition-colors">
                     <div class="flex items-center gap-3">
                         <i data-lucide="trending-up" class="w-5 h-5"></i>
                         <span class="text-sm">{% trans "assets" %}</span>
                     </div>
                 </button>
-                <button
-                    class="w-full flex items-center justify-between gap-3 text-pfm-text-light hover:text-pfm-text-dark font-medium transition-colors">
+                <button data-account-filter="liabilities"
+                    class="account-filter-btn w-full flex items-center justify-between gap-3 text-pfm-text-light hover:text-pfm-text-dark font-medium transition-colors">
                     <div class="flex items-center gap-3">
                         <i data-lucide="trending-down" class="w-5 h-5"></i>
                         <span class="text-sm">{% trans "liabilities" %}</span>
@@ -50,30 +51,34 @@
                     <h4 class="text-[10px] font-bold text-pfm-text-light uppercase tracking-widest mb-1">
                         {% trans "total_assets" %}
                     </h4>
-                    <p class="text-xl font-bold text-pfm-primary">$122,900</p>
+                    <p class="text-xl font-bold text-pfm-primary">${{ total_assets|floatformat:2 }}</p>
                 </div>
                 <div>
                     <h4 class="text-[10px] font-bold text-pfm-text-light uppercase tracking-widest mb-1">
                         {% trans "total_liabilities" %}
                     </h4>
-                    <p class="text-xl font-bold text-pfm-danger">$37,450</p>
+                    <p class="text-xl font-bold text-pfm-danger">${{ total_liabilities|floatformat:2 }}</p>
                 </div>
                 <div class="pt-4 border-t border-pfm-border">
                     <h4 class="text-[10px] font-bold text-pfm-text-light uppercase tracking-widest mb-1">
                         {% trans "total_balance" %}
                     </h4>
-                    <p class="text-3xl font-bold text-pfm-text-dark">$85,450</p>
+                    <p class="text-3xl font-bold text-pfm-text-dark">${{ total_balance|floatformat:2 }}</p>
                     <div class="mt-4 w-full bg-pfm-bg h-1.5 rounded-full overflow-hidden">
-                        <div class="bg-pfm-primary h-full w-2/3"></div>
+                        <div class="bg-pfm-primary h-full" style="width: {{ balance_percentage|floatformat:0 }}%"></div>
                     </div>
                 </div>
             </div>
+        </div>
     </aside>
 
     <!-- Main Content Area: Scrollable -->
     <div class="flex-1 overflow-y-auto pr-4 custom-scrollbar scroll-smooth space-y-6">
+        {% if banking_accounts or investment_accounts or liability_accounts %}
+        {% if banking_accounts %}
         <!-- Banking Group -->
-        <div class="bg-pfm-card rounded-xl border border-pfm-border overflow-hidden shadow-sm">
+        <div data-account-group="assets"
+            class="bg-pfm-card rounded-xl border border-pfm-border overflow-hidden shadow-sm transition-all duration-300">
             <div class="px-6 py-4 flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50">
                 <div class="flex items-center gap-4">
                     <div
@@ -98,71 +103,59 @@
             </div>
 
             <div class="divide-y divide-pfm-border">
+                {% for account in banking_accounts %}
                 <div
                     class="px-6 py-5 flex items-center justify-between group hover:bg-pfm-primary/5 transition-colors cursor-pointer">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-4 flex-1 min-w-0">
                         <div
                             class="w-10 h-10 rounded-full bg-pfm-bg shadow-sm flex items-center justify-center text-pfm-text-light">
-                            <i data-lucide="building-2" class="w-5 h-5"></i>
+                            <i data-lucide="{{ account.icon }}" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <p class="font-bold text-pfm-text-dark">Chase Bank Checking</p>
-                            <p class="text-xs text-pfm-text-light">•••• 4291</p>
+                            <div class="flex items-center gap-2">
+                                <p class="font-bold text-pfm-text-dark">{{ account.name }}</p>
+                                <span
+                                    class="px-2 py-0.5 rounded-full bg-pfm-primary/10 text-pfm-primary text-[10px] font-bold uppercase tracking-wider">
+                                    {% blocktrans with type=account.type %}{{ type }}{% endblocktrans %}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <p class="font-bold text-pfm-text-dark">$5,240.00</p>
-                        <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="flex items-center gap-6 shrink-0">
+                        <div class="w-32 text-left">
+                            <p class="font-bold text-pfm-text-dark tabular-nums">${{ account.balance|floatformat:2 }}
+                            </p>
+                        </div>
+                        <div
+                            class="w-16 flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
                                 data-pfm-modal-target="add-account-modal" data-pfm-bind-mode="edit"
-                                data-pfm-bind-accountname="Chase Bank Checking" data-pfm-bind-accounttype="checking"
-                                data-pfm-bind-accountbalance="5240.00" data-pfm-bind-accounticon="building-2"
-                                data-pfm-bind-includeintotal="true" data-pfm-bind-updateurl="#">
+                                data-pfm-bind-accountname="{{ account.name }}"
+                                data-pfm-bind-accounttype="{{ account.type }}"
+                                data-pfm-bind-accountbalance="{{ account.balance }}"
+                                data-pfm-bind-accounticon="{{ account.icon }}"
+                                data-pfm-bind-includeintotal="{{ account.include_in_total|yesno:'true,false' }}"
+                                data-pfm-bind-updateurl="{% url 'account_update' account.pk %}">
                                 <i data-lucide="edit-2" class="w-4 h-4"></i>
                             </button>
                             <button class="modal-open-btn text-pfm-text-light hover:text-pfm-danger"
                                 data-pfm-modal-target="delete-account-modal"
-                                data-pfm-bind-accountname="Chase Bank Checking" data-pfm-bind-deleteurl="#">
+                                data-pfm-bind-accountname="{{ account.name }}"
+                                data-pfm-bind-deleteurl="{% url 'account_delete' account.pk %}">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div
-                    class="px-6 py-5 flex items-center justify-between group hover:bg-pfm-primary/5 transition-colors cursor-pointer">
-                    <div class="flex items-center gap-4">
-                        <div
-                            class="w-10 h-10 rounded-full bg-pfm-bg shadow-sm flex items-center justify-center text-pfm-text-light">
-                            <i data-lucide="piggy-bank" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-pfm-text-dark">Marcus Savings</p>
-                            <p class="text-xs text-pfm-text-light">4.50% APY</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <p class="font-bold text-pfm-text-dark">$12,450.00</p>
-                        <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
-                                data-pfm-modal-target="add-account-modal" data-pfm-bind-mode="edit"
-                                data-pfm-bind-accountname="Marcus Savings" data-pfm-bind-accounttype="savings"
-                                data-pfm-bind-accountbalance="12450.00" data-pfm-bind-accounticon="piggy-bank"
-                                data-pfm-bind-includeintotal="true" data-pfm-bind-updateurl="#">
-                                <i data-lucide="edit-2" class="w-4 h-4"></i>
-                            </button>
-                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-danger"
-                                data-pfm-modal-target="delete-account-modal" data-pfm-bind-accountname="Marcus Savings"
-                                data-pfm-bind-deleteurl="#">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+        {% endif %}
 
+        {% if investment_accounts %}
         <!-- Investments Group -->
-        <div class="bg-pfm-card rounded-xl border border-pfm-border overflow-hidden shadow-sm">
+        <div data-account-group="assets"
+            class="bg-pfm-card rounded-xl border border-pfm-border overflow-hidden shadow-sm transition-all duration-300">
             <div class="px-6 py-4 flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50">
                 <div class="flex items-center gap-4">
                     <div
@@ -187,39 +180,131 @@
             </div>
 
             <div class="divide-y divide-pfm-border">
+                {% for account in investment_accounts %}
                 <div
                     class="px-6 py-5 flex items-center justify-between group hover:bg-pfm-primary/5 transition-colors cursor-pointer">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-4 flex-1 min-w-0">
                         <div
                             class="w-10 h-10 rounded-full bg-pfm-bg shadow-sm flex items-center justify-center text-pfm-text-light">
-                            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                            <i data-lucide="{{ account.icon }}" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <p class="font-bold text-pfm-text-dark">Vanguard Brokerage</p>
-                            <p class="text-xs text-pfm-text-light">Individual Account</p>
+                            <div class="flex items-center gap-2">
+                                <p class="font-bold text-pfm-text-dark">{{ account.name }}</p>
+                                <span
+                                    class="px-2 py-0.5 rounded-full bg-pfm-primary/10 text-pfm-primary text-[10px] font-bold uppercase tracking-wider">
+                                    {% blocktrans with type=account.type %}{{ type }}{% endblocktrans %}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <p class="font-bold text-pfm-text-dark">$32,000.00</p>
-                        <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="flex items-center gap-6 shrink-0">
+                        <div class="w-32 text-left">
+                            <p class="font-bold text-pfm-text-dark tabular-nums">${{ account.balance|floatformat:2 }}
+                            </p>
+                        </div>
+                        <div
+                            class="w-16 flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
                                 data-pfm-modal-target="add-account-modal" data-pfm-bind-mode="edit"
-                                data-pfm-bind-accountname="Vanguard Brokerage" data-pfm-bind-accounttype="brokerage"
-                                data-pfm-bind-accountbalance="32000.00" data-pfm-bind-accounticon="bar-chart-2"
-                                data-pfm-bind-includeintotal="true" data-pfm-bind-updateurl="#">
+                                data-pfm-bind-accountname="{{ account.name }}"
+                                data-pfm-bind-accounttype="{{ account.type }}"
+                                data-pfm-bind-accountbalance="{{ account.balance }}"
+                                data-pfm-bind-accounticon="{{ account.icon }}"
+                                data-pfm-bind-includeintotal="{{ account.include_in_total|yesno:'true,false' }}"
+                                data-pfm-bind-updateurl="{% url 'account_update' account.pk %}">
                                 <i data-lucide="edit-2" class="w-4 h-4"></i>
                             </button>
                             <button class="modal-open-btn text-pfm-text-light hover:text-pfm-danger"
                                 data-pfm-modal-target="delete-account-modal"
-                                data-pfm-bind-accountname="Vanguard Brokerage" data-pfm-bind-deleteurl="#">
+                                data-pfm-bind-accountname="{{ account.name }}"
+                                data-pfm-bind-deleteurl="{% url 'account_delete' account.pk %}">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
+        {% endif %}
 
+        {% if liability_accounts %}
+        <!-- Liabilities Group -->
+        <div data-account-group="liabilities"
+            class="bg-pfm-card rounded-xl border border-pfm-border overflow-hidden shadow-sm transition-all duration-300">
+            <div class="px-6 py-4 flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-pfm-danger/10 flex items-center justify-center text-pfm-danger">
+                        <i data-lucide="trending-down" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-pfm-text-dark">{% trans "loans_and_credit" %}</h4>
+                        <p class="text-[10px] font-bold text-pfm-text-light uppercase tracking-wider">
+                            {% trans "liabilities" %}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="modal-open-btn flex items-center gap-1 rounded-md bg-pfm-card border border-pfm-border px-3 py-1.5 text-xs font-bold text-pfm-text-dark hover:bg-pfm-bg shadow-sm transition-colors"
+                        data-pfm-modal-target="add-account-modal">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        {% trans "add_account" %}
+                    </button>
+                </div>
+            </div>
+
+            <div class="divide-y divide-pfm-border">
+                {% for account in liability_accounts %}
+                <div
+                    class="px-6 py-5 flex items-center justify-between group hover:bg-pfm-primary/5 transition-colors cursor-pointer">
+                    <div class="flex items-center gap-4 flex-1 min-w-0">
+                        <div
+                            class="w-10 h-10 rounded-full bg-pfm-bg shadow-sm flex items-center justify-center text-pfm-text-light">
+                            <i data-lucide="{{ account.icon }}" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <p class="font-bold text-pfm-text-dark">{{ account.name }}</p>
+                                <span
+                                    class="px-2 py-0.5 rounded-full bg-pfm-danger/10 text-pfm-danger text-[10px] font-bold uppercase tracking-wider">
+                                    {% blocktrans with type=account.type %}{{ type }}{% endblocktrans %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6 shrink-0">
+                        <div class="w-32 text-left">
+                            <p class="font-bold text-pfm-text-dark tabular-nums">-${{ account.balance|floatformat:2 }}
+                            </p>
+                        </div>
+                        <div
+                            class="w-16 flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
+                                data-pfm-modal-target="add-account-modal" data-pfm-bind-mode="edit"
+                                data-pfm-bind-accountname="{{ account.name }}"
+                                data-pfm-bind-accounttype="{{ account.type }}"
+                                data-pfm-bind-accountbalance="{{ account.balance }}"
+                                data-pfm-bind-accounticon="{{ account.icon }}"
+                                data-pfm-bind-includeintotal="{{ account.include_in_total|yesno:'true,false' }}"
+                                data-pfm-bind-updateurl="{% url 'account_update' account.pk %}">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-danger"
+                                data-pfm-modal-target="delete-account-modal"
+                                data-pfm-bind-accountname="{{ account.name }}"
+                                data-pfm-bind-deleteurl="{% url 'account_delete' account.pk %}">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
         <!-- Empty State for Accounts Page -->
         <div
             class="flex flex-col items-center justify-center py-20 px-6 text-center rounded-2xl border-2 border-dashed border-pfm-border bg-pfm-card/50 backdrop-blur-sm shadow-sm group hover:border-pfm-primary/30 transition-all duration-300">
@@ -240,6 +325,7 @@
                 {% trans "add_new_account" %}
             </button>
         </div>
+        {% endif %}
     </div>
 </div>
 
@@ -266,7 +352,7 @@
                 </p>
             </div>
 
-            <form id="add-account-form" method="POST" action="#" class="px-8 py-4 space-y-6">
+            <form id="add-account-form" method="POST" action="{% url 'account_create' %}" class="px-8 py-4 space-y-6">
                 {% csrf_token %}
 
                 <div class="space-y-2">
@@ -291,6 +377,7 @@
                                 <optgroup label="{% trans 'assets' %}">
                                     <option value="checking">{% trans "checking" %}</option>
                                     <option value="savings">{% trans "savings" %}</option>
+                                    <option value="bank">{% trans "bank" %}</option>
                                     <option value="brokerage">{% trans "brokerage" %}</option>
                                     <option value="cash">{% trans "cash" %}</option>
                                     <option value="real_estate">{% trans "real_estate" %}</option>
@@ -354,41 +441,18 @@
                     <input type="hidden" name="icon" id="account-icon-input" value="landmark"
                         data-pfm-modal-bind="accounticon">
                     <div id="account-icon-grid" class="grid grid-cols-6 gap-3 p-1 custom-scrollbar">
-                        <button type="button"
-                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border-2 border-pfm-primary bg-pfm-primary/5 text-pfm-primary shadow-sm"
-                            data-icon="landmark" data-pfm-icon-target="account-icon-input"><i data-lucide="landmark"
-                                class="w-5 h-5"></i></button>
-                        <button type="button"
-                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
-                            data-icon="credit-card" data-pfm-icon-target="account-icon-input"><i
-                                data-lucide="credit-card" class="w-5 h-5"></i></button>
-                        <button type="button"
-                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
-                            data-icon="piggy-bank" data-pfm-icon-target="account-icon-input"><i data-lucide="piggy-bank"
-                                class="w-5 h-5"></i></button>
-                        <button type="button"
-                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
-                            data-icon="building-2" data-pfm-icon-target="account-icon-input"><i data-lucide="building-2"
-                                class="w-5 h-5"></i></button>
-                        <button type="button"
-                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
-                            data-icon="briefcase" data-pfm-icon-target="account-icon-input"><i data-lucide="briefcase"
-                                class="w-5 h-5"></i></button>
-                        <button type="button"
-                            class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary"
-                            data-icon="bar-chart-2" data-pfm-icon-target="account-icon-input"><i
-                                data-lucide="bar-chart-2" class="w-5 h-5"></i></button>
+                        <!-- Dynamically populated -->
                     </div>
                 </div>
             </form>
 
             <div class="px-8 py-6 bg-pfm-bg/50 border-t border-pfm-border flex items-center justify-end gap-3">
                 <button type="button"
-                    class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                    class="modal-close-btn px-6 h-12 rounded-xl text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-all active:scale-95">
                     {% trans "cancel" %}
                 </button>
                 <button type="submit" form="add-account-form" id="modal-submit-account"
-                    class="px-8 h-11 rounded-lg bg-pfm-primary text-white text-sm font-bold shadow-lg shadow-pfm-primary/20 hover:bg-pfm-primary/90 transition-all">
+                    class="px-8 h-12 rounded-xl bg-pfm-primary text-white text-sm font-black shadow-lg shadow-pfm-primary/25 hover:bg-pfm-primary/90 transition-all active:scale-95">
                     {% trans "save_account" %}
                 </button>
             </div>
@@ -440,28 +504,81 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Handle Icon Selection in Add/Edit Modal
-        const iconGrid = document.getElementById('account-icon-grid');
-        const iconInput = document.getElementById('account-icon-input');
+        const ICON_CONFIG = {
+            account: [
+                { name: 'landmark', label: '{% trans "icon_landmark" %}' },
+                { name: 'credit-card', label: '{% trans "icon_credit_card" %}' },
+                { name: 'piggy-bank', label: '{% trans "icon_piggy_bank" %}' },
+                { name: 'building-2', label: '{% trans "icon_building_2" %}' },
+                { name: 'briefcase', label: '{% trans "icon_briefcase" %}' },
+                { name: 'bar-chart-2', label: '{% trans "icon_bar_chart_2" %}' },
+                { name: 'wallet', label: '{% trans "icon_wallet" %}' },
+                { name: 'coins', label: '{% trans "icon_coins" %}' },
+                { name: 'banknote', label: '{% trans "icon_banknote" %}' },
+                { name: 'vault', label: '{% trans "icon_vault" %}' },
+                { name: 'hand-coins', label: '{% trans "icon_hand_coins" %}' },
+                { name: 'receipt', label: '{% trans "icon_receipt" %}' },
+                { name: 'trending-up', label: '{% trans "icon_trending_up" %}' },
+                { name: 'gem', label: '{% trans "icon_gem" %}' },
+                { name: 'home', label: '{% trans "icon_home" %}' },
+                { name: 'car', label: '{% trans "icon_car" %}' },
+                { name: 'bitcoin', label: '{% trans "icon_bitcoin" %}' },
+                { name: 'shield', label: '{% trans "icon_shield" %}' }
+            ]
+        };
 
-        if (iconGrid && iconInput) {
-            iconGrid.addEventListener('click', (e) => {
-                const btn = e.target.closest('.icon-option');
-                if (!btn) return;
+        function renderIconGrid(containerId, icons, targetInputId, defaultIcon) {
+            const grid = document.getElementById(containerId);
+            if (!grid) return;
 
-                const icon = btn.getAttribute('data-icon');
-                iconInput.value = icon;
+            grid.innerHTML = icons.map(icon => {
+                const isActive = icon.name === defaultIcon;
+                const activeClasses = 'border-2 border-pfm-primary bg-pfm-primary/5 text-pfm-primary shadow-sm';
+                const inactiveClasses = 'border border-pfm-border text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary';
 
-                // Update UI
-                iconGrid.querySelectorAll('.icon-option').forEach(opt => {
-                    opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
-                    opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
+                return `
+                    <button type="button"
+                        class="icon-option flex items-center justify-center aspect-square rounded-xl transition-all ${isActive ? activeClasses : inactiveClasses}"
+                        data-icon="${icon.name}"
+                        data-pfm-icon-target="${targetInputId}"
+                        aria-label="${icon.label}">
+                        <i data-lucide="${icon.name}" class="w-5 h-5"></i>
+                    </button>
+                `;
+            }).join('');
+
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        }
+
+        // Initialize grid
+        renderIconGrid('account-icon-grid', ICON_CONFIG.account, 'account-icon-input', 'landmark');
+
+        // Handle Icon Selection via Delegation
+        document.addEventListener('click', (e) => {
+            const opt = e.target.closest('.icon-option');
+            if (!opt) return;
+
+            const targetInputId = opt.getAttribute('data-pfm-icon-target');
+            if (targetInputId !== 'account-icon-input') return;
+
+            const targetInput = document.getElementById(targetInputId);
+            const iconName = opt.getAttribute('data-icon');
+
+            if (targetInput) {
+                targetInput.value = iconName;
+
+                const siblings = opt.parentElement.querySelectorAll('.icon-option');
+                siblings.forEach(s => {
+                    s.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                    s.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
                 });
 
-                btn.classList.add('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
-                btn.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
-            });
-        }
+                opt.classList.add('border-2', 'border-pfm-primary', 'bg-pfm-primary/5', 'text-pfm-primary');
+                opt.classList.remove('border', 'border-pfm-border', 'text-pfm-text-light');
+            }
+        });
 
         // Global Modal Opening Sync for Mode (Add vs Edit)
         document.addEventListener('click', (e) => {
@@ -483,7 +600,7 @@
                     if (descEl) descEl.textContent = "{% trans 'edit_account_desc' %}";
 
                     if (form) {
-                        form.action = btn.getAttribute('data-pfm-bind-updateurl') || '#';
+                        form.action = btn.getAttribute('data-pfm-bind-updateurl') || "{% url 'account_create' %}";
 
                         // Populate select specifically
                         const typeSelect = form.querySelector('#account-type');
@@ -501,10 +618,7 @@
                     }
 
                     const accountIcon = btn.getAttribute('data-pfm-bind-accounticon') || 'landmark';
-                    setTimeout(() => {
-                        const iconOpt = document.querySelector(`#account-icon-grid [data-icon="${accountIcon}"]`);
-                        if (iconOpt) iconOpt.click();
-                    }, 50);
+                    renderIconGrid('account-icon-grid', ICON_CONFIG.account, 'account-icon-input', accountIcon);
 
                 } else {
                     if (titleEl) titleEl.textContent = "{% trans 'add_new_account' %}";
@@ -512,14 +626,11 @@
                     if (descEl) descEl.textContent = "{% trans 'add_account_description' %}";
 
                     if (form) {
-                        form.action = "#";
+                        form.action = "{% url 'account_create' %}";
                         form.reset();
                     }
 
-                    setTimeout(() => {
-                        const defaultOpt = document.querySelector(`#account-icon-grid [data-icon="landmark"]`);
-                        if (defaultOpt) defaultOpt.click();
-                    }, 50);
+                    renderIconGrid('account-icon-grid', ICON_CONFIG.account, 'account-icon-input', 'landmark');
                 }
             }
         });
@@ -532,17 +643,109 @@
                 const deleteUrl = deleteUrlInput ? deleteUrlInput.value : null;
 
                 if (deleteUrl && deleteUrl !== '#') {
-                    // Actual delete logic would go here
-                    console.log('Deleting account at:', deleteUrl);
-                    window.location.reload();
-                } else {
-                    // For mock purposes
-                    console.log('Mock deletion success');
-                    document.querySelector('.modal-close-btn[data-pfm-modal-hide="delete-account-modal"]')?.click();
-                    // Or more simply if no specific hide button exists
-                    window.location.reload();
+                    confirmDeleteBtn.disabled = true;
+                    confirmDeleteBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                    fetch(deleteUrl, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            confirmDeleteBtn.disabled = false;
+                            confirmDeleteBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                            alert('Error deleting account');
+                        }
+                    }).catch(err => {
+                        console.error('Delete error:', err);
+                        confirmDeleteBtn.disabled = false;
+                        confirmDeleteBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    });
                 }
             });
+        }
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterButtons = document.querySelectorAll('.account-filter-btn');
+        const accountGroups = document.querySelectorAll('[data-account-group]');
+        const globalEmptyState = document.getElementById('global-empty-state');
+
+        function setFilter(filter, updateUrl = true) {
+            // Update URL and Cookies if requested
+            if (updateUrl) {
+                const url = new URL(window.location);
+                url.searchParams.set('filter', filter);
+                window.history.pushState({}, '', url);
+                document.cookie = `pfm_last_account_filter=${filter}; path=/; max-age=31536000`; // 1 year
+            } else {
+                // Even if not "updating" (initial load), if the URL is missing the param, let's add it via replaceState
+                const url = new URL(window.location);
+                if (!url.searchParams.has('filter')) {
+                    url.searchParams.set('filter', filter);
+                    window.history.replaceState({}, '', url);
+                }
+            }
+
+            // Update Active State UI
+            filterButtons.forEach(btn => {
+                const btnFilter = btn.getAttribute('data-account-filter');
+                if (btnFilter === filter) {
+                    btn.classList.add('text-pfm-primary', 'font-bold');
+                    btn.classList.remove('text-pfm-text-light', 'font-medium', 'hover:text-pfm-text-dark');
+                } else {
+                    btn.classList.remove('text-pfm-primary', 'font-bold');
+                    btn.classList.add('text-pfm-text-light', 'font-medium', 'hover:text-pfm-text-dark');
+                }
+            });
+
+            // Filter Groups
+            let visibleGroups = 0;
+            accountGroups.forEach(group => {
+                const groupType = group.getAttribute('data-account-group');
+                if (filter === 'all' || filter === groupType) {
+                    group.classList.remove('hidden');
+                    visibleGroups++;
+                } else {
+                    group.classList.add('hidden');
+                }
+            });
+
+            // Refresh icons after visibility change
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+            // Handle Empty State
+            if (globalEmptyState) {
+                if (visibleGroups === 0) {
+                    globalEmptyState.classList.remove('hidden');
+                } else {
+                    globalEmptyState.classList.add('hidden');
+                }
+            }
+        }
+
+        // Add click listeners
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-account-filter');
+                setFilter(filter);
+            });
+        });
+
+        // Initial load check
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialFilter = urlParams.get('filter') || '{{ active_filter|default:"all" }}';
+        if (initialFilter) {
+            setFilter(initialFilter, false);
         }
     });
 </script>

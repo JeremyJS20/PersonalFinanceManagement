@@ -41,8 +41,41 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Account(models.Model):
+    ACCOUNT_TYPES = [
+        ('checking', _('Checking')),
+        ('savings', _('Savings')),
+        ('bank', _('Bank')),
+        ('brokerage', _('Brokerage')),
+        ('cash', _('Cash')),
+        ('real_estate', _('Real Estate')),
+        ('crypto', _('Crypto')),
+        ('credit', _('Credit Card')),
+        ('loan', _('Loan')),
+        ('mortgage', _('Mortgage')),
+        ('line_of_credit', _('Line of Credit')),
+    ]
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='accounts')
+    name = models.CharField(max_length=100)
+    type = models.CharField(max_length=20, choices=ACCOUNT_TYPES)
+    balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    include_in_total = models.BooleanField(default=True)
+    icon = models.CharField(max_length=50, default='landmark')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('Account')
+        verbose_name_plural = _('Accounts')
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
 class Transaction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='transactions')
+    account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='transactions')
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     description = models.CharField(max_length=255)

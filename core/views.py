@@ -4,7 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from .forms import CustomUserCreationForm
-from .models import CategoryGroup, Category
+from .models import CategoryGroup, Category, Account
+from django.db.models import Sum
 
 class CustomLoginView(LoginView):
     template_name = 'core/login.html'
@@ -221,6 +222,98 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('categories')
 
-class AccountsView(LoginRequiredMixin, TemplateView):
+class AccountsContextMixin:
+    """Mixin to provide shared context for accounts-related views."""
+    def get_accounts_context(self, user, active_filter=None):
+        accounts = Account.objects.filter(user=user)
+        
+        # Determine active filter if not provided: Query Param > Cookie > Default
+        if not active_filter:
+            active_filter = self.request.GET.get('filter')
+            if not active_filter:
+                active_filter = self.request.COOKIES.get('pfm_last_account_filter', 'all')
+
+        # Categorize accounts
+        # Assets: checking, savings, brokerage, cash, real_estate, crypto
+        # Liabilities: credit, loan, mortgage, line_of_credit
+        assets_types = ['checking', 'savings', 'bank', 'brokerage', 'cash', 'real_estate', 'crypto']
+        liabilities_types = ['credit', 'loan', 'mortgage', 'line_of_credit']
+        
+        banking_accounts = accounts.filter(type__in=['checking', 'savings', 'bank', 'cash'])
+        investment_accounts = accounts.filter(type__in=['brokerage', 'crypto', 'real_estate'])
+        liability_accounts = accounts.filter(type__in=liabilities_types)
+        
+        # Calculate totals (only including accounts marked for total)
+        total_assets = accounts.filter(type__in=assets_types, include_in_total=True).aggregate(total=Sum('balance'))['total'] or 0
+        total_liabilities = accounts.filter(type__in=liabilities_types, include_in_total=True).aggregate(total=Sum('balance'))['total'] or 0
+        total_balance = total_assets - total_liabilities
+        
+        balance_percentage = 0
+        if total_assets > 0:
+            balance_percentage = (total_balance / total_assets) * 100
+        
+        return {
+            'banking_accounts': banking_accounts,
+            'investment_accounts': investment_accounts,
+            'liability_accounts': liability_accounts,
+            'total_assets': total_assets,
+            'total_liabilities': total_liabilities,
+            'total_balance': total_balance,
+            'balance_percentage': balance_percentage,
+            'active_filter': active_filter,
+        }
+
+class AccountsView(LoginRequiredMixin, AccountsContextMixin, TemplateView):
     template_name = 'core/accounts.html'
     login_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_accounts_context(self.request.user))
+        return context
+
+class AccountCreateView(LoginRequiredMixin, AccountsContextMixin, CreateView):
+    model = Account
+    fields = ['name', 'type', 'balance', 'include_in_total', 'icon']
+    template_name = 'core/accounts.html'
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        self.object = form.save()
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'status': 'success'})
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('accounts')
+
+class AccountUpdateView(LoginRequiredMixin, AccountsContextMixin, UpdateView):
+    model = Account
+    fields = ['name', 'type', 'balance', 'include_in_total', 'icon']
+    template_name = 'core/accounts.html'
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'status': 'success'})
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('accounts')
+
+class AccountDeleteView(LoginRequiredMixin, DeleteView):
+    model = Account
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return JsonResponse({'status': 'success'})
+
+    def get_success_url(self):
+        return reverse_lazy('accounts')

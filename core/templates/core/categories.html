@@ -312,66 +312,71 @@
     <div class="relative p-4 w-full max-w-[560px] max-h-full">
         <!-- Modal content -->
         <div
-            class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden flex flex-col transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
-            <div class="flex items-center justify-between border-b border-pfm-border px-6 py-4">
-                <div class="flex flex-col">
-                    <span id="group-type-badge" data-pfm-modal-bind="typelabel"
-                        class="hidden px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider w-fit mb-1">
-                        {% trans "categories_expenses" %}
-                    </span>
-                    <h2 id="modal-title-group" class="text-xl font-bold text-pfm-text-dark" data-pfm-modal-bind="title">
-                        {% trans "categories_add_group" %}
-                    </h2>
+            class="relative bg-pfm-card rounded-2xl shadow-2xl overflow-hidden transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
+            <div class="px-8 pt-8 pb-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex flex-col">
+                        <span id="group-type-badge" data-pfm-modal-bind="typelabel"
+                            class="hidden px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider w-fit mb-1 bg-pfm-primary/10 text-pfm-primary">
+                            {% trans "categories_expenses" %}
+                        </span>
+                        <h2 id="modal-title-group" class="text-pfm-text-dark text-2xl font-black tracking-tight"
+                            data-pfm-modal-bind="title">
+                            {% trans "categories_add_group" %}
+                        </h2>
+                    </div>
+                    <button type="button"
+                        class="modal-close-btn p-1.5 rounded-full hover:bg-pfm-bg text-pfm-text-light transition-colors"
+                        aria-label="{% trans 'categories_close_modal' %}">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
                 </div>
-                <button type="button"
-                    class="modal-close-btn text-pfm-text-light hover:text-pfm-text-dark transition-colors"
-                    aria-label="{% trans 'categories_close_modal' %}">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                <p id="modal-group-desc" class="text-pfm-text-light text-sm">
+                    {% trans "categories_group_modal_desc" %}
+                </p>
             </div>
-            <div class="p-6 overflow-y-auto max-h-[70vh]">
-                <form id="create-group-form" method="POST" action="{% url 'category_group_create' %}" class="space-y-6">
-                    {% csrf_token %}
-                    <input type="hidden" name="transaction_type" id="group-type-input" data-pfm-modal-bind="type"
-                        value="expenses">
-                    <div>
-                        <label class="block text-sm font-semibold text-pfm-text-dark mb-2" for="group-name">
-                            {% trans "categories_group_name_label" %}
-                        </label>
-                        <input
-                            class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary focus:ring-2 focus:ring-pfm-primary/20 outline-none transition-all placeholder:text-pfm-text-light/50 font-medium"
-                            id="group-name" name="name" placeholder="{% trans 'categories_group_name_placeholder' %}"
-                            data-pfm-modal-bind="groupname" type="text" required autocomplete="off">
+            <form id="create-group-form" method="POST" action="{% url 'category_group_create' %}"
+                class="px-8 py-4 space-y-6">
+                {% csrf_token %}
+                <input type="hidden" name="transaction_type" id="group-type-input" data-pfm-modal-bind="type"
+                    value="expenses">
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest" for="group-name">
+                        {% trans "categories_group_name_label" %}
+                    </label>
+                    <input
+                        class="pfm-input w-full h-12 px-4 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm placeholder:text-pfm-text-light/40 font-bold transition-all"
+                        id="group-name" name="name" placeholder="{% trans 'categories_group_name_placeholder' %}"
+                        data-pfm-modal-bind="groupname" type="text" required autocomplete="off">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest"
+                        for="group-description">
+                        {% trans "categories_group_description_label" %}
+                    </label>
+                    <textarea
+                        class="pfm-input w-full px-4 py-3 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm placeholder:text-pfm-text-light/40 font-bold transition-all resize-none"
+                        id="group-description" name="description" data-pfm-modal-bind="groupdescription"
+                        placeholder="{% trans 'categories_group_description_placeholder' %}" rows="2"></textarea>
+                </div>
+                <div class="space-y-3">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest">
+                        {% trans "categories_select_icon" %}
+                    </label>
+                    <input type="hidden" name="icon" id="group-icon-input" value="folder"
+                        data-pfm-modal-bind="groupicon">
+                    <div id="group-icon-grid" class="grid grid-cols-6 gap-3 p-1 custom-scrollbar">
+                        <!-- Dynamically populated -->
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-pfm-text-dark mb-2" for="group-description">
-                            {% trans "categories_group_description_label" %}
-                        </label>
-                        <textarea
-                            class="pfm-input w-full px-4 py-3 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary focus:ring-2 focus:ring-pfm-primary/20 outline-none transition-all placeholder:text-pfm-text-light/50 font-medium"
-                            id="group-description" name="description" data-pfm-modal-bind="groupdescription"
-                            placeholder="{% trans 'categories_group_description_placeholder' %}" rows="2"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-pfm-text-dark mb-3">
-                            {% trans "categories_select_icon" %}
-                        </label>
-                        <input type="hidden" name="icon" id="group-icon-input" value="folder"
-                            data-pfm-modal-bind="groupicon">
-                        <div id="group-icon-grid"
-                            class="grid grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1 custom-scrollbar">
-                            <!-- Dynamically populated -->
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="flex items-center justify-end gap-3 p-6 bg-pfm-bg/50 border-t border-pfm-border">
+                </div>
+            </form>
+            <div class="px-8 py-6 bg-pfm-bg/50 border-t border-pfm-border flex items-center justify-end gap-3">
                 <button type="button"
-                    class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                    class="modal-close-btn px-6 h-12 rounded-xl text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-all active:scale-95">
                     {% trans "categories_cancel_btn" %}
                 </button>
                 <button type="submit" form="create-group-form" id="modal-submit-group"
-                    class="px-5 py-2.5 rounded-lg bg-pfm-primary text-white font-semibold hover:bg-pfm-primary/90 shadow-md shadow-pfm-primary/20 transition-all">
+                    class="px-8 h-12 rounded-xl bg-pfm-primary text-white text-sm font-black shadow-lg shadow-pfm-primary/25 hover:bg-pfm-primary/90 transition-all active:scale-95">
                     {% trans "categories_create_group_btn" %}
                 </button>
             </div>
@@ -386,64 +391,72 @@
     <div class="relative p-4 w-full max-w-[480px] max-h-full">
         <!-- Modal content -->
         <div
-            class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
+            class="relative bg-pfm-card rounded-2xl shadow-2xl overflow-hidden transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
             <div class="px-8 pt-8 pb-4">
-                <div id="modal-category-badge-container" class="flex items-center gap-2 mb-2">
-                    <span class="text-pfm-primary/80 text-xs font-bold uppercase tracking-wider">
-                        {% trans "categories_adding_to_label" %}
-                    </span>
-                    <span id="target-group-name" data-pfm-modal-bind="group"
-                        class="bg-pfm-primary/10 text-pfm-primary px-2 py-0.5 rounded text-xs font-bold">
-                        {% trans "categories_financial_expenses_group" %}
-                    </span>
+                <div class="flex items-center justify-between mb-2">
+                    <div id="modal-category-badge-container" class="flex flex-col">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-pfm-primary/80 text-[10px] font-black uppercase tracking-widest">
+                                {% trans "categories_adding_to_label" %}
+                            </span>
+                            <span id="target-group-name" data-pfm-modal-bind="group"
+                                class="bg-pfm-primary/10 text-pfm-primary px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                                {% trans "categories_financial_expenses_group" %}
+                            </span>
+                        </div>
+                        <h2 id="modal-title-category" class="text-pfm-text-dark text-2xl font-black tracking-tight">
+                            {% trans "categories_add_new_category_title" %}
+                        </h2>
+                    </div>
+                    <button type="button"
+                        class="modal-close-btn p-1.5 rounded-full hover:bg-pfm-bg text-pfm-text-light transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
                 </div>
-                <h2 id="modal-title-category" class="text-pfm-text-dark text-2xl font-black tracking-tight">
-                    {% trans "categories_add_new_category_title" %}
-                </h2>
-                <p id="modal-category-desc" class="text-pfm-text-light text-sm mt-1">
+                <p id="modal-category-desc" class="text-pfm-text-light text-sm">
                     {% trans "categories_add_category_desc" %}
                 </p>
             </div>
             <form id="add-category-form" method="POST" action="{% url 'category_create' %}" class="px-8 py-4 space-y-6">
                 {% csrf_token %}
                 <input type="hidden" name="group" data-pfm-modal-bind="groupid">
-                <div class="flex flex-col gap-2">
-                    <label class="text-sm font-bold text-pfm-text-dark" for="category-name">
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest" for="category-name">
                         {% trans "categories_category_name_label" %}
                     </label>
                     <input
-                        class="pfm-input w-full h-12 px-4 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 font-medium"
+                        class="pfm-input w-full h-12 px-4 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm placeholder:text-pfm-text-light/40 font-bold transition-all"
                         id="category-name" name="name" placeholder="{% trans 'categories_category_name_placeholder' %}"
                         data-pfm-modal-bind="categoryname" type="text" required autocomplete="off">
                 </div>
-                <div class="flex flex-col gap-2">
-                    <label class="text-sm font-bold text-pfm-text-dark" for="category-description">
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest"
+                        for="category-description">
                         {% trans "categories_description_label" %}
                     </label>
                     <textarea
-                        class="pfm-input w-full px-4 py-3 rounded-lg bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-base placeholder:text-pfm-text-light/50 resize-none font-medium"
+                        class="pfm-input w-full px-4 py-3 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm placeholder:text-pfm-text-light/40 font-bold transition-all resize-none"
                         id="category-description" name="description" data-pfm-modal-bind="categorydescription"
                         placeholder="{% trans 'categories_description_placeholder' %}" rows="3"></textarea>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <label class="text-sm font-bold text-pfm-text-dark">
+                <div class="space-y-3">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest">
                         {% trans "categories_select_icon" %}
                     </label>
                     <input type="hidden" name="icon" id="category-icon-input" value="tag"
                         data-pfm-modal-bind="categoryicon">
-                    <div id="category-icon-grid"
-                        class="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1 custom-scrollbar">
+                    <div id="category-icon-grid" class="grid grid-cols-6 gap-3 p-1 custom-scrollbar">
                         <!-- Dynamically populated -->
                     </div>
                 </div>
             </form>
             <div class="px-8 py-6 bg-pfm-bg/50 border-t border-pfm-border flex items-center justify-end gap-3">
                 <button type="button"
-                    class="modal-close-btn px-6 h-11 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                    class="modal-close-btn px-6 h-12 rounded-xl text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-all active:scale-95">
                     {% trans "categories_cancel_btn" %}
                 </button>
                 <button type="submit" form="add-category-form" id="modal-submit-category"
-                    class="px-8 h-11 rounded-lg bg-pfm-primary text-white text-sm font-bold shadow-lg shadow-pfm-primary/20 hover:bg-pfm-primary/90 transition-all">
+                    class="px-8 h-12 rounded-xl bg-pfm-primary text-white text-sm font-black shadow-lg shadow-pfm-primary/25 hover:bg-pfm-primary/90 transition-all active:scale-95">
                     {% trans "categories_add_category" %}
                 </button>
             </div>
@@ -457,7 +470,7 @@
     role="dialog" aria-modal="true" aria-labelledby="modal-title-delete">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div
-            class="relative bg-pfm-card rounded-xl shadow-2xl overflow-hidden transition-all duration-300 transform-gpu scale-95 opacity-0">
+            class="relative bg-pfm-card rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 transform-gpu scale-95 opacity-0">
             <div class="p-6 text-center">
                 <div
                     class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/20 mb-4">
@@ -479,11 +492,11 @@
                 <input type="hidden" id="delete-category-url-input" data-pfm-modal-bind="deleteurl">
                 <div class="flex items-center justify-center gap-3">
                     <button type="button"
-                        class="modal-close-btn px-5 py-2.5 rounded-lg text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
+                        class="modal-close-btn px-5 py-2.5 rounded-xl text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-colors">
                         {% trans "categories_cancel_btn" %}
                     </button>
                     <button id="confirm-delete-category-btn" type="button"
-                        class="px-5 py-2.5 rounded-lg bg-red-600 text-white text-sm font-bold shadow-lg shadow-red-500/20 hover:bg-red-700 transition-all active:scale-95">
+                        class="px-5 py-2.5 rounded-xl bg-red-600 text-white text-sm font-black shadow-lg shadow-red-500/20 hover:bg-red-700 transition-all active:scale-95">
                         {% trans "categories_delete_btn" %}
                     </button>
                 </div>
@@ -662,8 +675,10 @@
                     const groupIcon = btn.getAttribute('data-pfm-bind-groupicon') || 'folder';
                     const updateUrl = btn.getAttribute('data-pfm-bind-updateurl');
 
+                    const descEl = document.getElementById('modal-group-desc');
                     if (titleEl) titleEl.textContent = "{% trans 'categories_edit_group_title' %}";
                     if (submitBtn) submitBtn.textContent = "{% trans 'categories_save_changes_btn' %}";
+                    if (descEl) descEl.textContent = "{% trans 'categories_edit_group_desc' %}";
 
                     if (form) {
                         form.action = updateUrl || `/categories/group/${groupId}/update/`;
@@ -674,8 +689,10 @@
                         if (iconOpt) iconOpt.click();
                     }, 50);
                 } else {
+                    const descEl = document.getElementById('modal-group-desc');
                     if (titleEl) titleEl.textContent = "{% trans 'categories_add_group' %}";
                     if (submitBtn) submitBtn.textContent = "{% trans 'categories_create_group_btn' %}";
+                    if (descEl) descEl.textContent = "{% trans 'categories_group_modal_desc' %}";
 
                     if (form) {
                         form.action = "{% url 'category_group_create' %}";

@@ -3,7 +3,8 @@ from django.contrib.auth.views import LogoutView
 from .views import (
     CustomLoginView, DashboardView, SignUpView, CategoriesView,
     CategoryGroupCreateView, CategoryGroupUpdateView, CategoryCreateView,
-    CategoryUpdateView, CategoryDeleteView, AccountsView
+    CategoryUpdateView, CategoryDeleteView, AccountsView,
+    AccountCreateView, AccountUpdateView, AccountDeleteView
 )
 
 urlpatterns = [
@@ -18,5 +19,8 @@ urlpatterns = [
     path('categories/<int:pk>/update/', CategoryUpdateView.as_view(), name='category_update'),
     path('categories/<int:pk>/delete/', CategoryDeleteView.as_view(), name='category_delete'),
     path('accounts/', AccountsView.as_view(), name='accounts'),
+    path('accounts/create/', AccountCreateView.as_view(), name='account_create'),
+    path('accounts/<int:pk>/update/', AccountUpdateView.as_view(), name='account_update'),
+    path('accounts/<int:pk>/delete/', AccountDeleteView.as_view(), name='account_delete'),
     path('', DashboardView.as_view(), name='home'),
 ]
