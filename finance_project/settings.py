@@ -140,7 +140,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Tailwind Configuration
 TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = r"C:\nvm4w\nodejs\npm.cmd"
+NPM_BIN_PATH = r"C:\nvm4w\nodejs\npm.cmd" if os.name == 'nt' else "npm"
 
 INTERNAL_IPS = [
     "127.0.0.1",
