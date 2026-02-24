@@ -32,3 +32,4 @@ urllib3==2.6.3
 
 pytest
 playwright
+whitenoise==6.8.2
