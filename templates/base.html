@@ -54,7 +54,8 @@
                     class="{% if request.resolver_match.url_name == 'accounts' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
                     {% trans "accounts" %}
                 </a>
-                <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                <a href="{% url 'transactions' %}"
+                    class="{% if request.resolver_match.url_name == 'transactions' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
                     {% trans "transactions" %}
                 </a>
                 <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
@@ -184,7 +185,10 @@
             class="block {% if request.resolver_match.url_name == 'accounts' %}text-pfm-text-dark font-medium{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">
             {% trans "accounts" %}
         </a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "transactions" %}</a>
+        <a href="{% url 'transactions' %}"
+            class="block {% if request.resolver_match.url_name == 'transactions' %}text-pfm-text-dark font-medium{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">
+            {% trans "transactions" %}
+        </a>
         <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "reports" %}</a>
     </div>
 

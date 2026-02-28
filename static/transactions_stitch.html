@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinanceFlow - Transactions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d968b",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-primary">FinanceFlow</h2>
+</div>
+<div class="hidden md:block">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary/60 text-lg">search</span>
+<input class="h-9 w-64 rounded-lg border-none bg-primary/5 pl-10 text-sm focus:ring-2 focus:ring-primary/20 dark:bg-primary/10" placeholder="Search..." type="text"/>
+</div>
+</div>
+</div>
+<nav class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-400" href="#">Dashboard</a>
+<a class="text-sm font-bold text-primary" href="#">Transactions</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-400" href="#">Accounts</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-400" href="#">Budgets</a>
+</div>
+<div class="h-8 w-8 rounded-full bg-primary/20 overflow-hidden border border-primary/20">
+<img alt="User avatar" data-alt="User profile picture placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5tVDqfEo-XtNOpwrWa4gehQJ2yojB46RbN5vNWS5JBjmIIYeghATbxWvLly7lCCPwY3g9qI03ZMvBev6WrzLNyhsJMtAgR2tzyfFcoCVHsay6wYu-ivQbDtRfaVKDWjt-2im-hhTf4x1MbW-GW0SzfZk2CnJyUs9BbQTzr5_AlpM3NRsC-9vOzBVUB9H2qTTL677B8CIZ-ZTWiT5VLsK-8R4H35z8uWSXC250NP0Zx5dRZ6haFjDDGvAlbIT3U9xHWLCbIlf4QLYR"/>
+</div>
+</nav>
+</div>
+</div>
+</header>
+<main class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+<div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">Transactions</h1>
+<p class="mt-1 text-slate-500 dark:text-slate-400">Manage and track your recent financial activity</p>
+</div>
+<button class="flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-bold text-white transition-all hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/20">
+<span class="material-symbols-outlined text-lg">add</span>
+<span>Add Transaction</span>
+</button>
+</div>
+<div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+<div class="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-background-dark/40">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Net Flow</p>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-slate-100">+$2,450.00</span>
+<span class="text-sm font-semibold text-emerald-600">+12%</span>
+</div>
+</div>
+<div class="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-background-dark/40">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Income</p>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-slate-100">$5,800.00</span>
+<span class="text-sm font-semibold text-emerald-600">+5%</span>
+</div>
+</div>
+<div class="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-background-dark/40">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Expenses</p>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-slate-100">$3,350.00</span>
+<span class="text-sm font-semibold text-rose-600">-2%</span>
+</div>
+</div>
+</div>
+<div class="mb-6 flex flex-wrap items-center gap-3">
+<div class="relative flex-1 min-w-[240px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full rounded-lg border border-primary/10 bg-white py-2 pl-10 pr-4 text-sm focus:border-primary focus:ring-0 dark:bg-background-dark/20" placeholder="Search transactions..." type="text"/>
+</div>
+<button class="flex items-center gap-2 rounded-lg border border-primary/10 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:bg-background-dark/20 dark:text-slate-300">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span>Date Range</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 rounded-lg border border-primary/10 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:bg-background-dark/20 dark:text-slate-300">
+<span class="material-symbols-outlined text-lg">category</span>
+<span>Category</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 rounded-lg border border-primary/10 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:bg-background-dark/20 dark:text-slate-300">
+<span class="material-symbols-outlined text-lg">account_balance</span>
+<span>Account</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="ml-auto flex h-9 w-9 items-center justify-center rounded-lg border border-primary/10 bg-white text-slate-500 hover:bg-slate-50 dark:bg-background-dark/20">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+</button>
+</div>
+<div class="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm dark:bg-background-dark/20">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-primary/10 bg-slate-50/50 dark:bg-background-dark/40">
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Date</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Description</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Category</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Account</th>
+<th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Oct 24, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">Apple Store Purchase</td>
+<td class="px-6 py-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-blue-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Electronics</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Chase Savings</td>
+<td class="px-6 py-4 text-right text-sm font-bold text-rose-600">-$1,299.00</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Oct 23, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">Client Payment - Project X</td>
+<td class="px-6 py-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Freelance</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Business Checking</td>
+<td class="px-6 py-4 text-right text-sm font-bold text-emerald-600">+$2,500.00</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Oct 22, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">Whole Foods Market</td>
+<td class="px-6 py-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-orange-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Groceries</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Amex Gold</td>
+<td class="px-6 py-4 text-right text-sm font-bold text-rose-600">-$84.50</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Oct 21, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">Monthly Rent Payment</td>
+<td class="px-6 py-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-purple-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Housing</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Chase Savings</td>
+<td class="px-6 py-4 text-right text-sm font-bold text-rose-600">-$1,850.00</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Oct 20, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">Gas Station - Shell</td>
+<td class="px-6 py-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-yellow-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Transport</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Amex Gold</td>
+<td class="px-6 py-4 text-right text-sm font-bold text-rose-600">-$45.20</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Oct 19, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">Dividend Reinvestment</td>
+<td class="px-6 py-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-cyan-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Investments</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Vanguard Brokerage</td>
+<td class="px-6 py-4 text-right text-sm font-bold text-emerald-600">+$124.75</td>
+</tr>
+</tbody>
+</table>
+<div class="flex flex-col sm:flex-row items-center justify-between border-t border-primary/10 bg-slate-50/50 px-6 py-4 dark:bg-background-dark/40 gap-4">
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<label class="hidden sm:inline" for="rows-per-page">Rows per page:</label>
+<select class="h-8 rounded-lg border border-primary/10 bg-white py-1 pl-2 pr-8 text-sm focus:border-primary focus:ring-0 dark:bg-background-dark/20 dark:text-slate-300" id="rows-per-page">
+<option>10</option>
+<option>25</option>
+<option>50</option>
+<option>100</option>
+</select>
+<span class="border-l border-primary/10 h-4 mx-2"></span>
+<p>Showing 1-10 of 128</p>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="First page" class="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/10 bg-white text-slate-500 hover:bg-slate-50 hover:text-primary disabled:opacity-50 dark:bg-background-dark/20 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">first_page</span>
+</button>
+<button aria-label="Previous page" class="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/10 bg-white text-slate-500 hover:bg-slate-50 hover:text-primary disabled:opacity-50 dark:bg-background-dark/20 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-white shadow-sm ring-1 ring-primary">1</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/10 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-primary dark:bg-background-dark/20 dark:text-slate-400 dark:hover:text-primary-light">2</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/10 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-primary dark:bg-background-dark/20 dark:text-slate-400 dark:hover:text-primary-light">3</button>
+<div class="flex h-8 w-8 items-center justify-center text-slate-400">...</div>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/10 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-primary dark:bg-background-dark/20 dark:text-slate-400 dark:hover:text-primary-light">12</button>
+<button aria-label="Next page" class="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/10 bg-white text-slate-500 hover:bg-slate-50 hover:text-primary disabled:opacity-50 dark:bg-background-dark/20 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+<button aria-label="Last page" class="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/10 bg-white text-slate-500 hover:bg-slate-50 hover:text-primary disabled:opacity-50 dark:bg-background-dark/20 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">last_page</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-auto py-8 text-center text-sm text-slate-500 dark:text-slate-400">
+<p>© 2023 FinanceFlow App. All rights reserved.</p>
+</footer>
+</div>
+</body></html>

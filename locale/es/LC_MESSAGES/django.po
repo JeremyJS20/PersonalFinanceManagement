@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 17:00-0400\n"
+"POT-Creation-Date: 2026-02-28 14:21-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,25 +12,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\core\forms.py:7
+#: .\core\forms.py:9
 msgid "First name"
 msgstr "Nombre"
 
-#: .\core\forms.py:7 .\core\forms.py:8
+#: .\core\forms.py:9 .\core\forms.py:10
 msgid "Required."
 msgstr "Requerido."
 
-#: .\core\forms.py:8
+#: .\core\forms.py:10
 msgid "Last name"
 msgstr "Apellido"
 
-#: .\core\forms.py:9
+#: .\core\forms.py:11
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: .\core\forms.py:9
+#: .\core\forms.py:11
 msgid "Required. Inform a valid email address."
 msgstr "Requerido. Informe una dirección de correo válida."
+
+#: .\core\forms.py:32
+msgid "eg_grocery_shopping"
+msgstr "ej. Compras de Supermercado"
 
 #: .\core\models.py:8
 msgid "Expenses"
@@ -126,273 +130,273 @@ msgid "accounts_subtitle"
 msgstr "Gestione sus cuentas y activos financieros."
 
 #: .\core\templates\core\accounts.html:14
-#: .\core\templates\core\accounts.html:97
-#: .\core\templates\core\accounts.html:173
-#: .\core\templates\core\accounts.html:248
+#: .\core\templates\core\accounts.html:100
+#: .\core\templates\core\accounts.html:177
+#: .\core\templates\core\accounts.html:253
 msgid "add_account"
 msgstr "Añadir Cuenta"
 
 #: .\core\templates\core\accounts.html:23
-#: .\core\templates\core\accounts.html:367
+#: .\core\templates\core\accounts.html:372
 msgid "account_type"
 msgstr "Tipo de Cuenta"
 
-#: .\core\templates\core\accounts.html:29
+#: .\core\templates\core\accounts.html:30
 msgid "all_accounts"
 msgstr "Todas las Cuentas"
 
-#: .\core\templates\core\accounts.html:36
-#: .\core\templates\core\accounts.html:372
+#: .\core\templates\core\accounts.html:37
+#: .\core\templates\core\accounts.html:377
 msgid "assets"
 msgstr "Activos"
 
-#: .\core\templates\core\accounts.html:43
-#: .\core\templates\core\accounts.html:237
-#: .\core\templates\core\accounts.html:381
+#: .\core\templates\core\accounts.html:44
+#: .\core\templates\core\accounts.html:244
+#: .\core\templates\core\accounts.html:386
 msgid "liabilities"
 msgstr "Pasivos"
 
-#: .\core\templates\core\accounts.html:51
+#: .\core\templates\core\accounts.html:52
 msgid "total_assets"
 msgstr "Activos Totales"
 
-#: .\core\templates\core\accounts.html:57
+#: .\core\templates\core\accounts.html:58
 msgid "total_liabilities"
 msgstr "Pasivos Totales"
 
-#: .\core\templates\core\accounts.html:63
+#: .\core\templates\core\accounts.html:64
 msgid "total_balance"
 msgstr "Saldo Total"
 
-#: .\core\templates\core\accounts.html:86
+#: .\core\templates\core\accounts.html:89
 msgid "banking_liquid"
 msgstr "Banca"
 
-#: .\core\templates\core\accounts.html:88
+#: .\core\templates\core\accounts.html:91
 msgid "cash_and_savings"
 msgstr "Efectivo y Ahorros"
 
-#: .\core\templates\core\accounts.html:116
-#: .\core\templates\core\accounts.html:192
-#: .\core\templates\core\accounts.html:267
+#: .\core\templates\core\accounts.html:119
+#: .\core\templates\core\accounts.html:196
+#: .\core\templates\core\accounts.html:272
 #, python-format
 msgid "%(type)s"
 msgstr ""
 
-#: .\core\templates\core\accounts.html:162 .\templates\base.html:64
-#: .\templates\base.html:196
+#: .\core\templates\core\accounts.html:166
 msgid "investments"
 msgstr "Inversiones"
 
-#: .\core\templates\core\accounts.html:164
+#: .\core\templates\core\accounts.html:168
 msgid "retirement_brokerage"
 msgstr "Jubilación y Corretaje"
 
-#: .\core\templates\core\accounts.html:239
+#: .\core\templates\core\accounts.html:242
 msgid "loans_and_credit"
 msgstr "Préstamos y Crédito"
 
-#: .\core\templates\core\accounts.html:311
+#: .\core\templates\core\accounts.html:316
 msgid "no_accounts_title"
 msgstr "No hay cuentas activas"
 
-#: .\core\templates\core\accounts.html:314
+#: .\core\templates\core\accounts.html:319
 msgid "no_accounts_desc"
 msgstr ""
 "Comience a rastrear sus finanzas agregando su primera cuenta bancaria, "
 "tarjeta de crédito o cartera de inversiones."
 
-#: .\core\templates\core\accounts.html:320
-#: .\core\templates\core\accounts.html:338
-#: .\core\templates\core\accounts.html:619
+#: .\core\templates\core\accounts.html:325
+#: .\core\templates\core\accounts.html:343
+#: .\core\templates\core\accounts.html:624
 msgid "add_new_account"
 msgstr "Añadir Nueva Cuenta"
 
-#: .\core\templates\core\accounts.html:346
-#: .\core\templates\core\accounts.html:621
+#: .\core\templates\core\accounts.html:351
+#: .\core\templates\core\accounts.html:626
 msgid "add_account_description"
 msgstr "Configure una nueva cuenta para rastrear sus saldos."
 
-#: .\core\templates\core\accounts.html:355
+#: .\core\templates\core\accounts.html:360
 msgid "account_name"
 msgstr "Nombre de la Cuenta"
 
-#: .\core\templates\core\accounts.html:373
+#: .\core\templates\core\accounts.html:378
 msgid "checking"
 msgstr "Cuenta Corriente"
 
-#: .\core\templates\core\accounts.html:374
+#: .\core\templates\core\accounts.html:379
 msgid "savings"
 msgstr "Ahorros"
 
-#: .\core\templates\core\accounts.html:375
+#: .\core\templates\core\accounts.html:380
 msgid "bank"
 msgstr "Banco"
 
-#: .\core\templates\core\accounts.html:376
+#: .\core\templates\core\accounts.html:381
 msgid "brokerage"
 msgstr "Corretaje"
 
-#: .\core\templates\core\accounts.html:377
+#: .\core\templates\core\accounts.html:382
 msgid "cash"
 msgstr "Efectivo"
 
-#: .\core\templates\core\accounts.html:378
+#: .\core\templates\core\accounts.html:383
 msgid "real_estate"
 msgstr "Bienes Raíces"
 
-#: .\core\templates\core\accounts.html:379
+#: .\core\templates\core\accounts.html:384
 msgid "crypto"
 msgstr "Criptomonedas"
 
-#: .\core\templates\core\accounts.html:382
+#: .\core\templates\core\accounts.html:387
 msgid "credit_card"
 msgstr "Tarjeta de Crédito"
 
-#: .\core\templates\core\accounts.html:383
+#: .\core\templates\core\accounts.html:388
 msgid "loan"
 msgstr "Préstamo"
 
-#: .\core\templates\core\accounts.html:384
+#: .\core\templates\core\accounts.html:389
 msgid "mortgage"
 msgstr "Hipoteca"
 
-#: .\core\templates\core\accounts.html:385
+#: .\core\templates\core\accounts.html:390
 msgid "line_of_credit"
 msgstr "Línea de Crédito"
 
-#: .\core\templates\core\accounts.html:396
+#: .\core\templates\core\accounts.html:401
 msgid "initial_balance"
 msgstr "Saldo Inicial"
 
-#: .\core\templates\core\accounts.html:418
+#: .\core\templates\core\accounts.html:423
 msgid "include_total_balance"
 msgstr "Incluir en Saldo Total"
 
-#: .\core\templates\core\accounts.html:420
+#: .\core\templates\core\accounts.html:425
 msgid "include_total_balance_desc"
 msgstr "Incluir esta cuenta en mis cálculos de patrimonio neto total."
 
-#: .\core\templates\core\accounts.html:434
+#: .\core\templates\core\accounts.html:439
 msgid "select_icon"
 msgstr "Seleccionar Icono"
 
-#: .\core\templates\core\accounts.html:447
-#: .\core\templates\core\accounts.html:488
+#: .\core\templates\core\accounts.html:452
+#: .\core\templates\core\accounts.html:493
+#: .\core\templates\core\partials\transaction_modal.html:93
 msgid "cancel"
 msgstr "Cancelar"
 
-#: .\core\templates\core\accounts.html:451
-#: .\core\templates\core\accounts.html:594
-#: .\core\templates\core\accounts.html:620
+#: .\core\templates\core\accounts.html:456
+#: .\core\templates\core\accounts.html:599
+#: .\core\templates\core\accounts.html:625
 msgid "save_account"
 msgstr "Guardar Cuenta"
 
-#: .\core\templates\core\accounts.html:472
+#: .\core\templates\core\accounts.html:477
 msgid "delete_account_title"
 msgstr "Eliminar Cuenta"
 
-#: .\core\templates\core\accounts.html:476
+#: .\core\templates\core\accounts.html:481
 msgid "delete_account_confirm"
 msgstr ""
 "¿Estás seguro de que deseas eliminar esta cuenta? Esta acción no se puede "
 "deshacer."
 
-#: .\core\templates\core\accounts.html:481
+#: .\core\templates\core\accounts.html:486
 msgid "delete_account_warning"
 msgstr ""
 "Esta acción no se puede deshacer y todos los datos relacionados con esta "
 "cuenta podrían eliminarse de forma permanente."
 
-#: .\core\templates\core\accounts.html:492
+#: .\core\templates\core\accounts.html:497
 msgid "delete_account_btn"
 msgstr "Eliminar Cuenta"
 
-#: .\core\templates\core\accounts.html:504
+#: .\core\templates\core\accounts.html:509
 msgid "icon_landmark"
 msgstr "Banco/Institución"
 
-#: .\core\templates\core\accounts.html:505
+#: .\core\templates\core\accounts.html:510
 #: .\core\templates\core\categories.html:514
 msgid "icon_credit_card"
 msgstr "Tarjeta de Crédito"
 
-#: .\core\templates\core\accounts.html:506
+#: .\core\templates\core\accounts.html:511
 #: .\core\templates\core\categories.html:516
 msgid "icon_piggy_bank"
 msgstr "Ahorros/Hucha"
 
-#: .\core\templates\core\accounts.html:507
+#: .\core\templates\core\accounts.html:512
 msgid "icon_building_2"
 msgstr "Edificio/Oficina"
 
-#: .\core\templates\core\accounts.html:508
+#: .\core\templates\core\accounts.html:513
 #: .\core\templates\core\categories.html:529
 msgid "icon_briefcase"
 msgstr "Trabajo/Negocios"
 
-#: .\core\templates\core\accounts.html:509
+#: .\core\templates\core\accounts.html:514
 msgid "icon_bar_chart_2"
 msgstr "Estadísticas/Gráfico"
 
-#: .\core\templates\core\accounts.html:510
+#: .\core\templates\core\accounts.html:515
 #: .\core\templates\core\categories.html:515
 msgid "icon_wallet"
 msgstr "Billetera"
 
-#: .\core\templates\core\accounts.html:511
+#: .\core\templates\core\accounts.html:516
 #: .\core\templates\core\categories.html:517
 msgid "icon_coins"
 msgstr "Monedas"
 
-#: .\core\templates\core\accounts.html:512
+#: .\core\templates\core\accounts.html:517
 #: .\core\templates\core\categories.html:513
 msgid "icon_banknote"
 msgstr "Dinero/Billete"
 
-#: .\core\templates\core\accounts.html:513
+#: .\core\templates\core\accounts.html:518
 msgid "icon_vault"
 msgstr "Caja Fuerte/Seguridad"
 
-#: .\core\templates\core\accounts.html:514
+#: .\core\templates\core\accounts.html:519
 msgid "icon_hand_coins"
 msgstr "Ahorros/Transferencia"
 
-#: .\core\templates\core\accounts.html:515
+#: .\core\templates\core\accounts.html:520
 msgid "icon_receipt"
 msgstr "Recibo/Extracto"
 
-#: .\core\templates\core\accounts.html:516
+#: .\core\templates\core\accounts.html:521
 msgid "icon_trending_up"
 msgstr "Crecimiento/Plusvalía"
 
-#: .\core\templates\core\accounts.html:517
+#: .\core\templates\core\accounts.html:522
 msgid "icon_gem"
 msgstr "Activos/Valores"
 
-#: .\core\templates\core\accounts.html:518
+#: .\core\templates\core\accounts.html:523
 #: .\core\templates\core\categories.html:518
 msgid "icon_home"
 msgstr "Inicio/Vivienda"
 
-#: .\core\templates\core\accounts.html:519
+#: .\core\templates\core\accounts.html:524
 #: .\core\templates\core\categories.html:522
 msgid "icon_car"
 msgstr "Transporte/Coche"
 
-#: .\core\templates\core\accounts.html:520
+#: .\core\templates\core\accounts.html:525
 msgid "icon_bitcoin"
 msgstr "Cripto/Bitcoin"
 
-#: .\core\templates\core\accounts.html:521
+#: .\core\templates\core\accounts.html:526
 msgid "icon_shield"
 msgstr "Seguro/Protección"
 
-#: .\core\templates\core\accounts.html:593
+#: .\core\templates\core\accounts.html:598
 msgid "edit_account"
 msgstr "Editar Cuenta"
 
-#: .\core\templates\core\accounts.html:595
+#: .\core\templates\core\accounts.html:600
 msgid "edit_account_desc"
 msgstr "Actualiza la información de tu cuenta a continuación."
 
@@ -502,7 +506,8 @@ msgstr "Cerrar Ventana"
 #: .\core\templates\core\categories.html:335
 #: .\core\templates\core\categories.html:695
 msgid "categories_group_modal_desc"
-msgstr "Comience creando grupos como 'Vivienda' o 'Comida' para organizar sus gastos."
+msgstr ""
+"Comience creando grupos como 'Vivienda' o 'Comida' para organizar sus gastos."
 
 #: .\core\templates\core\categories.html:345
 msgid "categories_group_name_label"
@@ -727,74 +732,75 @@ msgstr "Hola"
 msgid "financial_health_overview"
 msgstr "Aquí está el resumen de tu salud financiera."
 
-#: .\core\templates\core\dashboard.html:16
-#: .\core\templates\core\dashboard.html:213
-msgid "add_expense"
-msgstr "Agregar Gasto"
+#: .\core\templates\core\dashboard.html:17
+#: .\core\templates\core\partials\transaction_modal.html:98
+#: .\core\templates\core\transactions.html:14
+msgid "add_transaction"
+msgstr "Añadir Transacción"
 
-#: .\core\templates\core\dashboard.html:25
+#: .\core\templates\core\dashboard.html:26
 msgid "full_report"
 msgstr "Reporte Completo"
 
-#: .\core\templates\core\dashboard.html:36
+#: .\core\templates\core\dashboard.html:37
 msgid "net_worth"
 msgstr "Patrimonio Neto"
 
-#: .\core\templates\core\dashboard.html:41
-msgid "total_assets_liabilities"
+#: .\core\templates\core\dashboard.html:45
+msgid "total_net_worth_desc"
 msgstr "Activos Totales - Pasivos Totales"
 
-#: .\core\templates\core\dashboard.html:57
+#: .\core\templates\core\dashboard.html:60
 msgid "monthly_budget"
 msgstr "Presupuesto Mensual"
 
-#: .\core\templates\core\dashboard.html:58
+#: .\core\templates\core\dashboard.html:61
 msgid "days_left"
 msgstr "Días restantes"
 
-#: .\core\templates\core\dashboard.html:67
+#: .\core\templates\core\dashboard.html:71
 msgid "budget_spent_percentage"
 msgstr "Has gastado el 49% de tu presupuesto"
 
-#: .\core\templates\core\dashboard.html:73
+#: .\core\templates\core\dashboard.html:77
 msgid "spending_breakdown"
 msgstr "Desglose de Gastos"
 
-#: .\core\templates\core\dashboard.html:106
+#: .\core\templates\core\dashboard.html:110
 msgid "recent_activity"
 msgstr "Actividad Reciente"
 
-#: .\core\templates\core\dashboard.html:109
+#: .\core\templates\core\dashboard.html:114
 msgid "view_all"
-msgstr ""
+msgstr "Ver Todo"
 
-#: .\core\templates\core\dashboard.html:118
+#: .\core\templates\core\dashboard.html:123
+#: .\core\templates\core\partials\transaction_modal.html:44
 msgid "date"
 msgstr "Fecha"
 
-#: .\core\templates\core\dashboard.html:119
+#: .\core\templates\core\dashboard.html:124
+#: .\core\templates\core\partials\transaction_modal.html:83
 msgid "description"
 msgstr "Descripción"
 
-#: .\core\templates\core\dashboard.html:120
+#: .\core\templates\core\dashboard.html:125
+#: .\core\templates\core\partials\transaction_modal.html:68
+#: .\core\templates\core\transactions.html:53
 msgid "category"
 msgstr "Categoría"
 
-#: .\core\templates\core\dashboard.html:121
+#: .\core\templates\core\dashboard.html:126
+#: .\core\templates\core\partials\transaction_modal.html:32
+#: .\core\templates\core\transactions.html:89
 msgid "amount"
 msgstr "Monto"
 
-#: .\core\templates\core\dashboard.html:182
-msgid "add_new_expense"
-msgstr "Agregar Nuevo Gasto"
-
-#: .\core\templates\core\dashboard.html:191
-msgid "close_modal"
-msgstr "Cerrar modal"
-
-#: .\core\templates\core\dashboard.html:202
-msgid "eg_grocery_shopping"
-msgstr "ej. Compras de Supermercado"
+#: .\core\templates\core\dashboard.html:153
+#, fuzzy
+#| msgid "recent_activity"
+msgid "no_recent_activity"
+msgstr "Actividad Reciente"
 
 #: .\core\templates\core\login.html:27
 msgid "welcome_back"
@@ -842,6 +848,34 @@ msgstr "¿No tienes una cuenta?"
 msgid "sign_up"
 msgstr "Regístrate"
 
+msgid "add_transaction_desc"
+msgstr "Añade una nueva transacción a tu registro financiero."
+
+msgid "select_category"
+msgstr "Selecciona una categoría"
+
+msgid "from"
+msgstr "Desde"
+
+msgid "to"
+msgstr "Hasta"
+
+#: .\core\templates\core\partials\transaction_modal.html:18
+msgid "add_new_transaction"
+msgstr "Añadir Nueva Transacción"
+
+#: .\core\templates\core\partials\transaction_modal.html:52
+msgid "account"
+msgstr "Cuenta"
+
+#: .\core\templates\core\partials\transaction_modal.html:86
+msgid "description_placeholder"
+msgstr "¿Para qué fue esto?"
+
+#: .\core\templates\core\partials\transaction_modal.html:128
+msgid "error_saving_transaction"
+msgstr "Error al guardar la transacción. Por favor, revise los datos."
+
 #: .\core\templates\core\signup.html:26
 #: .\core\templates\core\signup_backup.html:26
 msgid "create_account"
@@ -882,49 +916,96 @@ msgstr "Incluye al menos 1 mayúscula"
 msgid "already_have_account"
 msgstr "¿Ya tienes cuenta?"
 
-#: .\finance_project\settings.py:148
+#: .\core\templates\core\transactions.html:7
+msgid "transactions_title"
+msgstr "Transacciones"
+
+#: .\core\templates\core\transactions.html:8
+msgid "transactions_subtitle"
+msgstr "Gestione y rastree sus actividades financieras recientes"
+
+#: .\core\templates\core\transactions.html:21
+msgid "net_flow"
+msgstr "Flujo Neto"
+
+#: .\core\templates\core\transactions.html:28
+msgid "total_income"
+msgstr "Ingresos Totales"
+
+#: .\core\templates\core\transactions.html:34
+msgid "total_expenses"
+msgstr "Gastos Totales"
+
+#: .\core\templates\core\transactions.html:47
+msgid "search_placeholder"
+msgstr "Buscar transacciones..."
+
+#: .\core\templates\core\transactions.html:69
+msgid "clear_filters"
+msgstr "Limpiar Filtros"
+
+#: .\core\templates\core\transactions.html:118
+msgid "no_transactions_found"
+msgstr "No se encontraron transacciones"
+
+#: .\core\templates\core\transactions.html:119
+msgid "try_adjusting_filters"
+msgstr "Intente ajustar sus filtros para encontrar lo que busca"
+
+#: .\core\templates\core\transactions.html:132
+#, python-format
+msgid "Showing %(count)s transactions"
+msgstr "Mostrando %(count)s transacciones"
+
+#: .\finance_project\settings.py:150
 msgid "English"
 msgstr "Inglés"
 
-#: .\finance_project\settings.py:149
+#: .\finance_project\settings.py:151
 msgid "Spanish"
 msgstr "Español"
 
-#: .\templates\base.html:47
+#: .\templates\base.html:47 .\templates\base.html:178
 msgid "dashboard"
 msgstr "Panel"
 
-#: .\templates\base.html:51
-msgid "accounts"
-msgstr "Cuentas"
-
-#: .\templates\base.html:54 .\templates\base.html:193
-msgid "transactions"
-msgstr "Transacciones"
-
-#: .\templates\base.html:58
+#: .\templates\base.html:51 .\templates\base.html:182
 msgid "categories"
 msgstr "Categorías"
 
-#: .\templates\base.html:61 .\templates\base.html:195
-msgid "goals"
-msgstr "Metas"
+#: .\templates\base.html:55 .\templates\base.html:186
+msgid "accounts"
+msgstr "Cuentas"
 
-#: .\templates\base.html:67 .\templates\base.html:197
+#: .\templates\base.html:59 .\templates\base.html:190
+msgid "transactions"
+msgstr "Transacciones"
+
+#: .\templates\base.html:62 .\templates\base.html:192
 msgid "reports"
 msgstr "Reportes"
 
-#: .\templates\base.html:70 .\templates\base.html:198
-msgid "settings"
-msgstr "Configuración"
-
-#: .\templates\base.html:171
+#: .\templates\base.html:163
 msgid "sign_out"
 msgstr "Cerrar sesión"
 
-#: .\templates\base.html:194
-msgid "budget"
-msgstr "Presupuesto"
+#~ msgid "total_assets_liabilities"
+#~ msgstr "Activos Totales - Pasivos Totales"
+
+#~ msgid "add_new_expense"
+#~ msgstr "Agregar Nuevo Gasto"
+
+#~ msgid "close_modal"
+#~ msgstr "Cerrar modal"
+
+#~ msgid "goals"
+#~ msgstr "Metas"
+
+#~ msgid "settings"
+#~ msgstr "Configuración"
+
+#~ msgid "budget"
+#~ msgstr "Presupuesto"
 
 #~ msgid "no_banking_accounts"
 #~ msgstr "No se encontraron cuentas bancarias."

@@ -103,12 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Update Buttons
             tabBtns.forEach(b => {
                 const isActive = b.getAttribute('data-pfm-tab-target') === target;
+                const activeClasses = b.getAttribute('data-pfm-active-class') || 'bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary font-semibold';
+                const inactiveClasses = b.getAttribute('data-pfm-inactive-class') || 'text-pfm-text-light font-medium';
+
                 if (isActive) {
-                    b.classList.add('bg-pfm-primary/10', 'text-pfm-primary', 'border-l-4', 'border-pfm-primary', 'font-semibold');
-                    b.classList.remove('text-pfm-text-light', 'font-medium');
+                    b.className = `tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all ${activeClasses}`;
                 } else {
-                    b.classList.remove('bg-pfm-primary/10', 'text-pfm-primary', 'border-l-4', 'border-pfm-primary', 'font-semibold');
-                    b.classList.add('text-pfm-text-light', 'font-medium');
+                    b.className = `tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all ${inactiveClasses}`;
                 }
             });
 

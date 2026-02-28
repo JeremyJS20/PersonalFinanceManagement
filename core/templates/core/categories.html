@@ -8,7 +8,7 @@
         <p class="mt-1 text-pfm-text-light">{% trans "categories_subtitle" %}</p>
     </div>
     <button id="create-group-btn"
-        class="modal-open-btn flex items-center justify-center gap-2 bg-pfm-primary text-white font-bold rounded-lg px-5 py-2.5 shadow-lg shadow-pfm-primary/20 transition-all hover:bg-pfm-primary-hover hover:shadow-xl active:scale-95"
+        class="modal-open-btn flex items-center justify-center gap-2 bg-red-600 text-white font-bold rounded-lg px-5 py-2.5 shadow-lg shadow-red-600/20 transition-all hover:bg-red-700 hover:shadow-xl active:scale-95"
         data-pfm-modal-target="create-group-modal" data-pfm-bind-type="expenses"
         data-pfm-bind-typelabel="{% trans 'categories_expenses' %}">
         <i data-lucide="folder-plus" class="w-5 h-5"></i>
@@ -27,14 +27,18 @@
             </div>
             <nav class="flex flex-col gap-1" data-pfm-tab-group="category-type">
                 <button
-                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all {% if active_tab == 'expenses' %}bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary font-semibold{% else %}text-pfm-text-light font-medium hover:bg-pfm-bg hover:text-pfm-text-dark{% endif %}"
-                    data-pfm-tab-target="expenses" data-pfm-label="{% trans 'categories_expenses' %}">
+                    class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all {% if active_tab == 'expenses' %}bg-red-500/10 text-red-600 border-l-4 border-red-600 font-semibold{% else %}text-pfm-text-light font-medium hover:bg-pfm-bg hover:text-pfm-text-dark{% endif %}"
+                    data-pfm-tab-target="expenses" data-pfm-label="{% trans 'categories_expenses' %}"
+                    data-pfm-active-class="bg-red-500/10 text-red-600 border-l-4 border-red-600 font-semibold"
+                    data-pfm-inactive-class="text-pfm-text-light font-medium hover:bg-pfm-bg hover:text-pfm-text-dark">
                     <i data-lucide="trending-down" class="w-5 h-5"></i>
                     {% trans "categories_expenses" %}
                 </button>
                 <button
                     class="tab-btn flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all {% if active_tab == 'income' %}bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary font-semibold{% else %}text-pfm-text-light font-medium hover:bg-pfm-bg hover:text-pfm-text-dark{% endif %}"
-                    data-pfm-tab-target="income" data-pfm-label="{% trans 'categories_income' %}">
+                    data-pfm-tab-target="income" data-pfm-label="{% trans 'categories_income' %}"
+                    data-pfm-active-class="bg-pfm-primary/10 text-pfm-primary border-l-4 border-pfm-primary font-semibold"
+                    data-pfm-inactive-class="text-pfm-text-light font-medium hover:bg-pfm-bg hover:text-pfm-text-dark">
                     <i data-lucide="trending-up" class="w-5 h-5"></i>
                     {% trans "categories_income" %}
                 </button>
@@ -62,8 +66,7 @@
             <section class="rounded-xl border border-pfm-border bg-pfm-card shadow-sm overflow-hidden">
                 <div class="flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50 px-6 py-4">
                     <div class="flex items-center gap-3">
-                        <div
-                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-pfm-primary/10 text-pfm-primary">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-500/10 text-red-600">
                             <i data-lucide="{{ group.icon|default:'folder' }}" class="w-5 h-5 font-bold"></i>
                         </div>
                         <div>
@@ -109,7 +112,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
+                            <button class="modal-open-btn text-pfm-text-light hover:text-red-500"
                                 aria-label="{% trans 'categories_edit_category' %}"
                                 data-pfm-modal-target="add-category-modal" data-pfm-bind-mode="edit"
                                 data-pfm-bind-categoryid="{{ category.id }}"
@@ -143,7 +146,7 @@
                         <p class="text-sm font-semibold text-pfm-text-light/70 uppercase tracking-wide">
                             {% trans "categories_no_categories_in_group" %}</p>
                         <button
-                            class="modal-open-btn mt-3 text-xs font-bold text-pfm-primary hover:text-pfm-primary-hover hover:underline transition-all"
+                            class="modal-open-btn mt-3 text-xs font-bold text-red-600 hover:text-red-700 hover:underline transition-all"
                             data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}"
                             data-pfm-bind-groupid="{{ group.id }}">
                             + {% trans "categories_add_first_category" %}
@@ -158,7 +161,7 @@
             <div
                 class="flex flex-col items-center justify-center py-20 px-6 text-center rounded-2xl border-2 border-dashed border-pfm-border bg-pfm-card/50 backdrop-blur-sm shadow-sm group hover:border-pfm-primary/30 transition-all duration-300">
                 <div
-                    class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-pfm-primary/5 text-pfm-primary shadow-lg shadow-pfm-primary/10 group-hover:scale-110 transition-transform duration-300">
+                    class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-red-500/5 text-red-600 shadow-lg shadow-red-500/10 group-hover:scale-110 transition-transform duration-300">
                     <i data-lucide="layers" class="w-10 h-10"></i>
                 </div>
                 <h3 class="text-xl font-black text-pfm-text-dark mb-2">
@@ -168,7 +171,7 @@
                     {% trans "categories_no_groups_desc" %}
                 </p>
                 <button
-                    class="modal-open-btn flex items-center gap-2 rounded-xl bg-pfm-primary px-8 py-3 text-sm font-bold text-white shadow-xl shadow-pfm-primary/20 hover:bg-pfm-primary-hover hover:shadow-2xl active:scale-95 transition-all"
+                    class="modal-open-btn flex items-center gap-2 rounded-xl bg-red-600 px-8 py-3 text-sm font-bold text-white shadow-xl shadow-red-500/20 hover:bg-red-700 hover:shadow-2xl active:scale-95 transition-all"
                     data-pfm-modal-target="create-group-modal" data-pfm-bind-type="expenses"
                     data-pfm-bind-typelabel="{% trans 'categories_expenses' %}">
                     <i data-lucide="plus-circle" class="w-5 h-5"></i>
@@ -187,7 +190,7 @@
                 <div class="flex items-center justify-between border-b border-pfm-border bg-pfm-bg/50 px-6 py-4">
                     <div class="flex items-center gap-3">
                         <div
-                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10 text-green-600">
+                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-pfm-primary/10 text-pfm-primary">
                             <i data-lucide="{{ group.icon|default:'folder' }}" class="w-5 h-5 font-bold"></i>
                         </div>
                         <div>
@@ -197,7 +200,7 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <button
-                            class="modal-open-btn flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-green-600 transition-colors"
+                            class="modal-open-btn flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary transition-colors"
                             aria-label="{% trans 'categories_edit_group' %}" data-pfm-modal-target="create-group-modal"
                             data-pfm-bind-mode="edit" data-pfm-bind-groupid="{{ group.id }}"
                             data-pfm-bind-groupname="{{ group.name }}"
@@ -220,12 +223,12 @@
                     {% if group.categories.all %}
                     {% for category in group.categories.all %}
                     <div
-                        class="group flex items-center justify-between px-6 py-4 transition-colors hover:bg-green-500/5">
+                        class="group flex items-center justify-between px-6 py-4 transition-colors hover:bg-pfm-primary/5">
                         <div class="flex items-center gap-4">
                             <div
                                 class="flex h-10 w-10 items-center justify-center rounded-full bg-pfm-bg text-pfm-text-light">
                                 <i data-lucide="{{ category.icon|default:'banknote' }}"
-                                    class="w-5 h-5 text-green-600"></i>
+                                    class="w-5 h-5 text-pfm-primary"></i>
                             </div>
                             <div>
                                 <p class="text-sm font-semibold text-pfm-text-dark">{{ category.name }}</p>
@@ -233,7 +236,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="modal-open-btn text-pfm-text-light hover:text-green-600"
+                            <button class="modal-open-btn text-pfm-text-light hover:text-pfm-primary"
                                 aria-label="{% trans 'categories_edit_category' %}"
                                 data-pfm-modal-target="add-category-modal" data-pfm-bind-mode="edit"
                                 data-pfm-bind-categoryid="{{ category.id }}"
@@ -261,14 +264,14 @@
                     <!-- Empty State for Category Group -->
                     <div class="flex flex-col items-center justify-center py-12 text-center bg-green-500/5">
                         <div
-                            class="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-pfm-bg text-green-600/30 shadow-inner">
+                            class="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-pfm-bg text-pfm-primary/30 shadow-inner">
                             <i data-lucide="inbox" class="w-8 h-8"></i>
                         </div>
                         <p class="text-sm font-semibold text-pfm-text-light/70 uppercase tracking-wide">
                             {% trans "categories_no_income_categories_in_group" %}
                         </p>
                         <button
-                            class="modal-open-btn mt-3 text-xs font-bold text-green-600 hover:text-green-700 hover:underline transition-all"
+                            class="modal-open-btn mt-3 text-xs font-bold text-pfm-primary hover:text-pfm-primary-hover hover:underline transition-all"
                             data-pfm-modal-target="add-category-modal" data-pfm-bind-group="{{ group.name }}"
                             data-pfm-bind-groupid="{{ group.id }}">
                             + {% trans "categories_add_first_category" %}
@@ -281,9 +284,9 @@
             {% else %}
             <!-- Empty State for Categories Page (No Groups) -->
             <div
-                class="flex flex-col items-center justify-center py-20 px-6 text-center rounded-2xl border-2 border-dashed border-pfm-border bg-pfm-card/50 backdrop-blur-sm shadow-sm group hover:border-green-500/30 transition-all duration-300">
+                class="flex flex-col items-center justify-center py-20 px-6 text-center rounded-2xl border-2 border-dashed border-pfm-border bg-pfm-card/50 backdrop-blur-sm shadow-sm group hover:border-pfm-primary/30 transition-all duration-300">
                 <div
-                    class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-green-500/5 text-green-600 shadow-lg shadow-green-500/10 group-hover:scale-110 transition-transform duration-300">
+                    class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-pfm-primary/5 text-pfm-primary shadow-lg shadow-pfm-primary/10 group-hover:scale-110 transition-transform duration-300">
                     <i data-lucide="layers" class="w-10 h-10"></i>
                 </div>
                 <h3 class="text-xl font-black text-pfm-text-dark mb-2">
@@ -293,7 +296,7 @@
                     {% trans "categories_no_income_groups_desc" %}
                 </p>
                 <button
-                    class="modal-open-btn flex items-center gap-2 rounded-xl bg-green-600 px-8 py-3 text-sm font-bold text-white shadow-xl shadow-green-500/20 hover:bg-green-700 hover:shadow-2xl active:scale-95 transition-all"
+                    class="modal-open-btn flex items-center gap-2 rounded-xl bg-pfm-primary px-8 py-3 text-sm font-bold text-white shadow-xl shadow-pfm-primary/20 hover:bg-pfm-primary-hover hover:shadow-2xl active:scale-95 transition-all"
                     data-pfm-modal-target="create-group-modal" data-pfm-bind-type="income"
                     data-pfm-bind-typelabel="{% trans 'categories_income' %}">
                     <i data-lucide="plus-circle" class="w-5 h-5"></i>
@@ -320,8 +323,7 @@
                             class="hidden px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider w-fit mb-1 bg-pfm-primary/10 text-pfm-primary">
                             {% trans "categories_expenses" %}
                         </span>
-                        <h2 id="modal-title-group" class="text-pfm-text-dark text-2xl font-black tracking-tight"
-                            data-pfm-modal-bind="title">
+                        <h2 id="modal-title-group" class="text-pfm-text-dark text-2xl font-black tracking-tight">
                             {% trans "categories_add_group" %}
                         </h2>
                     </div>
@@ -394,8 +396,8 @@
             class="relative bg-pfm-card rounded-2xl shadow-2xl overflow-hidden transition-opacity transition-transform duration-300 ease-out transform-gpu scale-95 opacity-0">
             <div class="px-8 pt-8 pb-4">
                 <div class="flex items-center justify-between mb-2">
-                    <div id="modal-category-badge-container" class="flex flex-col">
-                        <div class="flex items-center gap-2 mb-1">
+                    <div class="flex flex-col">
+                        <div id="modal-category-badge-container" class="flex items-center gap-2 mb-1">
                             <span class="text-pfm-primary/80 text-[10px] font-black uppercase tracking-widest">
                                 {% trans "categories_adding_to_label" %}
                             </span>
@@ -556,7 +558,7 @@
 
             grid.innerHTML = icons.map(icon => {
                 const isActive = icon.name === defaultIcon;
-                const activeClasses = 'border-2 border-pfm-primary bg-pfm-primary/5 text-pfm-primary';
+                const activeClasses = 'border-2 border-current bg-current/5';
                 const inactiveClasses = 'border border-pfm-border hover:border-pfm-primary/50 hover:bg-pfm-bg text-pfm-text-light';
 
                 return `
@@ -616,11 +618,11 @@
 
             // Sync button color with type for premium feel
             if (target === 'income') {
-                createGroupBtn.classList.remove('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
-                createGroupBtn.classList.add('bg-green-600', 'shadow-green-500/20', 'hover:bg-green-700');
-            } else {
+                createGroupBtn.classList.remove('bg-red-600', 'shadow-red-600/20', 'hover:bg-red-700');
                 createGroupBtn.classList.add('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
-                createGroupBtn.classList.remove('bg-green-600', 'shadow-green-500/20', 'hover:bg-green-700');
+            } else {
+                createGroupBtn.classList.add('bg-red-600', 'shadow-red-600/20', 'hover:bg-red-700');
+                createGroupBtn.classList.remove('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
             }
         }
 
@@ -635,11 +637,11 @@
                 if (typeBadge) {
                     typeBadge.classList.remove('hidden');
                     if (target === 'income') {
-                        typeBadge.classList.remove('bg-pfm-primary/10', 'text-pfm-primary');
-                        typeBadge.classList.add('bg-green-500/10', 'text-green-600');
-                    } else {
+                        typeBadge.classList.remove('bg-red-500/10', 'text-red-600');
                         typeBadge.classList.add('bg-pfm-primary/10', 'text-pfm-primary');
-                        typeBadge.classList.remove('bg-green-500/10', 'text-green-600');
+                    } else {
+                        typeBadge.classList.add('bg-red-500/10', 'text-red-600');
+                        typeBadge.classList.remove('bg-pfm-primary/10', 'text-pfm-primary');
                     }
                 }
             });
@@ -707,11 +709,31 @@
                 if (typeBadge && target) {
                     typeBadge.classList.remove('hidden');
                     if (target === 'income') {
-                        typeBadge.classList.remove('bg-pfm-primary/10', 'text-pfm-primary');
-                        typeBadge.classList.add('bg-green-500/10', 'text-green-600');
-                    } else {
+                        typeBadge.classList.remove('bg-red-500/10', 'text-red-600');
                         typeBadge.classList.add('bg-pfm-primary/10', 'text-pfm-primary');
-                        typeBadge.classList.remove('bg-green-500/10', 'text-green-600');
+
+                        if (submitBtn) {
+                            submitBtn.classList.remove('bg-red-600', 'shadow-red-600/20', 'hover:bg-red-700');
+                            submitBtn.classList.add('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
+                        }
+
+                        // Icon highlight color context
+                        const iconGrid = document.getElementById('group-icon-grid');
+                        if (iconGrid) iconGrid.classList.remove('text-red-600');
+                        if (iconGrid) iconGrid.classList.add('text-pfm-primary');
+                    } else {
+                        typeBadge.classList.add('bg-red-500/10', 'text-red-600');
+                        typeBadge.classList.remove('bg-pfm-primary/10', 'text-pfm-primary');
+
+                        if (submitBtn) {
+                            submitBtn.classList.add('bg-red-600', 'shadow-red-600/20', 'hover:bg-red-700');
+                            submitBtn.classList.remove('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
+                        }
+
+                        // Icon highlight color context
+                        const iconGrid = document.getElementById('group-icon-grid');
+                        if (iconGrid) iconGrid.classList.add('text-red-600');
+                        if (iconGrid) iconGrid.classList.remove('text-pfm-primary');
                     }
                 }
             }
@@ -727,12 +749,49 @@
 
                 if (form) {
                     form.reset();
-                    // Reset icon highlights
+                    // Reset icon highlights - context aware
+                    const isIncome = btn.closest('[data-pfm-tab-content="income"]') ||
+                        (document.querySelector('[data-pfm-tab-target="income"].bg-pfm-primary\\/10') && !btn.closest('[data-pfm-tab-content]'));
+
                     const options = document.querySelectorAll('#category-icon-grid .icon-option');
                     options.forEach(opt => {
-                        opt.classList.remove('border-pfm-primary', 'border-2', 'bg-pfm-primary/5', 'text-pfm-primary');
+                        opt.classList.remove('border-pfm-primary', 'border-red-600', 'border-2', 'bg-pfm-primary/5', 'bg-red-500/5', 'text-pfm-primary', 'text-red-600');
                         opt.classList.add('border', 'border-pfm-border', 'text-pfm-text-light');
                     });
+
+                    const iconGrid = document.getElementById('category-icon-grid');
+                    const badge = document.getElementById('target-group-name');
+                    const labelBadge = badgeContainer ? badgeContainer.querySelector('span:first-child') : null;
+
+                    if (isIncome) {
+                        if (iconGrid) { iconGrid.classList.add('text-pfm-primary'); iconGrid.classList.remove('text-red-600'); }
+                        if (submitBtn) {
+                            submitBtn.classList.remove('bg-red-600', 'shadow-red-600/20', 'hover:bg-red-700');
+                            submitBtn.classList.add('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
+                        }
+                        if (badge) {
+                            badge.classList.remove('bg-red-500/10', 'text-red-600');
+                            badge.classList.add('bg-pfm-primary/10', 'text-pfm-primary');
+                        }
+                        if (labelBadge) {
+                            labelBadge.classList.remove('text-red-500/80');
+                            labelBadge.classList.add('text-pfm-primary/80');
+                        }
+                    } else {
+                        if (iconGrid) { iconGrid.classList.add('text-red-600'); iconGrid.classList.remove('text-pfm-primary'); }
+                        if (submitBtn) {
+                            submitBtn.classList.add('bg-red-600', 'shadow-red-600/20', 'hover:bg-red-700');
+                            submitBtn.classList.remove('bg-pfm-primary', 'shadow-pfm-primary/20', 'hover:bg-pfm-primary-hover');
+                        }
+                        if (badge) {
+                            badge.classList.add('bg-red-500/10', 'text-red-600');
+                            badge.classList.remove('bg-pfm-primary/10', 'text-pfm-primary');
+                        }
+                        if (labelBadge) {
+                            labelBadge.classList.add('text-red-500/80');
+                            labelBadge.classList.remove('text-pfm-primary/80');
+                        }
+                    }
                 }
 
                 if (isEdit) {

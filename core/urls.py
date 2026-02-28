@@ -4,7 +4,8 @@ from .views import (
     CustomLoginView, DashboardView, SignUpView, CategoriesView,
     CategoryGroupCreateView, CategoryGroupUpdateView, CategoryCreateView,
     CategoryUpdateView, CategoryDeleteView, AccountsView,
-    AccountCreateView, AccountUpdateView, AccountDeleteView
+    AccountCreateView, AccountUpdateView, AccountDeleteView,
+    TransactionListView, TransactionCreateView
 )
 
 urlpatterns = [
@@ -22,5 +23,7 @@ urlpatterns = [
     path('accounts/create/', AccountCreateView.as_view(), name='account_create'),
     path('accounts/<int:pk>/update/', AccountUpdateView.as_view(), name='account_update'),
     path('accounts/<int:pk>/delete/', AccountDeleteView.as_view(), name='account_delete'),
+    path('transactions/', TransactionListView.as_view(), name='transactions'),
+    path('transactions/create/', TransactionCreateView.as_view(), name='transaction_create'),
     path('', DashboardView.as_view(), name='home'),
 ]

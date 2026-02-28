@@ -1,167 +1,183 @@
-{% extends 'base.html' %}
-{% load i18n %}
+{% extends "base.html" %}
+{% load i18n static %}
 
 {% block content %}
-<div class="space-y-8 animate-fade-in-up">
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-        <div>
-            <h1 class="text-3xl font-bold text-pfm-text-dark">{% trans "hi" %} {{ user.username|title }}</h1>
-            <p class="text-pfm-text-light mt-1">{% trans "financial_health_overview" %}</p>
-        </div>
-        <div class="flex gap-3">
-            <button
-                class="modal-open-btn flex items-center justify-center gap-2 bg-pfm-primary text-white font-bold rounded-lg px-5 py-2.5 shadow-lg shadow-pfm-primary/20 transition-all hover:bg-pfm-primary-hover hover:shadow-xl active:scale-95"
-                data-pfm-modal-target="add-transaction-modal">
-                <i data-lucide="plus" class="w-5 h-5"></i>
-                {% trans "add_transaction" %}
-            </button>
-            <button
-                class="flex items-center gap-2 px-4 py-2.5 bg-pfm-primary text-white rounded-xl text-sm font-medium hover:bg-pfm-primary-hover shadow-lg shadow-pfm-primary/30 transition-all transform hover:-translate-y-0.5">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                {% trans "full_report" %}
-            </button>
+<div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div>
+        <h1 class="text-3xl font-black tracking-tight text-pfm-text-dark">{% trans "transactions_title" %}</h1>
+        <p class="mt-1 text-pfm-text-light">{% trans "transactions_subtitle" %}</p>
+    </div>
+    <button id="add-transaction-btn"
+        class="modal-open-btn flex items-center justify-center gap-2 bg-pfm-primary text-white font-bold rounded-lg px-5 py-2.5 shadow-lg shadow-pfm-primary/20 transition-all hover:bg-pfm-primary-hover hover:shadow-xl active:scale-95"
+        data-pfm-modal-target="add-transaction-modal">
+        <i data-lucide="plus" class="w-5 h-5"></i>
+        <span>{% trans "add_transaction" %}</span>
+    </button>
+</div>
+
+<!-- Summary Cards -->
+<div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div class="rounded-xl border border-pfm-primary/10 bg-pfm-card p-6 shadow-sm">
+        <p class="text-sm font-medium text-pfm-text-light uppercase tracking-wider">{% trans "net_flow" %}</p>
+        <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-2xl font-bold {% if net_flow >= 0 %}text-pfm-primary{% else %}text-red-600{% endif %}">
+                {% if net_flow >= 0 %}+{% endif %}${{ net_flow|floatformat:2 }}</span>
         </div>
     </div>
-
-    <!-- PFM Overview Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-        <!-- Card 1: Net Worth -->
-        <div
-            class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow relative overflow-hidden group">
-            <div class="relative z-10">
-                <h3 class="text-sm font-medium text-pfm-text-light">{% trans "net_worth" %}</h3>
-                <div class="mt-4 flex items-baseline gap-2">
-                    <span class="text-4xl font-bold text-pfm-text-dark">${{ total_balance|floatformat:0 }}</span>
-                    {% if balance_percentage > 0 %}
-                    <span class="text-sm font-bold text-white bg-green-500 px-2 py-0.5 rounded-full">
-                        +{{balance_percentage|floatformat:1 }}%
-                    </span>
-                    {% endif %}
-                </div>
-                <p class="mt-2 text-xs text-pfm-text-light opacity-80">{% trans "total_net_worth_desc" %}</p>
-            </div>
-            <div class="absolute right-4 top-8 opacity-10 text-pfm-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </div>
-        </div>
-
-        <!-- Card 2: Monthly Budget -->
-        <div
-            class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-sm font-medium text-pfm-text-light">{% trans "monthly_budget" %}</h3>
-                <span class="text-xs font-bold text-pfm-text-light opacity-80">18 {% trans "days_left" %}</span>
-            </div>
-            <div class="flex items-end gap-1 mb-2">
-                <span class="text-3xl font-bold text-pfm-text-dark">${{ monthly_expenses|floatformat:0 }}</span>
-                <span class="text-sm text-pfm-text-light mb-1.5 opacity-80">/ ${{ budget_limit|floatformat:0 }}</span>
-            </div>
-            <div class="w-full bg-pfm-bg rounded-full h-2.5 overflow-hidden">
-                <div class="bg-pfm-primary h-2.5 rounded-full transition-all duration-500"
-                    style="width: {{ budget_percentage }}%"></div>
-            </div>
-            <p class="mt-3 text-xs text-pfm-text-light opacity-80">{% trans "budget_spent_percentage" %}</p>
-        </div>
-
-        <!-- Card 3: Top Spend -->
-        <div
-            class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow">
-            <h3 class="text-sm font-medium text-pfm-text-light">{% trans "spending_breakdown" %}</h3>
-            <div class="mt-4 space-y-4">
-                <!-- Item -->
-                <div class="flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-red-400"></div>
-                        <span class="text-pfm-text-light">Housing</span>
-                    </div>
-                    <span class="font-bold text-pfm-text-dark">$1,750</span>
-                </div>
-                <!-- Item -->
-                <div class="flex items-center justify-between text-sm">
-                    <div class="w-full flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-blue-400"></div>
-                        <span class="text-pfm-text-light">Food & Dining</span>
-                    </div>
-                    <span class="font-bold text-pfm-text-dark">$420</span>
-                </div>
-                <!-- Item -->
-                <div class="flex items-center justify-between text-sm">
-                    <div class="w-full flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
-                        <span class="text-pfm-text-light">Shopping</span>
-                    </div>
-                    <span class="font-bold text-pfm-text-dark">$350</span>
-                </div>
-            </div>
+    <div class="rounded-xl border border-pfm-primary/10 bg-pfm-card p-6 shadow-sm">
+        <p class="text-sm font-medium text-pfm-text-light uppercase tracking-wider">{% trans "total_income" %}</p>
+        <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-2xl font-bold text-pfm-primary">${{ total_income|floatformat:2 }}</span>
         </div>
     </div>
-
-    <!-- Recent Activity Section -->
-    <div class="bg-pfm-card rounded-3xl shadow-sm border border-pfm-border overflow-hidden">
-        <div class="p-6 border-b border-pfm-border flex flex-col md:flex-row justify-between items-center gap-4">
-            <h2 class="text-lg font-bold text-pfm-text-dark">{% trans "recent_activity" %}</h2>
-            <div class="flex items-center gap-4">
-                <a href="{% url 'transactions' %}"
-                    class="text-sm font-medium text-pfm-text-light hover:text-pfm-primary transition-colors">
-                    {% trans "view_all" %}
-                </a>
-            </div>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="w-full text-left">
-                <thead class="bg-pfm-bg/50 text-xs uppercase text-pfm-text-light font-medium">
-                    <tr>
-                        <th class="px-6 py-4 font-semibold tracking-wider">{% trans "date" %}</th>
-                        <th class="px-6 py-4 font-semibold tracking-wider">{% trans "description" %}</th>
-                        <th class="px-6 py-4 font-semibold tracking-wider">{% trans "category" %}</th>
-                        <th class="px-6 py-4 text-right font-semibold tracking-wider">{% trans "amount" %}</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-pfm-border">
-                    {% for transaction in recent_transactions %}
-                    <tr class="hover:bg-pfm-bg/50 transition-colors group">
-                        <td class="px-6 py-4 text-sm text-pfm-text-light">{{ transaction.date|date:"D, M d" }}</td>
-                        <td class="px-6 py-4">
-                            <div class="text-sm font-medium text-pfm-text-dark">{{ transaction.description }}</div>
-                            <div class="text-xs text-pfm-text-light mt-0.5 opacity-80">
-                                {{ transaction.account.name|default:'' }}
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span
-                                class="px-2.5 py-1 rounded-full text-xs font-medium {% if transaction.category.group.transaction_type == 'income' %}bg-green-500{% else %}bg-blue-500{% endif %} text-white">
-                                {{ transaction.category.name }}
-                            </span>
-                        </td>
-                        <td
-                            class="px-6 py-4 text-right text-sm font-bold {% if transaction.category.group.transaction_type == 'income' %}text-pfm-success{% else %}text-pfm-text-dark{% endif %}">
-                            {% if transaction.category.group.transaction_type == 'income' %}+{% else %}-{% endif %}$
-                            {{ transaction.amount|floatformat:2 }}
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="4" class="px-6 py-8 text-center text-pfm-text-light italic">
-                            {% trans "no_recent_activity" %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <div class="rounded-xl border border-pfm-primary/10 bg-pfm-card p-6 shadow-sm">
+        <p class="text-sm font-medium text-pfm-text-light uppercase tracking-wider">{% trans "total_expenses" %}</p>
+        <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-2xl font-bold text-red-600">${{ total_expenses|floatformat:2 }}</span>
         </div>
     </div>
 </div>
 
+<!-- Filter Bar -->
+<form method="GET" class="mb-6 flex flex-wrap items-center gap-3">
+    <div class="relative flex-1 min-w-[240px]">
+        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-pfm-text-light w-4 h-4"></i>
+        <input name="search" value="{{ request.GET.search|default:'' }}"
+            class="w-full rounded-lg border border-pfm-primary/10 bg-pfm-card py-2 pl-10 pr-4 text-sm focus:border-pfm-primary focus:ring-0 outline-none transition-all"
+            placeholder="{% trans 'search_placeholder' %}" type="text" />
+    </div>
+
+    <div class="relative">
+        <select name="account" onchange="this.form.submit()"
+            class="appearance-none flex items-center gap-2 rounded-lg border border-pfm-primary/10 bg-pfm-card px-4 py-2 pr-10 text-sm font-medium text-pfm-text-dark hover:bg-pfm-bg outline-none transition-all">
+            <option value="">{% trans "account" %}</option>
+            {% for acc in accounts %}
+            <option value="{{ acc.id }}" {% if acc.is_selected %}selected{% endif %}>{{ acc.name }}</option>
+            {% endfor %}
+        </select>
+        <i data-lucide="landmark"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-pfm-text-light w-4 h-4 pointer-events-none"></i>
+    </div>
+
+    <div class="relative">
+        <select name="category" onchange="this.form.submit()"
+            class="appearance-none flex items-center gap-2 rounded-lg border border-pfm-primary/10 bg-pfm-card px-4 py-2 pr-10 text-sm font-medium text-pfm-text-dark hover:bg-pfm-bg outline-none transition-all">
+            <option value="">{% trans "category" %}</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if cat.is_selected %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <i data-lucide="chevron-down"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-pfm-text-light w-4 h-4 pointer-events-none"></i>
+    </div>
+
+    <div class="flex items-center gap-2 rounded-lg border border-pfm-primary/10 bg-pfm-card px-3 py-1.5 transition-all">
+        <span class="text-xs font-bold text-pfm-text-light uppercase tracking-tight">{% trans "from" %}</span>
+        <input name="start_date" type="date" value="{{ request.GET.start_date }}" onchange="this.form.submit()"
+            class="bg-transparent border-none p-0 text-sm font-medium text-pfm-text-dark focus:ring-0 outline-none w-[110px]" />
+    </div>
+
+    <div class="flex items-center gap-2 rounded-lg border border-pfm-primary/10 bg-pfm-card px-3 py-1.5 transition-all">
+        <span class="text-xs font-bold text-pfm-text-light uppercase tracking-tight">{% trans "to" %}</span>
+        <input name="end_date" type="date" value="{{ request.GET.end_date }}" onchange="this.form.submit()"
+            class="bg-transparent border-none p-0 text-sm font-medium text-pfm-text-dark focus:ring-0 outline-none w-[110px]" />
+    </div>
+
+    {% if has_filters %}
+    <a href="{% url 'transactions' %}" class="text-xs font-bold text-pfm-primary hover:underline ml-2">
+        {% trans "clear_filters" %}
+    </a>
+    {% endif %}
+</form>
+
+<!-- Transactions Table -->
+<div class="overflow-hidden rounded-xl border border-pfm-primary/10 bg-pfm-card shadow-sm">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="border-b border-pfm-primary/10 bg-pfm-bg/50">
+                    <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-pfm-text-light">
+                        {% trans "date" %}
+                    </th>
+                    <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-pfm-text-light">
+                        {% trans "description" %}
+                    </th>
+                    <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-pfm-text-light">
+                        {% trans "category" %}
+                    </th>
+                    <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-pfm-text-light">
+                        {% trans "account" %}
+                    </th>
+                    <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-pfm-text-light">
+                        {% trans "amount" %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-pfm-primary/5">
+                {% for transaction in transactions %}
+                <tr class="hover:bg-pfm-primary/5 transition-colors group">
+                    <td class="whitespace-nowrap px-6 py-4 text-sm text-pfm-text-light">
+                        {{ transaction.date|date:"M d, Y" }}
+                    </td>
+                    <td class="px-6 py-4 text-sm font-medium text-pfm-text-dark">{{ transaction.description }}</td>
+                    <td class="px-6 py-4 text-sm">
+                        <div class="flex items-center gap-2">
+                            <span
+                                class="h-2 w-2 rounded-full {% if transaction.category.group.transaction_type == 'income' %}bg-emerald-500{% else %}bg-rose-500{% endif %}"></span>
+                            <span class="text-pfm-text-light group-hover:text-pfm-text-dark transition-colors">
+                                {{ transaction.category.name }}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-pfm-text-light">{{ transaction.account.name }}</td>
+                    <td
+                        class="px-6 py-4 text-right text-sm font-bold {% if transaction.category.group.transaction_type == 'income' %}text-emerald-600{% else %}text-rose-600{% endif %}">
+                        {% if transaction.category.group.transaction_type == 'income' %}+{% else %}-{% endif %}$
+                        {{ transaction.amount|floatformat:2 }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="py-20 text-center">
+                        <div class="flex flex-col items-center justify-center opacity-40">
+                            <i data-lucide="receipt" class="w-16 h-16 mb-4"></i>
+                            <p class="text-lg font-bold">{% trans "no_transactions_found" %}</p>
+                            <p class="text-sm">{% trans "try_adjusting_filters" %}</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Footer -->
+    <div
+        class="flex flex-col sm:flex-row items-center justify-between border-t border-pfm-primary/10 bg-pfm-bg/50 px-6 py-4 gap-4">
+        <div class="flex items-center gap-2 text-sm text-pfm-text-light">
+            <p>{% blocktrans with count=transactions|length %}Showing {{ count }} transactions{% endblocktrans %}</p>
+        </div>
+        <div class="flex items-center gap-1">
+            <button
+                class="flex h-8 w-8 items-center justify-center rounded-lg border border-pfm-primary/10 bg-pfm-card text-pfm-text-light hover:text-pfm-primary disabled:opacity-50">
+                <i data-lucide="chevrons-left" class="w-4 h-4"></i>
+            </button>
+            <button
+                class="flex h-8 w-8 items-center justify-center rounded-lg border border-pfm-primary/10 bg-pfm-card text-pfm-text-light hover:text-pfm-primary disabled:opacity-50">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button
+                class="flex h-8 w-8 items-center justify-center rounded-lg bg-pfm-primary text-sm font-semibold text-white shadow-md ring-1 ring-pfm-primary">1</button>
+            <button
+                class="flex h-8 w-8 items-center justify-center rounded-lg border border-pfm-primary/10 bg-pfm-card text-pfm-text-light hover:text-pfm-primary">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+            <button
+                class="flex h-8 w-8 items-center justify-center rounded-lg border border-pfm-primary/10 bg-pfm-card text-pfm-text-light hover:text-pfm-primary">
+                <i data-lucide="chevrons-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Overlay -->
