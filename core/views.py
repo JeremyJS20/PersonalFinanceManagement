@@ -57,8 +57,10 @@ class AccountsContextMixin:
         
         # Calculate totals
         total_assets = accounts.filter(type__in=assets_types, include_in_total=True).aggregate(total=Sum('balance'))['total'] or 0
-        total_liabilities = accounts.filter(type__in=liabilities_types, include_in_total=True).aggregate(total=Sum('balance'))['total'] or 0
-        total_balance = total_assets - total_liabilities
+        total_liabilities_sum = accounts.filter(type__in=liabilities_types, include_in_total=True).aggregate(total=Sum('balance'))['total'] or 0
+        
+        # liabilities are stored as negative numbers, so assets + liabilities = net worth
+        total_balance = total_assets + total_liabilities_sum
         
         balance_percentage = 0
         if total_assets > 0:
@@ -69,7 +71,7 @@ class AccountsContextMixin:
             'investment_accounts': investment_accounts,
             'liability_accounts': liability_accounts,
             'total_assets': total_assets,
-            'total_liabilities': total_liabilities,
+            'total_liabilities': abs(total_liabilities_sum),
             'total_balance': total_balance,
             'balance_percentage': balance_percentage,
             'active_filter': active_filter,

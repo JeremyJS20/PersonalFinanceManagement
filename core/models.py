@@ -1,4 +1,5 @@
-from django.db import models
+from django.db import models, transaction
+from django.db.models import F
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -90,3 +91,32 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.description} ({self.amount})"
+
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            is_new = self.pk is None
+            
+            if not is_new:
+                # Revert the old transaction's effect on its account
+                old_tx = Transaction.objects.select_related('category__group', 'account').get(pk=self.pk)
+                if old_tx.account:
+                    factor = 1 if old_tx.category.group.transaction_type == 'income' else -1
+                    Account.objects.filter(pk=old_tx.account.pk).update(balance=F('balance') - (old_tx.amount * factor))
+
+            super().save(*args, **kwargs)
+            
+            # Apply the new transaction's effect
+            if self.account:
+                # Ensure we have the latest type
+                factor = 1 if self.category.group.transaction_type == 'income' else -1
+                Account.objects.filter(pk=self.account.pk).update(balance=F('balance') + (self.amount * factor))
+                # Refresh current account instance balance if needed (for immediate use in view)
+                self.account.refresh_from_db(fields=['balance'])
+
+    def delete(self, *args, **kwargs):
+        with transaction.atomic():
+            if self.account:
+                factor = 1 if self.category.group.transaction_type == 'income' else -1
+                Account.objects.filter(pk=self.account.pk).update(balance=F('balance') - (self.amount * factor))
+                
+            super().delete(*args, **kwargs)
