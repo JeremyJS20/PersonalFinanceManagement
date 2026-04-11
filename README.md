@@ -10,6 +10,11 @@ FinOrbit is a premium, modern Personal Finance Management (PFM) application buil
 -   **Hybrid Database**: Seamlessly switches between **PostgreSQL** (Production) and **SQLite** (Local Development) based on configuration.
 -   **Modern UI**: Custom "FinOrbit" design system using Tailwind CSS (Teal/Blue aesthetic).
 
+## User Documentation
+
+For a detailed guide on how to use FinOrbit, manage your accounts, and perform the monthly "Cutoff" workflow, please refer to the **[User Guide](USER_GUIDE.md)**.
+
+
 ## Prerequisites
 
 -   **Python**: 3.14.2
