@@ -35,7 +35,26 @@ Organize your transactions into **Groups** (e.g., "Housing", "Lifestyle") and **
 
 ---
 
-## 4. The Monthly Workflow
+## 4. Managing Transactions
+Transactions are the heartbeat of FinOrbit. Every time money moves, it should be recorded here to keep your Net Worth accurate.
+
+### Adding Transactions
+When you add a transaction, you'll provide:
+-   **Description**: A clear name for the activity (e.g., "Grocery Shopping").
+-   **Amount**: The cost or income value.
+-   **Date**: When the transaction occurred.
+-   **Category**: Which expense or income bucket it belongs to.
+-   **Account**: Which account the money came from or went to.
+
+### Filtering & Finding Data
+The **Transactions** page allows you to slice your data to find exactly what you're looking for:
+-   **Search**: Use the search bar to find specific descriptions.
+-   **Date Range**: View activity for a specific week, month, or year.
+-   **Category/Account Filters**: See all spending in "Lifestyle" or all activity on a specific "Credit Card."
+
+---
+
+## 5. The Monthly Workflow
 FinOrbit is built around a powerful cycle called the **"Cutoff Process."** Following this workflow ensures your data is accurate and permanent.
 
 ### Step 1: Daily Tracking
