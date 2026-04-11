@@ -18,6 +18,7 @@
         }
     </script>
     {% tailwind_css %}
+    {% block extra_head %}{% endblock %}
 </head>
 
 <body class="bg-pfm-bg font-sans text-pfm-text-dark antialiased">
@@ -58,7 +59,8 @@
                     class="{% if request.resolver_match.url_name == 'transactions' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
                     {% trans "transactions" %}
                 </a>
-                <a href="#" class="text-pfm-text-light hover:text-pfm-text-dark transition-colors">
+                <a href="{% url 'reports' %}"
+                    class="{% if request.resolver_match.url_name == 'reports' or request.resolver_match.url_name == 'report_detail' %}text-pfm-text-dark{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %} transition-colors">
                     {% trans "reports" %}
                 </a>
             </div>
@@ -189,7 +191,10 @@
             class="block {% if request.resolver_match.url_name == 'transactions' %}text-pfm-text-dark font-medium{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">
             {% trans "transactions" %}
         </a>
-        <a href="#" class="block text-pfm-text-light hover:text-pfm-text-dark">{% trans "reports" %}</a>
+        <a href="{% url 'reports' %}"
+            class="block {% if request.resolver_match.url_name == 'reports' or request.resolver_match.url_name == 'report_detail' %}text-pfm-text-dark font-medium{% else %}text-pfm-text-light hover:text-pfm-text-dark{% endif %}">
+            {% trans "reports" %}
+        </a>
     </div>
 
     {% endblock %}

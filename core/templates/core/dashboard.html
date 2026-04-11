@@ -1,6 +1,46 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
+{% block extra_head %}
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<style>
+    .chart-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        gap: 1rem;
+    }
+    .pulse-ring {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--pfm-primary);
+        box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7);
+        animation: pulse-ring 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7); }
+        70% { box-shadow: 0 0 0 20px rgba(13, 148, 136, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0); }
+    }
+    .loader-text {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--pfm-text-light);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        opacity: 0.6;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="space-y-8 animate-fade-in-up">
     <!-- Header -->
@@ -15,15 +55,6 @@
                 data-pfm-modal-target="add-transaction-modal">
                 <i data-lucide="plus" class="w-5 h-5"></i>
                 {% trans "add_transaction" %}
-            </button>
-            <button
-                class="flex items-center gap-2 px-4 py-2.5 bg-pfm-primary text-white rounded-xl text-sm font-medium hover:bg-pfm-primary-hover shadow-lg shadow-pfm-primary/30 transition-all transform hover:-translate-y-0.5">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                {% trans "full_report" %}
             </button>
         </div>
     </div>
@@ -58,8 +89,8 @@
         <div
             class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-sm font-medium text-pfm-text-light">{% trans "monthly_budget" %}</h3>
-                <span class="text-xs font-bold text-pfm-text-light opacity-80">18 {% trans "days_left" %}</span>
+                <h3 class="text-sm font-medium text-pfm-text-light">{% trans "total_monthly_budget_label" %}</h3>
+                <span class="text-xs font-bold text-pfm-primary bg-pfm-primary/10 px-2 py-0.5 rounded-full">{{ category_budgets|length }} {% trans "categories" %}</span>
             </div>
             <div class="flex items-end gap-1 mb-2">
                 <span class="text-3xl font-bold text-pfm-text-dark">${{ monthly_expenses|floatformat:0 }}</span>
@@ -69,44 +100,57 @@
                 <div class="bg-pfm-primary h-2.5 rounded-full transition-all duration-500"
                     style="width: {{ budget_percentage }}%"></div>
             </div>
-            <p class="mt-3 text-xs text-pfm-text-light opacity-80">{% trans "budget_spent_percentage" %}</p>
+            <p class="mt-3 text-xs text-pfm-text-light opacity-80">
+                {% if budget_limit > 0 %}
+                    {% blocktranslate with percentage=budget_percentage|floatformat:0 %}You've spent {{ percentage }}% of your budget{% endblocktranslate %}
+                {% else %}
+                    {% trans "no_budgets_set_yet" %}
+                {% endif %}
+            </p>
         </div>
 
-        <!-- Card 3: Top Spend -->
+        <!-- Card 3: Spending Breakdown (Interactive) -->
         <div
             class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border hover:shadow-md transition-shadow">
-            <h3 class="text-sm font-medium text-pfm-text-light">{% trans "spending_breakdown" %}</h3>
-            <div class="mt-4 space-y-4">
-                <!-- Item -->
-                <div class="flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-red-400"></div>
-                        <span class="text-pfm-text-light">Housing</span>
+            <h3 class="text-sm font-medium text-pfm-text-light mb-2">{% trans "spending_breakdown" %}</h3>
+            <div id="category-donut-chart" class="h-48 flex items-center justify-center relative">
+                <div class="chart-loader">
+                    <div class="pulse-ring">
+                        <i data-lucide="pie-chart" class="w-5 h-5 text-white"></i>
                     </div>
-                    <span class="font-bold text-pfm-text-dark">$1,750</span>
-                </div>
-                <!-- Item -->
-                <div class="flex items-center justify-between text-sm">
-                    <div class="w-full flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-blue-400"></div>
-                        <span class="text-pfm-text-light">Food & Dining</span>
-                    </div>
-                    <span class="font-bold text-pfm-text-dark">$420</span>
-                </div>
-                <!-- Item -->
-                <div class="flex items-center justify-between text-sm">
-                    <div class="w-full flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
-                        <span class="text-pfm-text-light">Shopping</span>
-                    </div>
-                    <span class="font-bold text-pfm-text-dark">$350</span>
+                    <span class="loader-text">{% trans "loading_analytics" %}</span>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border">
+            <h3 class="text-lg font-bold text-pfm-text-dark mb-6">{% trans "income_vs_expense" %}</h3>
+            <div id="income-expense-chart" class="h-[300px] relative">
+                <div class="chart-loader">
+                    <div class="pulse-ring">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-pfm-card rounded-3xl p-6 md:p-8 shadow-sm border border-pfm-border">
+            <h3 class="text-lg font-bold text-pfm-text-dark mb-6">{% trans "net_worth_trend" %}</h3>
+            <div id="net-worth-chart" class="h-[300px] relative">
+                <div class="chart-loader">
+                    <div class="pulse-ring">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
     <!-- Recent Activity Section -->
-    <div class="bg-pfm-card rounded-3xl shadow-sm border border-pfm-border overflow-hidden">
+    <div class="mt-12 bg-pfm-card rounded-3xl shadow-sm border border-pfm-border overflow-hidden">
         <div class="p-6 border-b border-pfm-border flex flex-col md:flex-row justify-between items-center gap-4">
             <h2 class="text-lg font-bold text-pfm-text-dark">{% trans "recent_activity" %}</h2>
             <div class="flex items-center gap-4">
@@ -295,69 +339,118 @@
     </div>
 </div>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('add-transaction-form');
-        const categorySelect = document.getElementById('category-select');
-        const typeBadge = document.getElementById('transaction-type-badge');
+        // Modal logic (inherited or handled by common script, but added here just in case)
+        const modalBtns = document.querySelectorAll('.modal-open-btn');
+        const modalCloseBtns = document.querySelectorAll('.modal-close-btn');
+        const modals = document.querySelectorAll('.modal');
 
-        function updateTypeBadge() {
-            if (!categorySelect || !typeBadge) return;
-            const selectedOption = categorySelect.options[categorySelect.selectedIndex];
-            const type = selectedOption.getAttribute('data-type');
-
-            if (type) {
-                typeBadge.classList.remove('hidden', 'bg-pfm-primary/10', 'text-pfm-primary', 'bg-red-500/10', 'text-red-600');
-                if (type === 'income') {
-                    typeBadge.textContent = '{% trans "income" %}';
-                    typeBadge.classList.add('bg-pfm-primary/10', 'text-pfm-primary');
-                } else {
-                    typeBadge.textContent = '{% trans "expenses" %}';
-                    typeBadge.classList.add('bg-red-500/10', 'text-red-600');
-                }
-            } else {
-                typeBadge.classList.add('hidden');
-            }
-        }
-
-        if (categorySelect) {
-            categorySelect.addEventListener('change', updateTypeBadge);
-            // Initial update
-            updateTypeBadge();
-        }
-
-        if (form) {
-            form.addEventListener('reset', () => {
-                if (typeBadge) {
-                    typeBadge.classList.add('hidden');
+        modalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-pfm-modal-target');
+                const modal = document.getElementById(targetId);
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.children[0].children[0].classList.remove('scale-95', 'opacity-0');
+                        modal.children[0].children[0].classList.add('scale-100', 'opacity-100');
+                    }, 50);
                 }
             });
+        });
 
-            form.addEventListener('submit', function (e) {
+        modalCloseBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = btn.closest('.modal');
+                modal.children[0].children[0].classList.remove('scale-100', 'opacity-100');
+                modal.children[0].children[0].classList.add('scale-95', 'opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            });
+        });
+
+        // Charting Logic - Vibrant diverse palette
+        const chartColors = ['#14b8a6', '#6366f1', '#f43f5e', '#fbbf24', '#10b981', '#8b5cf6', '#f59e0b', '#3b82f6'];
+
+        fetch('{% url "dashboard_charts" %}')
+            .then(res => res.json())
+            .then(data => {
+                // 1. Category Donut Chart
+                if (data.categories.length > 0) {
+                    const donutOptions = {
+                        series: data.spending,
+                        chart: { type: 'donut', height: 220 },
+                        labels: data.categories,
+                        colors: chartColors,
+                        legend: { position: 'bottom', fontSize: '12px' },
+                        dataLabels: { enabled: false },
+                        plotOptions: { pie: { donut: { size: '75%' } } }
+                    };
+                    document.getElementById('category-donut-chart').innerHTML = '';
+                    new ApexCharts(document.querySelector("#category-donut-chart"), donutOptions).render();
+                } else {
+                    document.getElementById('category-donut-chart').innerHTML = '<div class="text-xs text-pfm-text-light italic">{% trans "no_expenses_this_month" %}</div>';
+                }
+
+                // 2. Income vs Expenses
+                document.getElementById('income-expense-chart').innerHTML = '';
+                const barOptions = {
+                    series: [
+                        { name: '{% trans "income" %}', data: data.income },
+                        { name: '{% trans "expenses" %}', data: data.expense }
+                    ],
+                    chart: { type: 'bar', height: 300, toolbar: { show: false } },
+                    colors: ['#10b981', '#ef4444'],
+                    plotOptions: { bar: { borderRadius: 4, columnWidth: '55%' } },
+                    dataLabels: { enabled: false },
+                    stroke: { show: true, width: 2, colors: ['transparent'] },
+                    xaxis: { categories: data.months },
+                    fill: { opacity: 1 },
+                    tooltip: { y: { formatter: val => `$${val.toFixed(2)}` } }
+                };
+                new ApexCharts(document.querySelector("#income-expense-chart"), barOptions).render();
+
+                // 3. Net Worth Trend (Simulated Area Chart)
+                document.getElementById('net-worth-chart').innerHTML = '';
+                // Using total balance as endpoint and working backwards with income-expense diff
+                let currentBalance = parseFloat('{{ total_balance|stringformat:".2f" }}');
+                let netWorthData = [currentBalance];
+                for (let i = 0; i < 5; i++) {
+                    let diff = data.income[5-i] - data.expense[5-i];
+                    currentBalance -= diff;
+                    netWorthData.unshift(currentBalance);
+                }
+
+                const areaOptions = {
+                    series: [{ name: '{% trans "net_worth" %}', data: netWorthData }],
+                    chart: { type: 'area', height: 300, toolbar: { show: false }, zoom: { enabled: false } },
+                    colors: ['#0d9488'],
+                    dataLabels: { enabled: false },
+                    stroke: { curve: 'smooth', width: 3 },
+                    fill: {
+                        type: 'gradient',
+                        gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05, stops: [20, 100] }
+                    },
+                    xaxis: { categories: data.months },
+                    yaxis: { labels: { formatter: val => `$${val.toFixed(0)}` } }
+                };
+                new ApexCharts(document.querySelector("#net-worth-chart"), areaOptions).render();
+            });
+
+        const transactionForm = document.getElementById('add-transaction-form');
+        if (transactionForm) {
+            transactionForm.addEventListener('submit', function (e) {
                 e.preventDefault();
-                const formData = new FormData(form);
-                const url = form.getAttribute('action');
-
-                fetch(url, {
+                const formData = new FormData(transactionForm);
+                fetch('{% url "transaction_create" %}', {
                     method: 'POST',
                     body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            window.location.reload();
-                        } else {
-                            console.error('Errors:', data.errors);
-                            alert('{% trans "error_saving_transaction" %}');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                    headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRFToken': '{{ csrf_token }}' }
+                }).then(res => res.json()).then(data => {
+                    if (data.status === 'success') window.location.reload();
+                    else alert('Error: ' + JSON.stringify(data.errors));
+                });
             });
         }
     });

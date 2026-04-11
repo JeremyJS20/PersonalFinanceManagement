@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-28 14:21-0400\n"
+"POT-Creation-Date: 2026-04-10 22:21-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,93 +32,125 @@ msgstr "Correo electrónico"
 msgid "Required. Inform a valid email address."
 msgstr "Requerido. Informe una dirección de correo válida."
 
-#: .\core\forms.py:32
+#: .\core\forms.py:37
+msgid "eg_monthly_cutoff_jan_2026"
+msgstr "ej. corte_mensual_enero_2026"
+
+#: .\core\forms.py:56
 msgid "eg_grocery_shopping"
 msgstr "ej. Compras de Supermercado"
 
-#: .\core\models.py:8
+#: .\core\models.py:9
 msgid "Expenses"
 msgstr "Gastos"
 
-#: .\core\models.py:9
+#: .\core\models.py:10
 msgid "Income"
 msgstr "Ingresos"
 
-#: .\core\models.py:21
+#: .\core\models.py:22
 msgid "Category Group"
 msgstr "Grupo de Categorías"
 
-#: .\core\models.py:22
+#: .\core\models.py:23
 msgid "Category Groups"
 msgstr "Grupos de Categorías"
 
-#: .\core\models.py:37
+#: .\core\models.py:38
 msgid "Category"
 msgstr "Categoría"
 
-#: .\core\models.py:38
+#: .\core\models.py:39
 msgid "Categories"
 msgstr "Categorías"
 
-#: .\core\models.py:46
+#: .\core\models.py:47
 msgid "Checking"
 msgstr "Cuenta Corriente"
 
-#: .\core\models.py:47
+#: .\core\models.py:48
 msgid "Savings"
 msgstr "Ahorros"
 
-#: .\core\models.py:48
+#: .\core\models.py:49
 msgid "Bank"
 msgstr "Banco"
 
-#: .\core\models.py:49
+#: .\core\models.py:50
 msgid "Brokerage"
 msgstr "Corretaje"
 
-#: .\core\models.py:50
+#: .\core\models.py:51
 msgid "Cash"
 msgstr "Efectivo"
 
-#: .\core\models.py:51
+#: .\core\models.py:52
 msgid "Real Estate"
 msgstr "Bienes Raíces"
 
-#: .\core\models.py:52
+#: .\core\models.py:53
 msgid "Crypto"
 msgstr "Criptomonedas"
 
-#: .\core\models.py:53
+#: .\core\models.py:54
 msgid "Credit Card"
 msgstr "Tarjeta de Crédito"
 
-#: .\core\models.py:54
+#: .\core\models.py:55
 msgid "Loan"
 msgstr "Préstamo"
 
-#: .\core\models.py:55
+#: .\core\models.py:56
 msgid "Mortgage"
 msgstr "Hipoteca"
 
-#: .\core\models.py:56
+#: .\core\models.py:57
 msgid "Line of Credit"
 msgstr "Línea de Crédito"
 
-#: .\core\models.py:69
+#: .\core\models.py:70
 msgid "Account"
 msgstr "Cuenta"
 
-#: .\core\models.py:70
+#: .\core\models.py:71
 msgid "Accounts"
 msgstr "Cuentas"
 
-#: .\core\models.py:87
+#: .\core\models.py:90 .\core\views.py:748
+msgid "Cutoff Report"
+msgstr "Reporte de Corte"
+
+#: .\core\models.py:91
+msgid "Cutoff Reports"
+msgstr "Reportes de Corte"
+
+#: .\core\models.py:95
+msgid "cutoff"
+msgstr "corte"
+
+#: .\core\models.py:108
 msgid "Transaction"
 msgstr "Transacción"
 
-#: .\core\models.py:88
+#: .\core\models.py:109
 msgid "Transactions"
 msgstr "Transacciones"
+
+#: .\core\models.py:125
+msgid "this_period_is_locked_by_a_cutoff_report"
+msgstr "Este período está bloqueado por un reporte de corte."
+
+#: .\core\models.py:168
+#, fuzzy
+#| msgid "budget"
+msgid "Budget"
+msgstr "Presupuesto"
+
+#: .\core\models.py:169
+#, fuzzy
+#| msgid "budget"
+msgid "Budgets"
+msgstr "Presupuesto"
 
 # Categories Page Standardized Keys
 #: .\core\templates\core\accounts.html:7
@@ -282,7 +314,9 @@ msgstr "Seleccionar Icono"
 
 #: .\core\templates\core\accounts.html:452
 #: .\core\templates\core\accounts.html:493
-#: .\core\templates\core\partials\transaction_modal.html:93
+#: .\core\templates\core\dashboard.html:286
+#: .\core\templates\core\reports.html:117
+#: .\core\templates\core\transactions.html:303
 msgid "cancel"
 msgstr "Cancelar"
 
@@ -317,12 +351,12 @@ msgid "icon_landmark"
 msgstr "Banco/Institución"
 
 #: .\core\templates\core\accounts.html:510
-#: .\core\templates\core\categories.html:514
+#: .\core\templates\core\categories.html:516
 msgid "icon_credit_card"
 msgstr "Tarjeta de Crédito"
 
 #: .\core\templates\core\accounts.html:511
-#: .\core\templates\core\categories.html:516
+#: .\core\templates\core\categories.html:518
 msgid "icon_piggy_bank"
 msgstr "Ahorros/Hucha"
 
@@ -331,7 +365,7 @@ msgid "icon_building_2"
 msgstr "Edificio/Oficina"
 
 #: .\core\templates\core\accounts.html:513
-#: .\core\templates\core\categories.html:529
+#: .\core\templates\core\categories.html:531
 msgid "icon_briefcase"
 msgstr "Trabajo/Negocios"
 
@@ -340,17 +374,17 @@ msgid "icon_bar_chart_2"
 msgstr "Estadísticas/Gráfico"
 
 #: .\core\templates\core\accounts.html:515
-#: .\core\templates\core\categories.html:515
+#: .\core\templates\core\categories.html:517
 msgid "icon_wallet"
 msgstr "Billetera"
 
 #: .\core\templates\core\accounts.html:516
-#: .\core\templates\core\categories.html:517
+#: .\core\templates\core\categories.html:519
 msgid "icon_coins"
 msgstr "Monedas"
 
 #: .\core\templates\core\accounts.html:517
-#: .\core\templates\core\categories.html:513
+#: .\core\templates\core\categories.html:515
 msgid "icon_banknote"
 msgstr "Dinero/Billete"
 
@@ -375,12 +409,12 @@ msgid "icon_gem"
 msgstr "Activos/Valores"
 
 #: .\core\templates\core\accounts.html:523
-#: .\core\templates\core\categories.html:518
+#: .\core\templates\core\categories.html:520
 msgid "icon_home"
 msgstr "Inicio/Vivienda"
 
 #: .\core\templates\core\accounts.html:524
-#: .\core\templates\core\categories.html:522
+#: .\core\templates\core\categories.html:524
 msgid "icon_car"
 msgstr "Transporte/Coche"
 
@@ -412,15 +446,15 @@ msgstr ""
 
 #: .\core\templates\core\categories.html:13
 #: .\core\templates\core\categories.html:31
-#: .\core\templates\core\categories.html:33
-#: .\core\templates\core\categories.html:173
-#: .\core\templates\core\categories.html:321
+#: .\core\templates\core\categories.html:35
+#: .\core\templates\core\categories.html:176
+#: .\core\templates\core\categories.html:324
 msgid "categories_expenses"
 msgstr "Gastos"
 
 #: .\core\templates\core\categories.html:15
-#: .\core\templates\core\categories.html:325
-#: .\core\templates\core\categories.html:693
+#: .\core\templates\core\categories.html:327
+#: .\core\templates\core\categories.html:695
 msgid "categories_add_group"
 msgstr "Crear Grupo de Categorías"
 
@@ -428,343 +462,368 @@ msgstr "Crear Grupo de Categorías"
 msgid "categories_transaction_type"
 msgstr "Tipo de Transacción"
 
-#: .\core\templates\core\categories.html:37
 #: .\core\templates\core\categories.html:39
-#: .\core\templates\core\categories.html:298
+#: .\core\templates\core\categories.html:43
+#: .\core\templates\core\categories.html:301
 msgid "categories_income"
 msgstr "Ingresos"
 
-#: .\core\templates\core\categories.html:44
+#: .\core\templates\core\categories.html:48
 msgid "categories_total_categories"
 msgstr "Total de Categorías"
 
-#: .\core\templates\core\categories.html:77
-#: .\core\templates\core\categories.html:201
+#: .\core\templates\core\categories.html:80
+#: .\core\templates\core\categories.html:204
 msgid "categories_edit_group"
 msgstr "Editar Grupo"
 
-#: .\core\templates\core\categories.html:91
-#: .\core\templates\core\categories.html:215
-#: .\core\templates\core\categories.html:460
-#: .\core\templates\core\categories.html:768
-#: .\core\templates\core\categories.html:769
+#: .\core\templates\core\categories.html:94
+#: .\core\templates\core\categories.html:218
+#: .\core\templates\core\categories.html:462
+#: .\core\templates\core\categories.html:827
+#: .\core\templates\core\categories.html:828
 msgid "categories_add_category"
 msgstr "Añadir Categoría"
 
-#: .\core\templates\core\categories.html:113
-#: .\core\templates\core\categories.html:237
-#: .\core\templates\core\categories.html:745
+#: .\core\templates\core\categories.html:116
+#: .\core\templates\core\categories.html:240
+#: .\core\templates\core\categories.html:804
 msgid "categories_edit_category"
 msgstr "Editar Categoría"
 
-#: .\core\templates\core\categories.html:124
-#: .\core\templates\core\categories.html:248
+#: .\core\templates\core\categories.html:127
+#: .\core\templates\core\categories.html:251
 msgid "categories_delete_category"
 msgstr "Eliminar Categoría"
 
-#: .\core\templates\core\categories.html:144
+#: .\core\templates\core\categories.html:147
 msgid "categories_no_categories_in_group"
 msgstr "Aún no hay categorías en este grupo"
 
-#: .\core\templates\core\categories.html:149
-#: .\core\templates\core\categories.html:274
+#: .\core\templates\core\categories.html:152
+#: .\core\templates\core\categories.html:277
 msgid "categories_add_first_category"
 msgstr "Añadir la primera categoría"
 
-#: .\core\templates\core\categories.html:165
+#: .\core\templates\core\categories.html:168
 msgid "categories_no_groups_title"
 msgstr "Aún no hay grupos de gastos"
 
-#: .\core\templates\core\categories.html:168
+#: .\core\templates\core\categories.html:171
 msgid "categories_no_groups_desc"
 msgstr ""
 "Comience creando grupos como 'Vivienda' o 'Comida' para organizar sus gastos."
 
-#: .\core\templates\core\categories.html:175
-#: .\core\templates\core\categories.html:300
+#: .\core\templates\core\categories.html:178
+#: .\core\templates\core\categories.html:303
 msgid "categories_create_first_group"
 msgstr "Crea tu primer grupo"
 
-#: .\core\templates\core\categories.html:268
+#: .\core\templates\core\categories.html:271
 msgid "categories_no_income_categories_in_group"
 msgstr "Aún no hay categorías de ingresos en este grupo"
 
-#: .\core\templates\core\categories.html:290
+#: .\core\templates\core\categories.html:293
 msgid "categories_no_income_groups_title"
 msgstr "Aún no hay grupos de ingresos"
 
-#: .\core\templates\core\categories.html:293
+#: .\core\templates\core\categories.html:296
 msgid "categories_no_income_groups_desc"
 msgstr ""
 "Comience creando grupos como 'Salario' o 'Proyectos' para organizar sus "
 "ganancias."
 
-#: .\core\templates\core\categories.html:330
+#: .\core\templates\core\categories.html:332
 msgid "categories_close_modal"
 msgstr "Cerrar Ventana"
 
-#: .\core\templates\core\categories.html:335
-#: .\core\templates\core\categories.html:695
+#: .\core\templates\core\categories.html:337
+#: .\core\templates\core\categories.html:697
 msgid "categories_group_modal_desc"
 msgstr ""
 "Comience creando grupos como 'Vivienda' o 'Comida' para organizar sus gastos."
 
-#: .\core\templates\core\categories.html:345
+#: .\core\templates\core\categories.html:347
 msgid "categories_group_name_label"
 msgstr "Nombre del Grupo"
 
-#: .\core\templates\core\categories.html:349
+#: .\core\templates\core\categories.html:351
 msgid "categories_group_name_placeholder"
 msgstr "ej. Vivienda, Entretenimiento, Fundamentales"
 
-#: .\core\templates\core\categories.html:355
+#: .\core\templates\core\categories.html:357
 msgid "categories_group_description_label"
 msgstr "Descripción del Grupo (Opcional)"
 
-#: .\core\templates\core\categories.html:360
+#: .\core\templates\core\categories.html:362
 msgid "categories_group_description_placeholder"
 msgstr "Describa brevemente lo que cubre este grupo..."
 
-#: .\core\templates\core\categories.html:364
-#: .\core\templates\core\categories.html:444
+#: .\core\templates\core\categories.html:366
+#: .\core\templates\core\categories.html:446
 msgid "categories_select_icon"
 msgstr "Seleccionar Icono"
 
-#: .\core\templates\core\categories.html:376
-#: .\core\templates\core\categories.html:456
-#: .\core\templates\core\categories.html:496
+#: .\core\templates\core\categories.html:378
+#: .\core\templates\core\categories.html:458
+#: .\core\templates\core\categories.html:498
 msgid "categories_cancel_btn"
 msgstr "Cancelar"
 
-#: .\core\templates\core\categories.html:380
-#: .\core\templates\core\categories.html:694
+#: .\core\templates\core\categories.html:382
+#: .\core\templates\core\categories.html:696
 msgid "categories_create_group_btn"
 msgstr "Crear Grupo"
 
-#: .\core\templates\core\categories.html:400
+#: .\core\templates\core\categories.html:402
 msgid "categories_adding_to_label"
 msgstr "Añadiendo a:"
 
-#: .\core\templates\core\categories.html:404
+#: .\core\templates\core\categories.html:406
 msgid "categories_financial_expenses_group"
 msgstr "Gastos Financieros"
 
-#: .\core\templates\core\categories.html:408
+#: .\core\templates\core\categories.html:410
 msgid "categories_add_new_category_title"
 msgstr "Añadir Nueva Categoría"
 
-#: .\core\templates\core\categories.html:417
-#: .\core\templates\core\categories.html:770
+#: .\core\templates\core\categories.html:419
+#: .\core\templates\core\categories.html:829
 msgid "categories_add_category_desc"
 msgstr "Cree un nuevo cubo para rastrear sus gastos dentro de este grupo."
 
-#: .\core\templates\core\categories.html:425
+#: .\core\templates\core\categories.html:427
 msgid "categories_category_name_label"
 msgstr "Nombre de la Categoría"
 
-#: .\core\templates\core\categories.html:429
+#: .\core\templates\core\categories.html:431
 msgid "categories_category_name_placeholder"
 msgstr "ej. Suscripciones, Servicios, Cenas"
 
-#: .\core\templates\core\categories.html:435
+#: .\core\templates\core\categories.html:437
 msgid "categories_description_label"
 msgstr "Descripción (Opcional)"
 
-#: .\core\templates\core\categories.html:440
+#: .\core\templates\core\categories.html:442
 msgid "categories_description_placeholder"
 msgstr "Describa brevemente lo que cubre esta categoría..."
 
-#: .\core\templates\core\categories.html:480
+#: .\core\templates\core\categories.html:482
 msgid "categories_delete_modal_title"
 msgstr "Eliminar Categoría"
 
-#: .\core\templates\core\categories.html:484
+#: .\core\templates\core\categories.html:486
 msgid "categories_delete_modal_msg"
 msgstr "¿Estás seguro de que quieres eliminar la categoría"
 
-#: .\core\templates\core\categories.html:489
+#: .\core\templates\core\categories.html:491
 msgid "categories_delete_modal_warning"
 msgstr ""
 "Esta acción no se puede deshacer y todos los datos relacionados con esta "
 "categoría podrían eliminarse de forma permanente."
 
-#: .\core\templates\core\categories.html:500
-#: .\core\templates\core\categories.html:856
-#: .\core\templates\core\categories.html:863
+#: .\core\templates\core\categories.html:502
+#: .\core\templates\core\categories.html:915
+#: .\core\templates\core\categories.html:922
 msgid "categories_delete_btn"
 msgstr "Eliminar"
 
 # Etiquetas de Iconos
-#: .\core\templates\core\categories.html:512
+#: .\core\templates\core\categories.html:514
 msgid "icon_folder"
 msgstr "Carpeta (Predeterminado)"
 
-#: .\core\templates\core\categories.html:519
+#: .\core\templates\core\categories.html:521
 msgid "icon_shopping_cart"
 msgstr "Compras"
 
-#: .\core\templates\core\categories.html:520
+#: .\core\templates\core\categories.html:522
 msgid "icon_utensils"
 msgstr "Comida y Cena"
 
-#: .\core\templates\core\categories.html:521
+#: .\core\templates\core\categories.html:523
 msgid "icon_coffee"
 msgstr "Café y Bebidas"
 
-#: .\core\templates\core\categories.html:523
+#: .\core\templates\core\categories.html:525
 msgid "icon_heart"
 msgstr "Salud/Personal"
 
-#: .\core\templates\core\categories.html:524
+#: .\core\templates\core\categories.html:526
 msgid "icon_tv"
 msgstr "Entretenimiento/TV"
 
-#: .\core\templates\core\categories.html:525
+#: .\core\templates\core\categories.html:527
 msgid "icon_book"
 msgstr "Educación/Libros"
 
-#: .\core\templates\core\categories.html:526
+#: .\core\templates\core\categories.html:528
 msgid "icon_gamepad"
 msgstr "Juegos"
 
-#: .\core\templates\core\categories.html:527
+#: .\core\templates\core\categories.html:529
 msgid "icon_music"
 msgstr "Música"
 
-#: .\core\templates\core\categories.html:528
+#: .\core\templates\core\categories.html:530
 msgid "icon_plane"
 msgstr "Viajes/Vuelos"
 
-#: .\core\templates\core\categories.html:532
+#: .\core\templates\core\categories.html:534
 msgid "icon_tag"
 msgstr "Etiqueta de Categoría"
 
-#: .\core\templates\core\categories.html:533
+#: .\core\templates\core\categories.html:535
 msgid "icon_gift"
 msgstr "Regalos y Donaciones"
 
-#: .\core\templates\core\categories.html:534
+#: .\core\templates\core\categories.html:536
 msgid "icon_dumbbell"
 msgstr "Fitness/Gimnasio"
 
-#: .\core\templates\core\categories.html:535
+#: .\core\templates\core\categories.html:537
 msgid "icon_pill"
 msgstr "Médico/Farmacia"
 
-#: .\core\templates\core\categories.html:536
+#: .\core\templates\core\categories.html:538
 msgid "icon_pizza"
 msgstr "Comida Rápida"
 
-#: .\core\templates\core\categories.html:537
+#: .\core\templates\core\categories.html:539
 msgid "icon_bus"
 msgstr "Transporte Público"
 
-#: .\core\templates\core\categories.html:538
+#: .\core\templates\core\categories.html:540
 msgid "icon_star"
 msgstr "Favorito/Destacado"
 
-#: .\core\templates\core\categories.html:539
+#: .\core\templates\core\categories.html:541
 msgid "icon_sparkles"
 msgstr "Especial/Bonus"
 
-#: .\core\templates\core\categories.html:540
+#: .\core\templates\core\categories.html:542
 msgid "icon_ticket"
 msgstr "Entradas/Eventos"
 
-#: .\core\templates\core\categories.html:541
+#: .\core\templates\core\categories.html:543
 msgid "icon_plug"
 msgstr "Servicios/Electricidad"
 
-#: .\core\templates\core\categories.html:542
+#: .\core\templates\core\categories.html:544
 msgid "icon_trash"
 msgstr "Residuos/Otros"
 
-#: .\core\templates\core\categories.html:543
+#: .\core\templates\core\categories.html:545
 msgid "icon_hammer"
 msgstr "Reparaciones/Mantenimiento"
 
-#: .\core\templates\core\categories.html:544
+#: .\core\templates\core\categories.html:546
 msgid "icon_apple"
 msgstr "Comestibles/Fruta"
 
-#: .\core\templates\core\categories.html:545
+#: .\core\templates\core\categories.html:547
 msgid "icon_beer"
 msgstr "Bares/Vida Nocturna"
 
-#: .\core\templates\core\categories.html:546
+#: .\core\templates\core\categories.html:548
 msgid "icon_film"
 msgstr "Películas/Cine"
 
-#: .\core\templates\core\categories.html:547
+#: .\core\templates\core\categories.html:549
 msgid "icon_train"
 msgstr "Trenes"
 
-#: .\core\templates\core\categories.html:548
+#: .\core\templates\core\categories.html:550
 msgid "icon_bike"
 msgstr "Ciclismo"
 
-#: .\core\templates\core\categories.html:549
+#: .\core\templates\core\categories.html:551
 msgid "icon_zap"
 msgstr "Energía/Facturas"
 
-#: .\core\templates\core\categories.html:679
+#: .\core\templates\core\categories.html:681
 msgid "categories_edit_group_title"
 msgstr "Editar Grupo"
 
-#: .\core\templates\core\categories.html:680
-#: .\core\templates\core\categories.html:746
+#: .\core\templates\core\categories.html:682
+#: .\core\templates\core\categories.html:805
 msgid "categories_save_changes_btn"
 msgstr "Guardar Cambios"
 
-#: .\core\templates\core\categories.html:681
+#: .\core\templates\core\categories.html:683
 msgid "categories_edit_group_desc"
 msgstr "Editar Grupo"
 
-#: .\core\templates\core\categories.html:747
+#: .\core\templates\core\categories.html:806
 msgid "categories_edit_category_desc"
 msgstr "Edite los detalles de esta categoría."
 
-#: .\core\templates\core\dashboard.html:9
+#: .\core\templates\core\dashboard.html:14
 msgid "hi"
 msgstr "Hola"
 
-#: .\core\templates\core\dashboard.html:10
+#: .\core\templates\core\dashboard.html:15
 msgid "financial_health_overview"
 msgstr "Aquí está el resumen de tu salud financiera."
 
-#: .\core\templates\core\dashboard.html:17
-#: .\core\templates\core\partials\transaction_modal.html:98
+#: .\core\templates\core\dashboard.html:22
+#: .\core\templates\core\dashboard.html:305
+msgid "manage_budgets"
+msgstr "Gestionar Presupuestos"
+
+#: .\core\templates\core\dashboard.html:28
+#: .\core\templates\core\dashboard.html:290
 #: .\core\templates\core\transactions.html:14
+#: .\core\templates\core\transactions.html:307
 msgid "add_transaction"
 msgstr "Añadir Transacción"
 
-#: .\core\templates\core\dashboard.html:26
-msgid "full_report"
-msgstr "Reporte Completo"
-
-#: .\core\templates\core\dashboard.html:37
+#: .\core\templates\core\dashboard.html:39
+#: .\core\templates\core\dashboard.html:441
 msgid "net_worth"
 msgstr "Patrimonio Neto"
 
-#: .\core\templates\core\dashboard.html:45
+#: .\core\templates\core\dashboard.html:48
 msgid "total_net_worth_desc"
 msgstr "Activos Totales - Pasivos Totales"
 
-#: .\core\templates\core\dashboard.html:60
-msgid "monthly_budget"
-msgstr "Presupuesto Mensual"
+msgid "total_monthly_budget_label"
+msgstr "Presupuesto Mensual Total"
 
-#: .\core\templates\core\dashboard.html:61
-msgid "days_left"
-msgstr "Días restantes"
+#: .\core\templates\core\dashboard.html:64 .\templates\base.html:51
+#: .\templates\base.html:183
+msgid "categories"
+msgstr "Categorías"
 
-#: .\core\templates\core\dashboard.html:71
-msgid "budget_spent_percentage"
-msgstr "Has gastado el 49% de tu presupuesto"
+#: .\core\templates\core\dashboard.html:76
+msgid "You've spent %(percentage)s%% of your budget"
+msgstr "Has gastado el %(percentage)s%% de tu presupuesto"
 
-#: .\core\templates\core\dashboard.html:77
+#: .\core\templates\core\dashboard.html:78
+msgid "no_budgets_set_yet"
+msgstr "Aún no se han definido presupuestos."
+
+#: .\core\templates\core\dashboard.html:86
 msgid "spending_breakdown"
 msgstr "Desglose de Gastos"
+
+#: .\core\templates\core\dashboard.html:89
+msgid "loading_charts"
+msgstr "Cargando gráficos..."
+
+#: .\core\templates\core\dashboard.html:97
+msgid "income_vs_expense"
+msgstr "Ingresos vs Gastos"
+
+#: .\core\templates\core\dashboard.html:101
+msgid "net_worth_trend"
+msgstr "Tendencia del Patrimonio Neto"
+
+msgid "total_budget"
+msgstr "Presupuesto Total"
+
+msgid "loading_analytics"
+msgstr "Cargando Análisis"
 
 #: .\core\templates\core\dashboard.html:110
 msgid "recent_activity"
@@ -775,32 +834,107 @@ msgid "view_all"
 msgstr "Ver Todo"
 
 #: .\core\templates\core\dashboard.html:123
-#: .\core\templates\core\partials\transaction_modal.html:44
+#: .\core\templates\core\dashboard.html:219
+#: .\core\templates\core\report_detail.html:104
+#: .\core\templates\core\transactions.html:100
+#: .\core\templates\core\transactions.html:236 .\core\views.py:854
 msgid "date"
 msgstr "Fecha"
 
 #: .\core\templates\core\dashboard.html:124
-#: .\core\templates\core\partials\transaction_modal.html:83
+#: .\core\templates\core\dashboard.html:274
+#: .\core\templates\core\report_detail.html:105
+#: .\core\templates\core\transactions.html:103
+#: .\core\templates\core\transactions.html:291 .\core\views.py:854
 msgid "description"
 msgstr "Descripción"
 
 #: .\core\templates\core\dashboard.html:125
-#: .\core\templates\core\partials\transaction_modal.html:68
-#: .\core\templates\core\transactions.html:53
+#: .\core\templates\core\dashboard.html:245
+#: .\core\templates\core\dashboard.html:331
+#: .\core\templates\core\transactions.html:65
+#: .\core\templates\core\transactions.html:106
+#: .\core\templates\core\transactions.html:262 .\core\views.py:854
 msgid "category"
 msgstr "Categoría"
 
 #: .\core\templates\core\dashboard.html:126
-#: .\core\templates\core\partials\transaction_modal.html:32
-#: .\core\templates\core\transactions.html:89
+#: .\core\templates\core\dashboard.html:204
+#: .\core\templates\core\dashboard.html:341
+#: .\core\templates\core\report_detail.html:106
+#: .\core\templates\core\transactions.html:112
+#: .\core\templates\core\transactions.html:221 .\core\views.py:854
 msgid "amount"
 msgstr "Monto"
 
-#: .\core\templates\core\dashboard.html:153
-#, fuzzy
-#| msgid "recent_activity"
+#: .\core\templates\core\dashboard.html:154
 msgid "no_recent_activity"
-msgstr "Actividad Reciente"
+msgstr "No hay actividad reciente"
+
+#: .\core\templates\core\dashboard.html:183
+#: .\core\templates\core\transactions.html:200
+msgid "add_new_transaction"
+msgstr "Añadir Nueva Transacción"
+
+#: .\core\templates\core\dashboard.html:192
+#: .\core\templates\core\transactions.html:209
+msgid "add_transaction_desc"
+msgstr "Añade una nueva transacción a tu registro financiero."
+
+#: .\core\templates\core\dashboard.html:227
+#: .\core\templates\core\transactions.html:53
+#: .\core\templates\core\transactions.html:109
+#: .\core\templates\core\transactions.html:244
+msgid "account"
+msgstr "Cuenta"
+
+#: .\core\templates\core\dashboard.html:250
+#: .\core\templates\core\transactions.html:267
+msgid "select_category"
+msgstr "Selecciona una categoría"
+
+#: .\core\templates\core\dashboard.html:251
+#: .\core\templates\core\dashboard.html:417
+#: .\core\templates\core\reports.html:46
+#: .\core\templates\core\transactions.html:268
+#: .\core\templates\core\transactions.html:331
+msgid "expenses"
+msgstr "Gastos"
+
+#: .\core\templates\core\dashboard.html:258
+#: .\core\templates\core\dashboard.html:416
+#: .\core\templates\core\reports.html:42
+#: .\core\templates\core\transactions.html:275
+#: .\core\templates\core\transactions.html:328
+msgid "income"
+msgstr "Ingresos"
+
+#: .\core\templates\core\dashboard.html:278
+#: .\core\templates\core\transactions.html:295
+msgid "description_placeholder"
+msgstr "¿Para qué fue esto?"
+
+#: .\core\templates\core\dashboard.html:310
+#, fuzzy
+#| msgid "select_category"
+msgid "set_limits_by_category"
+msgstr "Selecciona una categoría"
+
+#: .\core\templates\core\dashboard.html:349
+#, fuzzy
+#| msgid "close_modal"
+msgid "close"
+msgstr "Cerrar modal"
+
+#: .\core\templates\core\dashboard.html:353
+#, fuzzy
+#| msgid "budget"
+msgid "update_budget"
+msgstr "Presupuesto"
+
+#: .\core\templates\core\dashboard.html:410
+msgid "no_expenses_this_month"
+msgstr "No hay gastos en este período"
 
 #: .\core\templates\core\login.html:27
 msgid "welcome_back"
@@ -848,33 +982,119 @@ msgstr "¿No tienes una cuenta?"
 msgid "sign_up"
 msgstr "Regístrate"
 
-msgid "add_transaction_desc"
-msgstr "Añade una nueva transacción a tu registro financiero."
+#: .\core\templates\core\report_detail.html:9
+msgid "back_to_reports"
+msgstr "Volver a Reportes"
 
-msgid "select_category"
-msgstr "Selecciona una categoría"
+#: .\core\templates\core\report_detail.html:19
+#: .\core\templates\core\report_detail.html:162
+msgid "locked"
+msgstr "Bloqueado"
 
-msgid "from"
-msgstr "Desde"
+#: .\core\templates\core\report_detail.html:19
+#: .\core\templates\core\report_detail.html:171
+msgid "open"
+msgstr "Abierto"
 
-msgid "to"
-msgstr "Hasta"
+#: .\core\templates\core\report_detail.html:27
+#: .\core\templates\core\report_detail.html:157
+msgid "unlock_period"
+msgstr "Desbloquear Período"
 
-#: .\core\templates\core\partials\transaction_modal.html:18
-msgid "add_new_transaction"
-msgstr "Añadir Nueva Transacción"
+#: .\core\templates\core\report_detail.html:27
+#: .\core\templates\core\report_detail.html:166
+msgid "lock_period"
+msgstr "Bloquear Período"
 
-#: .\core\templates\core\partials\transaction_modal.html:52
-msgid "account"
-msgstr "Cuenta"
+#: .\core\templates\core\report_detail.html:32
+msgid "download_pdf"
+msgstr "Descargar PDF"
 
-#: .\core\templates\core\partials\transaction_modal.html:86
-msgid "description_placeholder"
-msgstr "¿Para qué fue esto?"
+#: .\core\templates\core\report_detail.html:40
+#: .\core\templates\core\transactions.html:28 .\core\views.py:755
+msgid "total_income"
+msgstr "Ingresos Totales"
 
-#: .\core\templates\core\partials\transaction_modal.html:128
-msgid "error_saving_transaction"
-msgstr "Error al guardar la transacción. Por favor, revise los datos."
+#: .\core\templates\core\report_detail.html:44
+#: .\core\templates\core\transactions.html:34 .\core\views.py:756
+msgid "total_expenses"
+msgstr "Gastos Totales"
+
+#: .\core\templates\core\report_detail.html:48 .\core\views.py:757
+msgid "net_savings"
+msgstr "Ahorro Neto"
+
+#: .\core\templates\core\report_detail.html:52 .\core\views.py:758
+msgid "ending_balance"
+msgstr "Saldo Final"
+
+#: .\core\templates\core\report_detail.html:61 .\core\views.py:782
+msgid "expense_breakdown"
+msgstr "Desglose de Gastos"
+
+#: .\core\templates\core\report_detail.html:74 .\core\views.py:841
+msgid "no_expenses_in_period"
+msgstr "No hay gastos en este período"
+
+#: .\core\templates\core\report_detail.html:80
+msgid "income_breakdown"
+msgstr "Desglose de Ingresos"
+
+#: .\core\templates\core\report_detail.html:88
+msgid "no_income_in_period"
+msgstr "No hay ingresos en este período"
+
+#: .\core\templates\core\report_detail.html:98 .\core\views.py:846
+msgid "period_transactions"
+msgstr "Transacciones del Período"
+
+#: .\core\templates\core\reports.html:9
+msgid "financial_reports"
+msgstr "Reportes Financieros"
+
+#: .\core\templates\core\reports.html:10
+msgid "manage_cutoffs_and_snapshots"
+msgstr "Gestione cortes y estados financieros."
+
+#: .\core\templates\core\reports.html:17 .\core\templates\core\reports.html:88
+msgid "new_cutoff_report"
+msgstr "Nuevo Reporte de Corte"
+
+#: .\core\templates\core\reports.html:53
+msgid "period_savings"
+msgstr "Ahorro del Período"
+
+#: .\core\templates\core\reports.html:67
+msgid "no_reports_yet"
+msgstr "Sin reportes aún"
+
+#: .\core\templates\core\reports.html:68
+msgid "create_your_first_corte_to_see_stats"
+msgstr "Cree su primer corte para ver estadísticas."
+
+#: .\core\templates\core\reports.html:72
+msgid "generate_now"
+msgstr "Generar ahora"
+
+#: .\core\templates\core\reports.html:93
+msgid "define_range_to_generate_snapshot"
+msgstr "Defina el rango para generar el estado."
+
+#: .\core\templates\core\reports.html:100
+msgid "report_name"
+msgstr "Nombre del Reporte"
+
+#: .\core\templates\core\reports.html:105
+msgid "start_date"
+msgstr "Fecha de Inicio"
+
+#: .\core\templates\core\reports.html:109
+msgid "end_date"
+msgstr "Fecha de Fin"
+
+#: .\core\templates\core\reports.html:118
+msgid "generate_report"
+msgstr "Generar Reporte"
 
 #: .\core\templates\core\signup.html:26
 #: .\core\templates\core\signup_backup.html:26
@@ -928,34 +1148,46 @@ msgstr "Gestione y rastree sus actividades financieras recientes"
 msgid "net_flow"
 msgstr "Flujo Neto"
 
-#: .\core\templates\core\transactions.html:28
-msgid "total_income"
-msgstr "Ingresos Totales"
-
-#: .\core\templates\core\transactions.html:34
-msgid "total_expenses"
-msgstr "Gastos Totales"
-
 #: .\core\templates\core\transactions.html:47
 msgid "search_placeholder"
 msgstr "Buscar transacciones..."
 
-#: .\core\templates\core\transactions.html:69
+#: .\core\templates\core\transactions.html:75
+msgid "from"
+msgstr "Desde"
+
+#: .\core\templates\core\transactions.html:81
+msgid "to"
+msgstr "Hasta"
+
+#: .\core\templates\core\transactions.html:88
 msgid "clear_filters"
 msgstr "Limpiar Filtros"
 
-#: .\core\templates\core\transactions.html:118
+#: .\core\templates\core\transactions.html:144
 msgid "no_transactions_found"
 msgstr "No se encontraron transacciones"
 
-#: .\core\templates\core\transactions.html:119
+#: .\core\templates\core\transactions.html:145
 msgid "try_adjusting_filters"
 msgstr "Intente ajustar sus filtros para encontrar lo que busca"
 
-#: .\core\templates\core\transactions.html:132
+#: .\core\templates\core\transactions.html:158
 #, python-format
 msgid "Showing %(count)s transactions"
 msgstr "Mostrando %(count)s transacciones"
+
+#: .\core\templates\core\transactions.html:371
+msgid "error_saving_transaction"
+msgstr "Error al guardar la transacción. Por favor, revise los datos."
+
+#: .\core\views.py:800
+msgid "Others"
+msgstr "Otros"
+
+#: .\core\views.py:882
+msgid "No transactions found for this period."
+msgstr "No se encontraron transacciones en este período."
 
 #: .\finance_project\settings.py:150
 msgid "English"
@@ -965,29 +1197,73 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: .\templates\base.html:47 .\templates\base.html:178
+#: .\templates\base.html:47 .\templates\base.html:179
 msgid "dashboard"
 msgstr "Panel"
 
-#: .\templates\base.html:51 .\templates\base.html:182
-msgid "categories"
-msgstr "Categorías"
-
-#: .\templates\base.html:55 .\templates\base.html:186
+#: .\templates\base.html:55 .\templates\base.html:187
 msgid "accounts"
 msgstr "Cuentas"
 
-#: .\templates\base.html:59 .\templates\base.html:190
+#: .\templates\base.html:59 .\templates\base.html:191
 msgid "transactions"
 msgstr "Transacciones"
 
-#: .\templates\base.html:62 .\templates\base.html:192
+#: .\templates\base.html:63 .\templates\base.html:195
 msgid "reports"
 msgstr "Reportes"
 
-#: .\templates\base.html:163
+#: .\templates\base.html:164
 msgid "sign_out"
 msgstr "Cerrar sesión"
+
+msgid "set_monthly_budget"
+msgstr "Presupuesto Mensual"
+
+msgid "set_budget_desc"
+msgstr "Establezca un límite de gasto mensual para esta categoría. Esto le ayudará a controlar sus finanzas."
+
+msgid "monthly_limit"
+msgstr "Límite Mensual"
+
+msgid "save_budget"
+msgstr "Guardar Presupuesto"
+
+#~ msgid "full_report"
+#~ msgstr "Reporte Completo"
+
+#~ msgid "days_left"
+#~ msgstr "Días restantes"
+
+#, fuzzy
+#~| msgid "financial_health_overview"
+#~ msgid "financial_overview"
+#~ msgstr "Aquí está el resumen de tu salud financiera."
+
+#, fuzzy
+#~| msgid "no_expenses_in_period"
+#~ msgid "no_expenses_to_display"
+#~ msgstr "No hay gastos en este período"
+
+#, fuzzy
+#~| msgid "add_transaction_desc"
+#~ msgid "detailed_transaction_ledger"
+#~ msgstr "Añade una nueva transacción a tu registro financiero."
+
+#, fuzzy
+#~| msgid "financial_reports"
+#~ msgid "financial_report"
+#~ msgstr "Reportes Financieros"
+
+#, fuzzy
+#~| msgid "total_assets"
+#~ msgid "total_saved"
+#~ msgstr "Activos Totales"
+
+#, fuzzy
+#~| msgid "report_name"
+#~ msgid "report_count"
+#~ msgstr "Nombre del Reporte"
 
 #~ msgid "total_assets_liabilities"
 #~ msgstr "Activos Totales - Pasivos Totales"
@@ -995,17 +1271,11 @@ msgstr "Cerrar sesión"
 #~ msgid "add_new_expense"
 #~ msgstr "Agregar Nuevo Gasto"
 
-#~ msgid "close_modal"
-#~ msgstr "Cerrar modal"
-
 #~ msgid "goals"
 #~ msgstr "Metas"
 
 #~ msgid "settings"
 #~ msgstr "Configuración"
-
-#~ msgid "budget"
-#~ msgstr "Presupuesto"
 
 #~ msgid "no_banking_accounts"
 #~ msgstr "No se encontraron cuentas bancarias."

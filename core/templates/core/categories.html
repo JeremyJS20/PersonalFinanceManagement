@@ -74,6 +74,12 @@
                             <p class="text-xs text-pfm-text-light">{{ group.description|default:'' }}</p>
                         </div>
                     </div>
+                    {% if group.group_budget_total > 0 %}
+                    <div class="hidden md:flex flex-col items-center px-4 border-l border-pfm-border">
+                        <span class="text-[10px] font-black text-pfm-text-light uppercase tracking-widest opacity-60">{% trans "total_budget" %}</span>
+                        <span class="text-sm font-black text-pfm-primary">${{ group.group_budget_total|floatformat:2 }}</span>
+                    </div>
+                    {% endif %}
                     <div class="flex items-center gap-2">
                         <button
                             class="modal-open-btn flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-text-dark transition-colors"
@@ -111,7 +117,22 @@
                                 <p class="text-xs text-pfm-text-light">{{ category.description }}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="flex items-center gap-6">
+                            {% if category.current_budget > 0 %}
+                            <div class="flex flex-col items-end">
+                                <span class="text-[10px] font-black text-pfm-text-light uppercase tracking-widest opacity-60">{% trans "budget" %}</span>
+                                <span class="text-sm font-black text-pfm-primary">${{ category.current_budget|floatformat:2 }}</span>
+                            </div>
+                            {% endif %}
+                            <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="modal-open-btn {% if category.current_budget > 0 %}text-pfm-primary{% else %}text-pfm-text-light{% endif %} hover:text-pfm-primary"
+                                    aria-label="{% trans 'set_monthly_budget' %}"
+                                data-pfm-modal-target="set-budget-modal"
+                                data-pfm-bind-categoryid="{{ category.id }}"
+                                data-pfm-bind-categoryname="{{ category.name }}"
+                                data-pfm-bind-currentbudget="{{ category.current_budget|default:'' }}">
+                                <i data-lucide="target" class="w-4 h-4"></i>
+                            </button>
                             <button class="modal-open-btn text-pfm-text-light hover:text-red-500"
                                 aria-label="{% trans 'categories_edit_category' %}"
                                 data-pfm-modal-target="add-category-modal" data-pfm-bind-mode="edit"
@@ -135,8 +156,9 @@
                                 aria-hidden="true"></i>
                         </div>
                     </div>
-                    {% endfor %}
-                    {% else %}
+                </div>
+                {% endfor %}
+                {% else %}
                     <!-- Empty State for Category Group -->
                     <div class="flex flex-col items-center justify-center py-12 text-center bg-pfm-bg/20">
                         <div
@@ -198,6 +220,12 @@
                             <p class="text-xs text-pfm-text-light">{{ group.description|default:'' }}</p>
                         </div>
                     </div>
+                    {% if group.group_budget_total > 0 %}
+                    <div class="hidden md:flex flex-col items-center px-4 border-l border-pfm-border">
+                        <span class="text-[10px] font-black text-pfm-text-light uppercase tracking-widest opacity-60">{% trans "total_budget" %}</span>
+                        <span class="text-sm font-black text-pfm-primary">${{ group.group_budget_total|floatformat:2 }}</span>
+                    </div>
+                    {% endif %}
                     <div class="flex items-center gap-2">
                         <button
                             class="modal-open-btn flex h-8 w-8 items-center justify-center rounded-md text-pfm-text-light hover:bg-pfm-bg hover:text-pfm-primary transition-colors"
@@ -507,6 +535,51 @@
     </div>
 </div>
 
+<!-- Modal: Set Category Budget -->
+<div id="set-budget-modal" tabindex="-1" aria-hidden="true"
+    class="modal hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full h-full max-h-full bg-black/50 backdrop-blur-sm"
+    role="dialog" aria-modal="true">
+    <div class="relative p-4 w-full max-w-[480px] max-h-full">
+        <div class="relative bg-pfm-card rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 transform-gpu scale-95 opacity-0">
+            <div class="px-8 pt-8 pb-4">
+                <div class="flex items-start justify-between mb-2">
+                    <div>
+                        <h2 class="text-pfm-text-dark text-2xl font-black tracking-tight">{% trans "set_monthly_budget" %}</h2>
+                        <p id="budget-category-label" class="text-pfm-primary font-bold text-sm mt-1"></p>
+                    </div>
+                    <button type="button" class="modal-close-btn p-1.5 rounded-full hover:bg-pfm-bg text-pfm-text-light transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <p class="text-pfm-text-light text-sm mt-2">{% trans "set_budget_desc" %}</p>
+            </div>
+
+            <form id="set-budget-form" method="POST" action="{% url 'budget_set' %}" class="px-8 py-4 space-y-6">
+                {% csrf_token %}
+                <input type="hidden" name="category" id="budget-category-id" data-pfm-modal-bind="categoryid">
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-pfm-text-light uppercase tracking-widest">{% trans "monthly_limit" %}</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-4 flex items-center text-pfm-text-light font-black">$</span>
+                        <input name="amount" id="budget-amount-input" required type="number" step="0.01" 
+                            class="pfm-input w-full h-12 pl-10 pr-4 rounded-xl bg-pfm-bg border border-pfm-border focus:border-pfm-primary text-sm font-bold outline-none" 
+                            placeholder="0.00" data-pfm-modal-bind="currentbudget">
+                    </div>
+                </div>
+            </form>
+
+            <div class="px-8 py-6 bg-pfm-bg/50 border-t border-pfm-border flex items-center justify-end gap-3">
+                <button type="button" class="modal-close-btn px-6 h-12 rounded-xl text-sm font-bold text-pfm-text-light hover:bg-pfm-bg transition-all active:scale-95">
+                    {% trans "cancel" %}
+                </button>
+                <button type="submit" form="set-budget-form" class="px-8 h-12 rounded-xl bg-pfm-primary text-white text-sm font-black shadow-lg shadow-pfm-primary/20 hover:bg-pfm-primary/90 transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    {% trans "save_budget" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const ICON_CONFIG = {
@@ -842,7 +915,7 @@
         });
 
         // Form AJAX submission
-        const forms = ['create-group-form', 'add-category-form'];
+        const forms = ['create-group-form', 'add-category-form', 'set-budget-form'];
         forms.forEach(formId => {
             const form = document.getElementById(formId);
             if (form) {

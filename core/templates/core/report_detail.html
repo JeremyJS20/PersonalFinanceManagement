@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="space-y-8 animate-fade-in-up">
+    <!-- Breadcrumbs / Back button -->
+    <a href="{% url 'reports' %}" class="inline-flex items-center gap-2 text-pfm-text-light hover:text-pfm-primary transition-colors font-medium">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>{% trans "back_to_reports" %}</span>
+    </a>
+
+    <!-- Header & Actions -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div>
+            <h1 class="text-3xl font-bold text-pfm-text-dark">{{ report.name|default:"Monthly Cut-off" }}</h1>
+            <div class="flex items-center gap-3 mt-2">
+                <span class="text-pfm-text-light">{{ report.start_date|date:"F d, Y" }} - {{ report.end_date|date:"F d, Y" }}</span>
+                <span id="lock-badge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider {% if report.is_locked %}bg-pfm-primary/10 text-pfm-primary{% else %}bg-pfm-text-light/10 text-pfm-text-light{% endif %}">
+                    {% if report.is_locked %}{% trans "locked" %}{% else %}{% trans "open" %}{% endif %}
+                </span>
+            </div>
+        </div>
+        <div class="flex gap-3 w-full md:w-auto">
+            <button id="lock-toggle-btn" data-report-id="{{ report.pk }}"
+                class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 border border-pfm-border rounded-xl font-bold transition-all hover:bg-pfm-bg active:scale-95 {% if report.is_locked %}text-pfm-text-dark{% else %}text-pfm-primary border-pfm-primary/30 bg-pfm-primary/5{% endif %}">
+                <i data-lucide="{% if report.is_locked %}unlock{% else %}lock{% endif %}" class="w-5 h-5"></i>
+                <span>{% if report.is_locked %}{% trans "unlock_period" %}{% else %}{% trans "lock_period" %}{% endif %}</span>
+            </button>
+            <a href="{% url 'report_pdf' report.pk %}"
+                class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-pfm-primary text-white font-bold rounded-xl px-6 py-3 shadow-lg shadow-pfm-primary/20 transition-all hover:bg-pfm-primary-hover hover:shadow-xl active:scale-95">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+                {% trans "download_pdf" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Executive Summary Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-pfm-card rounded-3xl p-6 shadow-sm border border-pfm-border">
+            <p class="text-[10px] font-black uppercase tracking-widest text-pfm-text-light opacity-60">{% trans "total_income" %}</p>
+            <p class="text-2xl font-black text-pfm-primary mt-1">+${{ report.income_total|floatformat:2 }}</p>
+        </div>
+        <div class="bg-pfm-card rounded-3xl p-6 shadow-sm border border-pfm-border">
+            <p class="text-[10px] font-black uppercase tracking-widest text-pfm-text-light opacity-60">{% trans "total_expenses" %}</p>
+            <p class="text-2xl font-black text-pfm-text-dark mt-1">-${{ report.expense_total|floatformat:2 }}</p>
+        </div>
+        <div class="bg-pfm-card rounded-3xl p-6 shadow-sm border border-pfm-border">
+            <p class="text-[10px] font-black uppercase tracking-widest text-pfm-text-light opacity-60">{% trans "net_savings" %}</p>
+            <p class="text-2xl font-black text-pfm-text-dark mt-1">${{ report.income_total|add:report.expense_total|default:0|floatformat:2 }}</p>
+        </div>
+        <div class="bg-pfm-card rounded-3xl p-6 shadow-sm border border-pfm-border">
+            <p class="text-[10px] font-black uppercase tracking-widest text-pfm-text-light opacity-60">{% trans "ending_balance" %}</p>
+            <p class="text-2xl font-black text-pfm-text-dark mt-1">${{ report.ending_balance|floatformat:2 }}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Category Breakdown -->
+        <div class="lg:col-span-1 space-y-6">
+            <div class="bg-pfm-card rounded-3xl p-8 shadow-sm border border-pfm-border">
+                <h3 class="text-lg font-bold text-pfm-text-dark mb-6">{% trans "expense_breakdown" %}</h3>
+                <div class="space-y-5">
+                    {% for item in expenses_breakdown %}
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-pfm-text-light font-medium">{{ item.category__name }}</span>
+                            <span class="font-bold text-pfm-text-dark">${{ item.total|floatformat:2 }}</span>
+                        </div>
+                        <div class="w-full bg-pfm-bg h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-pfm-primary h-full rounded-full opacity-60" style="width: {% widthratio item.total report.expense_total 100 %}%"></div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-sm text-pfm-text-light italic">{% trans "no_expenses_in_period" %}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-pfm-card rounded-3xl p-8 shadow-sm border border-pfm-border">
+                <h3 class="text-lg font-bold text-pfm-text-dark mb-6">{% trans "income_breakdown" %}</h3>
+                <div class="space-y-4">
+                    {% for item in income_breakdown %}
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-pfm-text-light font-medium">{{ item.category__name }}</span>
+                        <span class="font-bold text-pfm-primary">+${{ item.total|floatformat:2 }}</span>
+                    </div>
+                    {% empty %}
+                    <p class="text-sm text-pfm-text-light italic">{% trans "no_income_in_period" %}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Period Transactions -->
+        <div class="lg:col-span-2">
+            <div class="bg-pfm-card rounded-3xl shadow-sm border border-pfm-border overflow-hidden">
+                <div class="p-6 border-b border-pfm-border">
+                    <h2 class="text-lg font-bold text-pfm-text-dark">{% trans "period_transactions" %}</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-pfm-bg/50 text-xs uppercase text-pfm-text-light font-medium">
+                            <tr>
+                                <th class="px-6 py-4 font-semibold tracking-wider">{% trans "date" %}</th>
+                                <th class="px-6 py-4 font-semibold tracking-wider">{% trans "description" %}</th>
+                                <th class="px-6 py-4 text-right font-semibold tracking-wider">{% trans "amount" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-pfm-border">
+                            {% for tx in transactions %}
+                            <tr class="hover:bg-pfm-bg/50 transition-colors">
+                                <td class="px-6 py-4 text-sm text-pfm-text-light">{{ tx.date|date:"D, M d" }}</td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm font-medium text-pfm-text-dark">{{ tx.description }}</div>
+                                    <div class="text-[10px] text-pfm-text-light mt-0.5 opacity-60 uppercase font-bold tracking-tight">
+                                        {{ tx.category.name }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-right text-sm font-bold {% if tx.category.group.transaction_type == 'income' %}text-pfm-success{% else %}text-pfm-text-dark{% endif %}">
+                                    {% if tx.category.group.transaction_type == 'income' %}+{% else %}-{% endif %}${{ tx.amount|floatformat:2 }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const lockBtn = document.getElementById('lock-toggle-btn');
+    const lockBadge = document.getElementById('lock-badge');
+    
+    if (lockBtn) {
+        lockBtn.addEventListener('click', function() {
+            const reportId = this.dataset.reportId;
+            const url = `{% url 'report_lock_toggle' 0 %}`.replace('0', reportId);
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Update Button
+                    const span = lockBtn.querySelector('span');
+                    const icon = lockBtn.querySelector('i');
+                    
+                    if (data.is_locked) {
+                        span.textContent = '{% trans "unlock_period" %}';
+                        lockBtn.classList.remove('text-pfm-primary', 'border-pfm-primary/30', 'bg-pfm-primary/5');
+                        lockBtn.classList.add('text-pfm-text-dark');
+                        icon.setAttribute('data-lucide', 'unlock');
+                        
+                        lockBadge.textContent = '{% trans "locked" %}';
+                        lockBadge.classList.replace('bg-pfm-text-light/10', 'bg-pfm-primary/10');
+                        lockBadge.classList.replace('text-pfm-text-light', 'text-pfm-primary');
+                    } else {
+                        span.textContent = '{% trans "lock_period" %}';
+                        lockBtn.classList.add('text-pfm-primary', 'border-pfm-primary/30', 'bg-pfm-primary/5');
+                        lockBtn.classList.remove('text-pfm-text-dark');
+                        icon.setAttribute('data-lucide', 'lock');
+                        
+                        lockBadge.textContent = '{% trans "open" %}';
+                        lockBadge.classList.replace('bg-pfm-primary/10', 'bg-pfm-text-light/10');
+                        lockBadge.classList.replace('text-pfm-primary', 'text-pfm-text-light');
+                    }
+                    lucide.createIcons();
+                }
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

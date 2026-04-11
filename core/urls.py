@@ -5,7 +5,9 @@ from .views import (
     CategoryGroupCreateView, CategoryGroupUpdateView, CategoryCreateView,
     CategoryUpdateView, CategoryDeleteView, AccountsView,
     AccountCreateView, AccountUpdateView, AccountDeleteView,
-    TransactionListView, TransactionCreateView
+    TransactionListView, TransactionCreateView,
+    ReportListView, PerformCutoffView, ReportDetailView,
+    ToggleReportLockView, DownloadReportPDFView, DashboardChartsView, SetBudgetView
 )
 
 urlpatterns = [
@@ -25,5 +27,12 @@ urlpatterns = [
     path('accounts/<int:pk>/delete/', AccountDeleteView.as_view(), name='account_delete'),
     path('transactions/', TransactionListView.as_view(), name='transactions'),
     path('transactions/create/', TransactionCreateView.as_view(), name='transaction_create'),
+    path('reports/', ReportListView.as_view(), name='reports'),
+    path('reports/create/', PerformCutoffView.as_view(), name='report_create'),
+    path('reports/<int:pk>/', ReportDetailView.as_view(), name='report_detail'),
+    path('reports/<int:pk>/lock/', ToggleReportLockView.as_view(), name='report_lock_toggle'),
+    path('reports/<int:pk>/pdf/', DownloadReportPDFView.as_view(), name='report_pdf'),
+    path('api/dashboard/charts/', DashboardChartsView.as_view(), name='dashboard_charts'),
+    path('api/budgets/set/', SetBudgetView.as_view(), name='budget_set'),
     path('', DashboardView.as_view(), name='home'),
 ]

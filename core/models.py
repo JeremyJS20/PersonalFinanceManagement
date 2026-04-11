@@ -74,6 +74,26 @@ class Account(models.Model):
     def __str__(self):
         return self.name
 
+class CutoffReport(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cutoff_reports')
+    name = models.CharField(max_length=100, blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    income_total = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    expense_total = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    starting_balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    ending_balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    is_locked = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Cutoff Report')
+        verbose_name_plural = _('Cutoff Reports')
+        ordering = ['-end_date']
+
+    def __str__(self):
+        return f"{self.name or _('cutoff')} ({self.start_date} - {self.end_date})"
+
 class Transaction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='transactions')
     account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions', null=True, blank=True)
@@ -92,7 +112,20 @@ class Transaction(models.Model):
     def __str__(self):
         return f"{self.description} ({self.amount})"
 
+    def _check_lock(self):
+        """Helper to check if transaction date is within a locked cutoff period."""
+        locked_report = CutoffReport.objects.filter(
+            user=self.user,
+            is_locked=True,
+            start_date__lte=self.date,
+            end_date__gte=self.date
+        ).exists()
+        if locked_report:
+            from django.core.exceptions import ValidationError
+            raise ValidationError(_("this_period_is_locked_by_a_cutoff_report"))
+
     def save(self, *args, **kwargs):
+        self._check_lock()
         with transaction.atomic():
             is_new = self.pk is None
             
@@ -114,9 +147,36 @@ class Transaction(models.Model):
                 self.account.refresh_from_db(fields=['balance'])
 
     def delete(self, *args, **kwargs):
+        self._check_lock()
         with transaction.atomic():
             if self.account:
                 factor = 1 if self.category.group.transaction_type == 'income' else -1
                 Account.objects.filter(pk=self.account.pk).update(balance=F('balance') - (self.amount * factor))
                 
             super().delete(*args, **kwargs)
+
+class Budget(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='budgets')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='budgets')
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    month = models.IntegerField()
+    year = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('Budget')
+        verbose_name_plural = _('Budgets')
+        unique_together = ['user', 'category', 'month', 'year']
+        ordering = ['-year', '-month', 'category__name']
+
+    def __str__(self):
+        return f"{self.category.name} - ${self.amount} ({self.month}/{self.year})"
+
+    def save(self, *args, **kwargs):
+        if not self.month:
+            self.month = timezone.now().month
+        if not self.year:
+            self.year = timezone.now().year
+        super().save(*args, **kwargs)
+
